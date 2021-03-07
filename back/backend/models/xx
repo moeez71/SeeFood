@@ -1,0 +1,28 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema; 
+var User = require('./user')
+
+// const {user} = useContext(AuthContext);
+var pantrySchema = new Schema({
+    id:{
+        type:mongoose.Types.ObjectId,
+        ref: 'User'
+    },
+    buy:{
+        type:[{
+            getwant:{
+                type: String,
+                required: true
+            }
+        }]
+    },
+    bought:{
+        type:[{
+            getgot:{
+                type: String,
+                required: true
+            }
+        }]
+    }
+
+})
