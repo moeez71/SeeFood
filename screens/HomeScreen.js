@@ -1,21 +1,27 @@
 import React, {useContext, useEffect}  from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import FormButton from '../components/FormButton';
 
 import {AuthContext} from '../navigation/AuthProvider';
 import NetInfo from "@react-native-community/netinfo";
-import { Text, Layout, List, ListItem, Button} from '@ui-kitten/components';
+import { Text, Layout, List, ListItem, Button, TopNavigation} from '@ui-kitten/components';
 import Meals from '../components/Meals';
 import { Card } from 'react-native-paper';
-
-
+import ImageSwiper from '../components/ImageSwiper';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import nowTheme from '../constants/Theme'
+import Theme from '../constants/Theme';
+import TopNav from '../components/TopNav';
 var User = require('../back/backend/models/user')
 
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
 //exports.user = user
-const HomeScreen = ({navigation}) => {
+const HomeTabs = ({navigation}) => {
   const {user, logout} = useContext(AuthContext);
 
   const U1 = new User ({
@@ -78,96 +84,92 @@ const HomeScreen = ({navigation}) => {
        });
       }, [])
     
-    const meals = [ 
-        {id: 1, icon: require('../public/assets/images/cherry.png')},
-        {id: 2, icon: require('../public/assets/images/lunch.png')},
-        {id: 3, icon: require('../public/assets/images/dinner.png')},
-        {id: 4, icon: require('../public/assets/images/cherry.png')}
-    ];
-    const renderListItem = ({ item, index }) => (
-      <ListItem>
-        <Meals 
-          image={item.icon}
-          />
-      </ListItem>
-    );
     return (
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
-          <Text category='h1' style={styles.header}>Home Screen</Text>
-          <Card style={styles.cardStyle}>
-            <List 
-              data={meals}
-              renderItem={renderListItem}
-              horizontal={true}
-              showsVerticalScrollIndicator ={false}
-              showsHorizontalScrollIndicator={false}
-              style={styles.listContainer}
-            />
-          </Card>
+          <TopNav navigation={navigation} screenTitle="Home"/> 
+          <ImageSwiper/>
+          <View style={styles.categoryContainer}>
 
-          <Layout style={styles.cardContainer}>
-          <Card style={styles.cardStyle2}>
-              <Text category='p1'>You can search for recipes here!</Text>
-              <Button
-              size='small'
-              status='info'
-              onPress={() => navigation.navigate('Recipes')}
-              >
-              search
-            </Button>
-            </Card>
-            <Card style={styles.cardStyle2}>
-            <Text category='p1'>Wanna go Shopping? Make a pantry list</Text>
-              <Button
-              size='small'
-              status='info'
-              onPress={() => navigation.navigate('PantryScreen')}              
-              >
-              make pantrylist
-            </Button>
-            </Card>
-          </Layout>
-          <Layout style={styles.cardContainer}>
-          <Card style={styles.cardStyle2}>
-              <Text category='p1'>Make recipes with what you have</Text>
-              <Button
-              size='small'
-              status='info'
-              onPress={() => navigation.navigate('IngredientsToRecipeNav')}              
-              >
-              create recipe
-            </Button>
-            </Card>
-            <Card style={styles.cardStyle2}>
-              <Text category='p1'>Wanna see foodspots around you?</Text>
-              <Button
-              size='small'
-              status='info'
-              onPress={() => navigation.navigate('Maps')}              
-              >
-              see map
-            </Button>
-            </Card>
-          </Layout>
-          
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+                <AntDesign name='shoppingcart' color="white" size={35}/>
+              </View>
+              <Text style={styles.categoryBtnTxt}>Pantry</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+              <Ionicons name='fast-food-outline' color="white" size={35}/>
+              </View>
+              <Text style={styles.categoryBtnTxt}>Get Recipes</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+              <Ionicons name="ios-restaurant" size={35} color="white" />
+              </View>
+              <Text style={styles.categoryBtnTxt}>Restaurants</Text>
+            </TouchableOpacity>
+
+
+          </View>
+
+          <View style={styles.categoryContainer}>
+
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+              <SimpleLineIcons name='chemistry' color="white" size={35}/>
+              </View>
+              <Text style={styles.categoryBtnTxt}>Make Recipes</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+              <AntDesign name='scan1' color="white" size={35}/>
+              </View>
+              <Text style={styles.categoryBtnTxt}>Scan Food</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.categoryBtn}
+              onPress={() => {}}>
+              <View style={styles.categoryIcon}>
+              <AntDesign name='linechart' color="white" size={35}/>
+              </View>
+              <Text style={styles.categoryBtnTxt}>Calorie Track</Text>
+            </TouchableOpacity>
+            
+
+            
+          </View>
       </Layout>
       </SafeAreaView>
         
     );
   }
 
-export default HomeScreen;
+export default HomeTabs;
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    padding: 10,
+    // alignItems: 'center',
+    // padding: 10,
   },
   header: {
-    fontFamily: 'Kufam-SemiBoldItalic',
+    fontFamily: 'Nexa Bold',
     marginBottom: 10,
   },
   listContainer: {
@@ -189,6 +191,34 @@ const styles = StyleSheet.create({
     margin: 15,
     alignItems: 'center',
     justifyContent:'center'
+  },
+  categoryContainer: {
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 25,
+    marginBottom: 10,
+  },
+  categoryBtn: {
+    flex: 1,
+    width: '30%',
+    marginHorizontal: 0,
+    alignSelf: 'center',
+  },
+  categoryIcon: {
+    borderWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: 70,
+    height: 70,
+    backgroundColor: nowTheme.COLORS.PRIMARY /* 'white' */,
+    borderRadius: 50,
+  },
+  categoryBtnTxt: {
+    alignSelf: 'center',
+    marginTop: 5,
+    color: nowTheme.COLORS.PRIMARY,
   },
 }
 );

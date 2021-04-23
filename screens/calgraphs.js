@@ -8,12 +8,12 @@ import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, Victor
 import { View, StyleSheet, ScrollView , TouchableOpacity } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
 
-import Prompt from "react-native-input-prompt"
-
+import Prompt from "react-native-input-prompt";
 
 
 import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../navigation/AuthProvider';
+import TopNav from '../components/TopNav';
 
 
 
@@ -216,10 +216,11 @@ const calgraphs = ({navigation}) => {
         const verticalContentInset = { top: 10, bottom: 10 }
         const xAxisHeight = 30
     return(
+        <Layout style={{flex: 1}}>
+        <TopNav navigation={navigation} screenTitle="Calorie Tracker"/>
         <Layout style= {styles.container}>
 
         
-
             <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
             <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>Calories Tracker</Text>
             </View>
@@ -274,6 +275,7 @@ const calgraphs = ({navigation}) => {
 
     <View><Text>Your Daily Calories Limit is set as {limit}Kcal</Text></View>
 
+        </Layout>
         </Layout>
     )
 }

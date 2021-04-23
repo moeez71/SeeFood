@@ -5,13 +5,18 @@ import {AuthContext} from './AuthProvider';
 
 import AuthStack from './AuthStack.android';
 import AppStack from './AppStack';
+import BottomNav from './BottomNav';
+
+
+
 
 const Routes = () => {
   const {user, setUser} = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
-
+  const [loading, setLoading] = useState(true);
   const onAuthStateChanged = (user) => {
     setUser(user);
+    setLoading(false);
     if (initializing) setInitializing(false);
   };
 
@@ -25,6 +30,8 @@ const Routes = () => {
   return (
     <NavigationContainer>
       {user ? <AppStack/> : <AuthStack/>}
+      
+      {/* {user ? <BottomNav/> : <AuthStack/>} */}
     </NavigationContainer>
   );
 };

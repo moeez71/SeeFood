@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView, Keyboard} from 'react-native';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Input, Button } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RecipeResults from './RecipeResults';
+import TopNav from '../components/TopNav';
 
     
 const IngredientsToRecipe = ({navigation}) => {
@@ -30,7 +31,8 @@ const IngredientsToRecipe = ({navigation}) => {
   }
 
   return (
-
+    <Layout style={{flex: 1}}>
+        <TopNav navigation={navigation} screenTitle="Make Recipes"/>
   <Layout style={styles.container}>
     <Layout style={styles.row}>
       <Input 
@@ -75,6 +77,7 @@ const IngredientsToRecipe = ({navigation}) => {
       Get Recipes</Button> : null}
       
   </Layout>
+  </Layout>
   );
 }
 
@@ -88,6 +91,6 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // padding: 10
+    padding: 10
   },
 });

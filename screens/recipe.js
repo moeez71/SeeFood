@@ -4,6 +4,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
 
 import { Layout} from '@ui-kitten/components';
+import TopNav from '../components/TopNav';
 
 
 const Recipe= ({navigation}) => {
@@ -44,6 +45,7 @@ const Recipe= ({navigation}) => {
     return(
 
       <Layout style= {styles2.Layout}>
+        <TopNav navigation={navigation} screenTitle="Search Recipes"/>
       <View style={styles2.MainContainer }>
       {
         recipes.length === 0 ? 

@@ -71,6 +71,20 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>ComicNeue-Bold.ttf</string>
+		<string>ComicNeue-BoldItalic.ttf</string>
+		<string>ComicNeue-Italic.ttf</string>
+		<string>ComicNeue-Light.ttf</string>
+		<string>ComicNeue-LightItalic.ttf</string>
+		<string>ComicNeue-Regular.ttf</string>
+		<string>Kufam-SemiBoldItalic.ttf</string>
+		<string>Lato-Bold.ttf</string>
+		<string>Lato-BoldItalic.ttf</string>
+		<string>Lato-Italic.ttf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Nexa Bold.otf</string>
+		<string>Nexa Light.otf</string>
+		<string>Nexa Regular.otf</string>
 	</array>
 </dict>
 </plist>

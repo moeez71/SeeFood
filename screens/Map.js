@@ -1,16 +1,16 @@
 import React, { Component, useEffect, useState } from "react";
 import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image} from 'react-native';
 
-import A1 from "./knightly.jpg"
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import StarRating from "./stars"
+import StarRating from "../components/stars";
 import { OpenMapDirections } from 'react-native-navigation-directions';
 //import Geolocation from '@react-native-community/geolocation';
 import Geolocation from 'react-native-geolocation-service';
+import TopNav from "../components/TopNav";
 const initialState = {
   latitude: null,
   longitude: null,
@@ -23,7 +23,7 @@ const CARD_HEIGHT = 220;
 const CARD_WIDTH = width * 0.8;
 const SPACING_FOR_CARD_INSET = width * 0.1 - 10;
 
-const Map = () => {
+const Map = ({navigation}) => {
 
     const[currentPosition, setCurrentPosition] = useState(initialState);
     const[places, setPlaces]= useState([{}])
@@ -67,6 +67,7 @@ const Map = () => {
 
     return currentPosition.latitude ? (
          <View style= {styles.container}>
+         <TopNav navigation={navigation} screenTitle="Nearby Restaurants"/>
           {marker === true ?
           <View style= {styles.container}>
              <MapView
@@ -111,7 +112,7 @@ const Map = () => {
                 <View style = {styles3.card} key= {id}>
                   <Image 
                     style={styles3.cardImage} 
-                    source ={ result.photos != null ? {uri : `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU`}: require('./image-not-found.jpg')}
+                    source ={ result.photos != null ? {uri : `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU`}: require('../image-not-found.jpg')}
                     //source={{result.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos.photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU` : require("./knightly.jpg")}}
                     resizeMode ="cover"
                    // {... result.photos ? console.log(result.photos[0].photo_reference): console.log("no photo")}
@@ -162,6 +163,8 @@ const Map = () => {
          </View>
     ) : 
     <View style = {styles.container}>
+             <TopNav navigation={navigation} screenTitle="Nearby Restaurants"/>
+
       <ActivityIndicator size="large" color="#0000ff" />
     </View>
 

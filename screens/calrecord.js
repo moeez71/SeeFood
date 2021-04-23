@@ -6,9 +6,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import NetInfo from "@react-native-community/netinfo";
 
 
-
 import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../navigation/AuthProvider';
+import TopNav from '../components/TopNav';
 
 const calrecord = ({navigation}) => {
 
@@ -149,8 +149,9 @@ const calrecord = ({navigation}) => {
 
 
     return(
+      <Layout style={{flex: 1}}>
+        <TopNav navigation={navigation} screenTitle="Calorie Tracker"/>
         <Layout style= {styles.container}>
-
         {data.length === 0 ? 
           <Layout>
 
@@ -203,6 +204,7 @@ const calrecord = ({navigation}) => {
         
         </Layout>
 }
+        </Layout>
         </Layout>
         
     )

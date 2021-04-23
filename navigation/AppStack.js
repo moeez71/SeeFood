@@ -1,28 +1,24 @@
 import React, {useState, useEffect} from 'react';
-import {View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Dimensions } from "react-native";
 import HomeScreen from '../screens/HomeScreen';
-import IngredientsToRecipe from "../screens/IngredientsToRecipe";
 import PantryScreen from '../screens/PantryScreen';
 import Naviagtor_M6 from './recipe_nav_m6';
-import Maps from "../Map"
-import Maps2 from "../Map2"
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DrawerActions } from '@react-navigation/native';
-import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Text, Layout, Divider, TopNavigation  } from '@ui-kitten/components';
+import Maps from "../screens/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Recipe from '../screens/recipe';
 import LogoutScreen from '../screens/LogoutScreen';
-import CameraNew from '../screens/CameraNew';
 import CameraStack from '../navigation/CameraStack';
+import nowTheme from "../constants/Theme";
+
+const { width } = Dimensions.get("screen");
 
 import Calz from "./calnav"
+import HomeTabs from './HomeTabs';
 
  const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,61 +48,100 @@ const Drawer = createDrawerNavigator();
 const AppStack = () => {
     return (
         
-        <Drawer.Navigator >
+        <Drawer.Navigator 
+        style={{ flex: 1 }}
+        drawerStyle={{
+        backgroundColor: nowTheme.COLORS.PRIMARY,
+        width: width * 0.65
+      }}
+      drawerContentOptions={{
+        activeTintColor: nowTheme.COLORS.PRIMARY,
+        activeBackgroundColor: 'white',
+        inactiveTintColor: 'white',
+        inactiveBackgroundColor: nowTheme.COLORS.PRIMARY,
+        itemStyle: {
+        //   width: width * 0.75,
+        //   backgroundColor: "transparent",
+        //   paddingVertical: 10,
+        //   paddingHorizonal: 12,
+        height: 60,
+          justifyContent: "center",
+        //   alignContent: "center",
+        //   alignItems: "center",
+        borderRadius: 50,
+          overflow: "hidden"
+        },
+        labelStyle: {
+          fontSize: nowTheme.SIZES.FONT,
+          marginLeft: 5,
+          fontWeight: "normal",
+          fontFamily: "Nexa Regular"
+          
+        }
+      }}
+      
+      >
             <Drawer.Screen 
-            name="HomeScreen" component={HomeScreen}
+            name="HomeStack" component={HomeTabs}
             options={{
-                drawerIcon: () => <AntDesign name='home' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <AntDesign name='home' color={color} size={18}/>
                 }}
             />
+            {/* <Drawer.Screen 
+            name="HomeScreen" component={HomeScreen}
+            options={{
+                drawerIcon: ({ color }) => <AntDesign name='home' color={color} size={18}/>
+                }}
+            /> */}
             <Drawer.Screen name="PantryScreen" component={PantryScreen}
                 options={{
-                drawerIcon: () => <AntDesign name='shoppingcart' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <AntDesign name='shoppingcart' color={color} size={18}/>
                 }}
             />
             <Drawer.Screen name="Recipes" component={Naviagtor_M6}
                 options={{
-                drawerIcon: () => <Ionicons name='fast-food-outline' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <Ionicons name='fast-food-outline' color={color} size={18}/>
                 }}
             />
             <Drawer.Screen name="Maps" component={Maps}
                 options={{
-                drawerIcon: () => <Ionicons name='location-outline' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <Ionicons name='location-outline' color={color} size={18}/>
                 }}
             /> 
             <Drawer.Screen name="IngredientsToRecipeNav" component={IngredientsToRecipeNav} 
                 options={{
                     drawerLabel: 'Make Recipe',
-                drawerIcon: () => <SimpleLineIcons name='chemistry' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <SimpleLineIcons name='chemistry' color={color} size={18}/>
                 }}
             />
             
             <Drawer.Screen name="Camera" component={CameraStack}
                 options={{
                     drawerLabel: 'Scan Food',
-                drawerIcon: () => <AntDesign name='scan1' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <AntDesign name='scan1' color={color} size={18}/>
                 }}
             />
               <Drawer.Screen name="Calorie" component={Calz}
                 options={{
                     drawerLabel: 'Calorie Tracker',
-                drawerIcon: () => <AntDesign name='linechart' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <AntDesign name='linechart' color={color} size={18}/>
                 }}
             /> 
 
             <Drawer.Screen name="LogoutScreen" component={LogoutScreen}
                 options={{
                     drawerLabel: 'Logout',
-                drawerIcon: () => <SimpleLineIcons name='logout' color="#567" size={25}/>
+                drawerIcon: ({ color }) => <SimpleLineIcons name='logout' color={color} size={18}/>
                 }}
             />
         </Drawer.Navigator>
-    );
+
+    )
 }
 
 const logout = () => {
     return (
-        <FontAwesome icon="sign-out-alt" size={22} color="black" />
+        <FontAwesome icon="sign-out-alt" size={18} color="black" />
     );
 }
 export default AppStack;

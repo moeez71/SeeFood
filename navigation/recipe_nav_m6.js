@@ -19,7 +19,7 @@ const Naviagtor_M6 = ({navigation}) => {
      headerStyle: {backgroundColor: "#ffff"},
    })}
  >
-   <Stack.Screen name="1" component={Recipe} />
+   <Stack.Screen name="recipe" component={Recipe} />
    <Stack.Screen name="CameraNew" component={CameraNew} />
    <Stack.Screen name="CameraRecipe" component={CameraRecipe} />
    <Stack.Screen 

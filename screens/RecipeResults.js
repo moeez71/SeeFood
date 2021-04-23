@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Chip } from 'react-native-paper';
 import { StyleSheet, ScrollView, SafeAreaView, View, Image, FlatList} from 'react-native';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Avatar, Input, Button, ViewPager, Icon, List, ListItem } from '@ui-kitten/components';
-import Settings from '../public/Settings';
+import Settings from '../Settings';
 import CardView from 'react-native-cardview'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import RecipesSearched from '../components/RecipesSearched';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import BurgerLoader from '../components/loaders/BurgerLoader';
 
 // const ViewPagerSimpleUsageShowcase = () => {
 
@@ -117,7 +118,9 @@ const RecipeResults = ({navigation, route}) => {
 
     return (
         <Layout style={styles.container}>
-        {isLoading? <Spinner /> : 
+        {
+          isLoading? <BurgerLoader/>
+          : 
             <List
             style={styles.tab}
             data={recipes}

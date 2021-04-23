@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, SafeAreaView, Text, Image, StyleSheet, Dimensions, FlatList, ActivityIndicator, ScrollView } from 'react-native';
-import Settings from '../public/Settings';
+import Settings from '../Settings';
 import InstructionsComponent from '../components/instructionsComponent';
 import IngredientsComponent from '../components/ingredientsComponent';
 

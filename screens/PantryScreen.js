@@ -11,6 +11,7 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Layout} from '@ui-kitten/components';
+import TopNav from '../components/TopNav';
 
 
 const Stack = createStackNavigator();
@@ -35,7 +36,7 @@ const PantryNavigator = ({navigation}) => {
 
 
 
-const PantryScreen = () => {
+const PantryScreen = ({navigation}) => {
     const {user} = useContext(AuthContext);
     const [people, setpeople] = useState([
         {name: "moeez"},
@@ -245,6 +246,7 @@ const PantryScreen = () => {
 
     return (
       <Layout style= {styles2.Layout}>
+      <TopNav navigation={navigation} screenTitle="Pantry"/>
       <View style={styles2.MainContainer }>
       {
         getWant.length === 0 ? 

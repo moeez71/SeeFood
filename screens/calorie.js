@@ -19,6 +19,7 @@ import DatePicker from 'react-native-datepicker'
 
 
 import {AuthContext} from '../navigation/AuthProvider';
+import TopNav from '../components/TopNav';
 
 
 
@@ -162,8 +163,9 @@ useEffect(() => {
   }, [0])
   
     return(
+      <Layout style={{flex: 1}}>
+        <TopNav navigation={navigation} screenTitle="Calorie Tracker"/>
       <Layout style= {styles.container}>
-
 <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
             <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>Add a Record</Text>
             </View>
@@ -242,6 +244,7 @@ useEffect(() => {
 
       </View>
   
+        </Layout>
         </Layout>
     )
 }
