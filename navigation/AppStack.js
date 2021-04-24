@@ -19,6 +19,7 @@ const { width } = Dimensions.get("screen");
 
 import Calz from "./calnav"
 import HomeTabs from './HomeTabs';
+import ProfileScreen from '../screens/ProfileScreen';
 
  const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -128,6 +129,13 @@ const AppStack = ({navigation}) => {
                 drawerIcon: ({ color }) => <AntDesign name='linechart' color={color} size={18}/>
                 }}
             /> 
+
+            <Drawer.Screen name="Profile" component={ProfileScreen}
+                options={{
+                    drawerLabel: 'Profile',
+                drawerIcon: ({ color }) => <FontAwesome name='user-circle-o' color={color} size={18}/>
+                }}
+            />
 
             <Drawer.Screen name="LogoutScreen" component={LogoutScreen}
                 options={{

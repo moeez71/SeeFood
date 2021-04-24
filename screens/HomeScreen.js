@@ -15,6 +15,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../constants/Theme'
 import Theme from '../constants/Theme';
 import TopNav from '../components/TopNav';
+import TopNavHome from '../components/TopNavHome';
+
 var User = require('../back/backend/models/user')
 
 
@@ -87,7 +89,8 @@ const HomeTabs = ({navigation}) => {
     return (
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
-          <TopNav navigation={navigation} screenTitle="Home"/> 
+          <TopNavHome navigation={navigation} screenTitle="Home"/>
+          {/* <TopNav navigation={navigation} screenTitle="Home"/>  */}
           <ImageSwiper/>
           <View style={styles.categoryContainer}>
 

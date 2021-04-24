@@ -6,7 +6,7 @@ import Naviagtor_M6 from './recipe_nav_m6';
 import CameraStack from './CameraStack';
 import Maps from "../screens/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
-import Calz from "./calnav"
+import Calz from "./calnav";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -14,9 +14,13 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
 import {BottomTabBar, createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
+import ProfileScreen from '../screens/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
+const ProfileStack = createStackNavigator();
+
 
 const tabBarIcon = (name,label) => ({
   focused,
@@ -141,6 +145,18 @@ function HomeTabs({navigation}) {
     </Tab.Navigator>
     )
 }
+
+const ProfileStackScreen = ({navigation}) => {
+
+  return (
+    <ProfileStack.Navigator headerMode='none'>
+      <ProfileStack.Screen
+        name="Profile"
+        component={ProfileScreen}
+      />
+    </ProfileStack.Navigator>
+  );
+};
 export default HomeTabs;
 
 const styles = StyleSheet.create({
