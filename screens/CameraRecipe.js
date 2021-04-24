@@ -3,6 +3,7 @@ import { Icon, Input, Spinner, Layout } from '@ui-kitten/components';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
+import TopNavWithBack from '../components/TopNavWithBack';
 
 
 const CameraRecipe= ({navigation, route}) => {
@@ -45,7 +46,8 @@ const CameraRecipe= ({navigation, route}) => {
       
     return(
 
-      
+    <Layout style={{flex:1}}>
+    <TopNavWithBack navigation={navigation} screenTitle="Recipes"/>
     <Layout style = {styles2.MainContainer}>
 
     {isLoading? <Layout style = {styles2.MainContainer}><Spinner /></Layout>: 
@@ -82,6 +84,7 @@ const CameraRecipe= ({navigation, route}) => {
       </ScrollView>  
     </Layout>
     }
+    </Layout>
     </Layout>
     )
 }

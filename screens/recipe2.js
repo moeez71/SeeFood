@@ -1,5 +1,6 @@
 import React, {useState, useEffect}  from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
+import TopNavWithBack from '../components/TopNavWithBack';
 
 const Recipe2 = ({navigation, route}) => {
     var slug = route.params.Recipe 
@@ -12,7 +13,8 @@ const Recipe2 = ({navigation, route}) => {
     
 return(
     
-
+  <View style={{flex:1}}>
+  <TopNavWithBack navigation={navigation} screenTitle="Recipes"/>
     <View style = {styles2.MainContainer}>
        <View style = {{justifyContent: "center", alignItems: "center" , flexDirection: "row",}}>
        <Text style = {{padding : 10,fontWeight: "bold", fontSize: 22, fontFamily: "serif"}}>{slug.label} </Text>
@@ -58,12 +60,13 @@ return(
 
       </View>
 
-                <View >
+                <View>
                     <Button title = "Click to View Full Recipe"
                         onPress = {()=> Linking.openURL(slug.url)}
                     ></Button>
                 </View>
             
+    </View>
     </View>
     )}
 

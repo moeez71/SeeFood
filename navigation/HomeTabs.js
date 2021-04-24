@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import PantryScreen from '../screens/PantryScreen';
@@ -12,19 +12,16 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {BottomTabBar, createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Theme from '../constants/Theme';
 
 const Tab = createBottomTabNavigator();
 
-const tabBarIcon = (name: string,label:string) => ({
+const tabBarIcon = (name,label) => ({
   focused,
   color,
   size,
-}: {
-  focused: boolean;
-  color: color; // Defines fab icon color
-  size: number;
 }) => (
 <View style={{alignItems:"center"}}>
   <Ionicons name={name} size={18} color={focused ? 'white' : Theme.COLORS.PRIMARY}/>
@@ -32,47 +29,113 @@ const tabBarIcon = (name: string,label:string) => ({
   </View>
   ) 
 
-function HomeTabs() {
+function HomeTabs({navigation}) {
   return(
     <Tab.Navigator
+      initialRouteName="home"
       tabBarOptions={{
         activeTintColor: Theme.COLORS.PRIMARY,
         activeBackgroundColor: 'white',
         inactiveTintColor: 'white',
         inactiveBackgroundColor: Theme.COLORS.PRIMARY,
-      }}
-      tabBar={(props) => <BottomFabBar  {...props} color={Theme.COLORS.WHITE}/>}
+      }
+      }
+      tabBar={(props) => <BottomFabBar {...props} color="white"/>}
       
     >
       <Tab.Screen
-        options={{ tabBarIcon: tabBarIcon('home-outline', 'home') }}
+        // options={{ tabBarIcon: tabBarIcon('home-outline', 'home') }}
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('home-outline', 'home'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
+            console.log(routeName);
+            if (routeName === 'Home') {
+              return true;
+            }
+            else return false;
+          })(route),
+          })}
         name="Home"
         component={HomeScreen}
       />
       <Tab.Screen
         name="PantryScreen"
-        options={{ tabBarIcon: tabBarIcon('cart-outline', 'Pantry') }}
+        // options={{ tabBarIcon: tabBarIcon('cart-outline', 'Pantry') }}
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('fast-food-outline', 'pantry'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'PantryScreen';
+            console.log(routeName);
+            if (routeName === 'PantryScreen') {
+              return true;
+            }
+            else return false;
+          })(route),
+          })}
         component={PantryScreen}
       />
       
       <Tab.Screen
         name="Recipes"
-        options={{ tabBarIcon: tabBarIcon('fast-food-outline', 'Recipes') }}
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('fast-food-outline', 'recipes'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'recipe';
+            console.log(routeName);
+            if (routeName === 'recipe') {
+              return true;
+            }
+            else return false;
+          })(route),
+          })}
         component={Naviagtor_M6}
       />
       <Tab.Screen
         name="Maps"
-        options={{ tabBarIcon: tabBarIcon('location-outline', 'Maps') }}
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('restaurant-outline', 'restaurants'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'Maps';
+            console.log(routeName);
+            if (routeName === 'Maps') return true;
+            else return false;
+          })(route),
+          })}
         component={Maps}
       />
       <Tab.Screen
-        name="IngredientsToRecipeNav"
-        options={{ tabBarIcon: tabBarIcon('scan-outline', 'Make Recipe')}}
+        name="IngredientScreen"
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('scan-outline', 'make recipe'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'IngredientScreen';
+            console.log(routeName);
+            if (routeName === 'IngredientScreen') {
+              return true;
+            }
+            else return false;
+          })(route),
+          })}
+        // options={{ tabBarIcon: tabBarIcon('scan-outline', 'Make Recipe')}}
         component={IngredientsToRecipeNav}
+        navigation={navigation}
+        
       />
       <Tab.Screen
         name="Calorie"
-        options={{ tabBarIcon: tabBarIcon('bar-chart-outline', 'Calories') }}
+        options={({route,navigation})=>({ 
+          tabBarIcon: tabBarIcon('bar-chart-outline', 'calories'), 
+          tabBarVisible: ((route) => {
+            let routeName = getFocusedRouteNameFromRoute(route) ?? 'Calorie';
+            console.log(routeName);
+            if (routeName === 'Calorie') {
+              return true;
+            }
+            else return false;
+          })(route),
+          })}
+        // options={{ tabBarIcon: tabBarIcon('bar-chart-outline', 'Calories') }}
         component={Calz}
       />
     </Tab.Navigator>

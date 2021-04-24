@@ -45,7 +45,7 @@ const Drawer = createDrawerNavigator();
 
 
 
-const AppStack = () => {
+const AppStack = ({navigation}) => {
     return (
         
         <Drawer.Navigator 
@@ -86,6 +86,7 @@ const AppStack = () => {
             options={{
                 drawerIcon: ({ color }) => <AntDesign name='home' color={color} size={18}/>
                 }}
+            // navigation={navigation} 
             />
             {/* <Drawer.Screen 
             name="HomeScreen" component={HomeScreen}

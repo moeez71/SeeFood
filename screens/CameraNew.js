@@ -4,6 +4,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Text, Layout, List, ListItem, Button, Divider} from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
+import TopNavWithBack from '../components/TopNavWithBack';
 
 const axiosClient = axios.create({
     baseURL: 'https://food-img-classifier.herokuapp.com',
@@ -118,13 +119,14 @@ export default function CameraNew({navigation}) {
    
     return(
         <SafeAreaView style={{ flex: 1 }}>
+        <TopNavWithBack navigation={navigation} screenTitle="Capture Image"/>
         <ScrollView style={styles.container}>
             <Layout style={styles.container} >
 
-                <View style={styles.titleContainer}>
+                {/* <View style={styles.titleContainer}>
                     <Text category="h1">Pick Image</Text>
 
-                </View>
+                </View> */}
 
                 <View style={styles.actionsContainer}>
 

@@ -127,6 +127,7 @@ const styles2 = StyleSheet.create({
   },
  
     MainContainer: {
+      marginTop:10,
       padding: 10,
       justifyContent: 'center',
       backgroundColor: '#ffff',

@@ -3,6 +3,7 @@ import { View, SafeAreaView, Text, Image, StyleSheet, Dimensions, FlatList, Acti
 import Settings from '../Settings';
 import InstructionsComponent from '../components/instructionsComponent';
 import IngredientsComponent from '../components/ingredientsComponent';
+import TopNavWithBack from '../components/TopNavWithBack';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
@@ -66,6 +67,8 @@ export default class Instructions extends Component {
     const { img, title, servings, readyInMinutes } = this.props.route.params;
     return (
       <SafeAreaView style={{flex:1}}>
+        <View style={{flex:1}}>
+          <TopNavWithBack navigation={this.props.navigation} screenTitle="Instructions" />
           <View style={styles.header}>
             <Image style={styles.img} source={{uri: `https://spoonacular.com/recipeImages/${img}`}}/>
           </View>
@@ -108,6 +111,7 @@ export default class Instructions extends Component {
             )}
             
           </ScrollView>
+          </View>
       </SafeAreaView>
     )
   }

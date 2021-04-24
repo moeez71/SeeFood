@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text, TopNavigation} from '@ui-kitten/components';
+import { Layout, Text, TopNavigation} from '@ui-kitten/components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 function TopNav(props) {
     return (
+        <Layout style={{minHeight:60}}>
         <TopNavigation
-            title={()=><Text style={{fontFamily: "Nexa Bold", fontSize: 34}}>{props.screenTitle}</Text>}
+            title={()=><Text style={{fontFamily: "Nexa Bold", fontSize: 32}}>{props.screenTitle}</Text>}
             accessoryLeft={()=><Ionicons 
                 name='md-menu' 
                 size={25}
@@ -14,6 +15,7 @@ function TopNav(props) {
                 />}
               alignment="center"
           />
+        </Layout>
     )
 }
 

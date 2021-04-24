@@ -86,11 +86,11 @@ export default IngredientsToRecipe;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    marginTop: 10,
   },
   row: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    padding: 10
+    paddingHorizontal: 10
   },
 });

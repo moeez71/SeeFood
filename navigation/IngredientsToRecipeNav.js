@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const IngredientsToRecipeNav = () => {
 
     return (
-        <Stack.Navigator headerMode='none'>
+        <Stack.Navigator headerMode='none' initialRouteName="IngredientsScreen">
             <Stack.Screen name="IngredientsScreen" component={IngredientsToRecipe}/>
             <Stack.Screen name="RecipeResults" component={RecipeResults}/>
             <Stack.Screen name="Instructions" component={Instructions}/>
