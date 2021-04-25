@@ -1,22 +1,24 @@
 import React, {useContext, useEffect}  from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import FormButton from '../components/FormButton';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, LogBox } from 'react-native';
+import FormButton from '../../components/FormButton';
 
-import {AuthContext} from '../navigation/AuthProvider';
+import {AuthContext} from '../../navigation/AuthProvider';
 import NetInfo from "@react-native-community/netinfo";
 import { Text, Layout, List, ListItem, Button, TopNavigation} from '@ui-kitten/components';
-import Meals from '../components/Meals';
+import Meals from '../../components/Meals';
 import { Card } from 'react-native-paper';
-import ImageSwiper from '../components/ImageSwiper';
+import ImageSwiper from '../../components/ImageSwiper';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import nowTheme from '../constants/Theme'
-import Theme from '../constants/Theme';
-import TopNav from '../components/TopNav';
-var User = require('../back/backend/models/user')
+import nowTheme from '../../constants/Theme'
+import Theme from '../../constants/Theme';
+import TopNav from '../../components/TopNav';
+var User = require('../../back/backend/models/user')
 
+
+LogBox.ignoreAllLogs()
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);

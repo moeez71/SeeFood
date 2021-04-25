@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, StyleSheet, Keyboard , ScrollView  } from 'react-native';
+import { View, StyleSheet, Keyboard , ScrollView , LogBox  } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { ApplicationProvider, Text, Divider, Spinner } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -18,10 +18,11 @@ import DatePicker from 'react-native-datepicker'
 
 
 
-import {AuthContext} from '../navigation/AuthProvider';
-import TopNav from '../components/TopNav';
+import {AuthContext} from '../../navigation/AuthProvider';
+import TopNav from '../../components/TopNav';
 
 
+LogBox.ignoreAllLogs()
 
 
 const Calorie = ({navigation}) => {

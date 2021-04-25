@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, } from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, LogBox } from 'react-native';
 
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-community/async-storage';
-import {AuthContext} from '../navigation/AuthProvider';
+import {AuthContext} from '../../navigation/AuthProvider';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -11,11 +11,12 @@ import Octicons from 'react-native-vector-icons/Octicons';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Layout} from '@ui-kitten/components';
-import TopNav from '../components/TopNav';
+import TopNav from '../../components/TopNav';
 
 
 const Stack = createStackNavigator();
 
+LogBox.ignoreAllLogs()
 
 const PantryNavigator = ({navigation}) => {
   return (

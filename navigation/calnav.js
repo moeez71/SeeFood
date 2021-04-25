@@ -7,10 +7,10 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
-import Calorie from '../screens/calorie'
+import Calorie from '../screens/Calories_Tracker/calorie'
 
-import calgraphs from '../screens/calgraphs'
-import calrecord from '../screens/calrecord'
+import calgraphs from '../screens/Calories_Tracker/calgraphs'
+import calrecord from '../screens/Calories_Tracker/calrecord'
 
 
 const Stack2 = createStackNavigator();

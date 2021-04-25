@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import HomeScreen from '../screens/HomeScreen';
-import PantryScreen from '../screens/PantryScreen';
+import HomeScreen from '../screens/Others/HomeScreen';
+import PantryScreen from '../screens/Pantry/PantryScreen';
 import Naviagtor_M6 from './recipe_nav_m6';
 import CameraStack from './CameraStack';
-import Maps from "../screens/Map";
+import Maps from "../screens/Restaurants_Finder/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
 import Calz from "./calnav"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

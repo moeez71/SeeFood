@@ -1,16 +1,20 @@
 import React, { Component, useEffect, useState } from "react";
-import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image} from 'react-native';
+import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image, LogBox} from 'react-native';
 
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import StarRating from "../components/stars";
+
+import StarRating from "../../components/stars";
 import { OpenMapDirections } from 'react-native-navigation-directions';
 //import Geolocation from '@react-native-community/geolocation';
 import Geolocation from 'react-native-geolocation-service';
-import TopNav from "../components/TopNav";
+import TopNav from "../../components/TopNav";
+
+LogBox.ignoreAllLogs()
+
 const initialState = {
   latitude: null,
   longitude: null,
@@ -112,7 +116,7 @@ const Map = ({navigation}) => {
                 <View style = {styles3.card} key= {id}>
                   <Image 
                     style={styles3.cardImage} 
-                    source ={ result.photos != null ? {uri : `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU`}: require('../image-not-found.jpg')}
+                    source ={ result.photos != null ? {uri : `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos[0].photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU`}: require('../../image-not-found.jpg')}
                     //source={{result.photos ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${result.photos.photo_reference}&sensor=false&key=AIzaSyAPygMIBKVDTFCt6_f0oLxdvJe7gr7CKfU` : require("./knightly.jpg")}}
                     resizeMode ="cover"
                    // {... result.photos ? console.log(result.photos[0].photo_reference): console.log("no photo")}

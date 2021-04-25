@@ -1,8 +1,10 @@
 import React, {useContext, useEffect} from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, LogBox } from 'react-native';
 import { Text, Button, Card, Modal } from '@ui-kitten/components';
-import {AuthContext} from '../navigation/AuthProvider';
+import {AuthContext} from '../../navigation/AuthProvider';
 
+
+LogBox.ignoreAllLogs()
 
 export default function LogoutScreen({navigation}) {
     const [visible, setVisible] = React.useState(true);

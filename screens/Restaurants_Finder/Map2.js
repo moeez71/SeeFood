@@ -1,7 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
-import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image} from 'react-native';
+import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image, LogBox} from 'react-native';
 
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
+
+LogBox.ignoreAllLogs()
 
 const styles = StyleSheet.create({
  container: {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, StyleSheet, ScrollView , TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView , TouchableOpacity, LogBox } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Input, Button } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -7,8 +7,10 @@ import NetInfo from "@react-native-community/netinfo";
 
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {AuthContext} from '../navigation/AuthProvider';
-import TopNav from '../components/TopNav';
+import {AuthContext} from '../../navigation/AuthProvider';
+import TopNav from '../../components/TopNav';
+
+LogBox.ignoreAllLogs()
 
 const calrecord = ({navigation}) => {
 

@@ -5,17 +5,18 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme} from "victory-native"
 
-import { View, StyleSheet, ScrollView , TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView , TouchableOpacity , LogBox } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
 
 import Prompt from "react-native-input-prompt";
 
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {AuthContext} from '../navigation/AuthProvider';
-import TopNav from '../components/TopNav';
+import {AuthContext} from '../../navigation/AuthProvider';
+import TopNav from '../../components/TopNav';
 
 
+LogBox.ignoreAllLogs()
 
 const calgraphs = ({navigation}) => {
     const {user} = useContext(AuthContext);
