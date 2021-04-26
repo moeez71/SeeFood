@@ -69,7 +69,7 @@ const HomeTabs = ({navigation}) => {
           // alert("You are online!");
           fetchAPI2()
         } else {
-          alert("You are offline!");
+          //alert("You are offline!");
           
         }
       });

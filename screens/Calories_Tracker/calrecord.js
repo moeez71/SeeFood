@@ -34,7 +34,7 @@ const calrecord = ({navigation}) => {
 
 
     const fetchAPI2 = async () => {
-      return await fetch('http://192.168.0.109:3000/calorie/adduser1', requestOptions)
+      return await fetch('http://192.168.10.3:3000/calorie/adduser1', requestOptions)
       .then(response => response.json())
       .then(data => console.log(data));
     }
@@ -44,23 +44,23 @@ const calrecord = ({navigation}) => {
       try {
        await AsyncStorage.setItem(user.uid+"999", JSON.stringify(data))
        // console.log(getWant)
-        alert('Deleted from async')
+   // alert('Deleted from async')
       } catch (e) {
-        alert('Failed to save the data to the storage')
+    //    alert('Failed to save the data to the storage')
       }
        NetInfo.fetch().then(state => {
          if (state.isConnected === true) {
            fetchAPI2()
-           alert("Successfully deleted hogaya saveData ka online chal gaya");
+      //     alert("Successfully deleted hogaya saveData ka online chal gaya");
           
          } else {
-           alert("You are offline in save 2!");
+      //     alert("You are offline in save 2!");
          }
        })
     }
 
 
-    async function readData() {
+     readData = async () =>  {
       try {
 
         function parseDate(date) {
@@ -78,16 +78,15 @@ const calrecord = ({navigation}) => {
        // const sortedActivities = userData2.sort((a, b) => new Date(a.date) - new Date(b.date));
 
         if (userData2 !== null) {
+         
           console.log("cal record wala console")
           console.log(sortedDates)
           await setdata(sortedDates)
         }
-        if (userData2.length() === null){
-          console.log("empty")
-        }
+      
 
       } catch (e) {
-      alert('Failed to fetch the data from storageeee')
+     // alert('Failed to fetch the data from storage')
       }
     }
 
@@ -103,12 +102,13 @@ const calrecord = ({navigation}) => {
         return Date.parse(`${day} ${month} ${year}`);
       }
 
+     
 
-      const uri = `http://192.168.0.109:3000/calorie/calorie/${user.uid}`
+      const uri = `http://192.168.10.3:3000/calorie/calorie/${user.uid}`
        return await fetch(uri)
        .then((response) => response.json())
        .then((result) => {
-        console.log(result)
+       // console.log(result)
         console.log("read data mongo trig")
         let sortedDates = result.calorie.sort((a, b) => parseDate(b.date) - parseDate(a.date));
 
@@ -126,7 +126,7 @@ const calrecord = ({navigation}) => {
          if (Platform.OS === "android") {
            NetInfo.fetch().then(state => {
              if (state.isConnected === true) {
-               alert("You are online!");
+               //alert("You are online!");
                readDataMongo()
              } else {
                alert("You are offlinjdje!");
@@ -141,7 +141,7 @@ const calrecord = ({navigation}) => {
         
         const unsubscribe = navigation.addListener('focus', () => {
           CheckConnectivity()
-          //readData()
+        //readData()
         });
     
         return unsubscribe;

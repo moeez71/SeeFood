@@ -9,8 +9,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import StarRating from "../../components/stars";
 import { OpenMapDirections } from 'react-native-navigation-directions';
-//import Geolocation from '@react-native-community/geolocation';
-import Geolocation from 'react-native-geolocation-service';
+import Geolocation from '@react-native-community/geolocation';
+//import Geolocation from 'react-native-geolocation-service';
 import TopNav from "../../components/TopNav";
 
 LogBox.ignoreAllLogs()

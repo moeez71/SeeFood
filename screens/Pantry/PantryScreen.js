@@ -62,7 +62,7 @@ const PantryScreen = ({navigation}) => {
       })
   };
     const fetchAPI2 = async () => {
-    return await fetch('http://192.168.23.98:3000/pantry/adduser1', requestOptions)
+    return await fetch('http://192.168.10.3:3000/pantry/adduser1', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
   }
@@ -71,19 +71,19 @@ const PantryScreen = ({navigation}) => {
        try {
         await AsyncStorage.setItem(user.uid, JSON.stringify(getWant))
         // console.log(getWant)
-         alert('Data successfully saved')
+        // alert('Data successfully saved')
          //fetchAPI2()
        } catch (e) {
-         alert('Failed to save the data to the storage')
+        // alert('Failed to save the data to the storage')
        }
         NetInfo.fetch().then(state => {
          if (state.isConnected === true) {
            fetchAPI2()
-           alert("You are online in save!");
+         //  alert("You are online in save!");
            //readDataMongo()
            
          } else {
-           alert("You are offline in save 2!");
+         //  alert("You are offline in save 2!");
            //readData()
            //readData2()
          }
@@ -114,18 +114,18 @@ const PantryScreen = ({navigation}) => {
           console.log(getGot)
           console.log("save2chalpaya")
           //fetchAPI2()
-          alert('Data successfully saved get got kdsk')
+         // alert('Data successfully saved get got kdsk')
         } catch (e) {
-          alert('Failed to save the data to the storage')
+         // alert('Failed to save the data to the storage')
         }
         NetInfo.fetch().then(state => {
           if (state.isConnected === true) {
             fetchAPI2()
-            alert("You are online in save!");
+           // alert("You are online in save!");
             //readDataMongo()
             
           } else {
-            alert("You are offline in save 2!");
+           // alert("You are offline in save 2!");
             //readData()
             //readData2()
           }
@@ -149,7 +149,7 @@ const PantryScreen = ({navigation}) => {
 
        const readDataMongo = async () => {
        //  const uri = `http://localhost:3000/pantry/pantry/${user.uid}`
-       const uri = `http://192.168.23.98:3000/pantry/pantry/uO6WUKFb0paef644AoGzliM6OjC2`
+       const uri = `http://192.168.10.3:3000/pantry/pantry/uO6WUKFb0paef644AoGzliM6OjC2`
           return await fetch(uri)
           .then((response) => response.json())
           .then((result) => {
@@ -173,10 +173,10 @@ const PantryScreen = ({navigation}) => {
             if (Platform.OS === "android") {
               NetInfo.fetch().then(state => {
                 if (state.isConnected === true) {
-                  alert("You are online!");
+                 // alert("You are online!");
                   readDataMongo()
                 } else {
-                  alert("You are offlinjdje!");
+                 // alert("You are offline!");
                   readData()
                   readData2()
                 }
@@ -285,7 +285,7 @@ const PantryScreen = ({navigation}) => {
             
 
 
-        <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
+        <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff',  maxHeight: 250 }}>
             <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>What's In My List</Text>
             {/* <FlatList
                 data = {getWant}
@@ -323,7 +323,7 @@ const PantryScreen = ({navigation}) => {
 
         </View>
 
-        <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
+        <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff',  maxHeight: 250 }}>
         <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>What I Got</Text>
             {/* <FlatList
                 data = {getGot}
