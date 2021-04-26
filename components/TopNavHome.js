@@ -1,28 +1,33 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Layout, Text, TopNavigation} from '@ui-kitten/components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Theme from '../constants/Theme';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { AuthContext } from '../navigation/AuthProvider';
+import { Avatar } from 'react-native-paper';
 
+const ProfileIcon = (props) =>{
+  const {user} = useContext(AuthContext);
 
+  return (
+  <TouchableOpacity
+        style={styles.categoryBtn}
+        onPress={() => props.navigation.navigate('Profile')}>
+        <View style={styles.categoryIcon}>
+        <Avatar.Image 
+            source={{
+              uri: user.photoURL,
+            }}
+            size={40}
+          />
+        </View>
+      </TouchableOpacity>
+  );
+}
 function TopNavHome(props) {
 
-    const ProfileIcon = (props) =>{
-        return (
-        <TouchableOpacity
-              style={styles.categoryBtn}
-              onPress={() => props.navigation.navigate('Profile')}>
-              <View style={styles.categoryIcon}>
-              <FontAwesome 
-                name='user-circle-o' 
-                color="white"
-                size={25}
-                />
-              </View>
-            </TouchableOpacity>
-        );
-    }
+    
 
     return (
         <Layout style={{minHeight:60}}>
@@ -34,7 +39,7 @@ function TopNavHome(props) {
                 onPress={() => props.navigation.toggleDrawer()}
                 />}
             accessoryRight={() => <ProfileIcon navigation={props.navigation}/>}
-              alignment="center"
+            alignment="center"
           />
         </Layout>
     )
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         // marginRight: 20,
-        backgroundColor: Theme.COLORS.GRADIENT_START /* 'white' */,
+        // backgroundColor: Theme.COLORS.GRADIENT_START /* 'white' */,
         borderRadius: 50,
       },
     });

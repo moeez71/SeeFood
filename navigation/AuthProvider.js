@@ -24,9 +24,11 @@ export const AuthProvider = ({children}) => {
                     const { idToken } = await GoogleSignin.signIn();
 
                     // Create a Google credential with the token
+                    
                     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
                     // Sign-in the user with the credential
+                    console.log("Google credentials: " +  googleCredential.providerId);
                     return auth().signInWithCredential(googleCredential);
                 }catch(e) {
                     alert(e.message);
@@ -35,7 +37,7 @@ export const AuthProvider = ({children}) => {
             facebookLogin: async () => {
                 try { 
                     const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-
+                    
                     if (result.isCancelled) {
                         throw 'User cancelled the login process';
                     }
@@ -49,7 +51,7 @@ export const AuthProvider = ({children}) => {
 
                     // Create a Firebase credential with the AccessToken
                     const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-
+                    console.log('Credentials from fb login:' + facebookCredentials);
                     // Sign-in the user with the credential
                     await auth().signInWithCredential(facebookCredential);
                 }catch(e) {

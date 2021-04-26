@@ -17,6 +17,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
 import ProfileScreen from '../screens/ProfileScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createStackNavigator();
@@ -53,7 +54,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('home-outline', 'home'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
-            console.log(routeName);
             if (routeName === 'Home') {
               return true;
             }
@@ -62,6 +62,7 @@ function HomeTabs({navigation}) {
           })}
         name="Home"
         component={HomeScreen}
+        navigation={navigation}
       />
       <Tab.Screen
         name="PantryScreen"
@@ -70,7 +71,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('fast-food-outline', 'pantry'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'PantryScreen';
-            console.log(routeName);
             if (routeName === 'PantryScreen') {
               return true;
             }
@@ -86,7 +86,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('fast-food-outline', 'recipes'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'recipe';
-            console.log(routeName);
             if (routeName === 'recipe') {
               return true;
             }
@@ -101,7 +100,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('restaurant-outline', 'restaurants'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Maps';
-            console.log(routeName);
             if (routeName === 'Maps') return true;
             else return false;
           })(route),
@@ -114,7 +112,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('scan-outline', 'make recipe'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'IngredientScreen';
-            console.log(routeName);
             if (routeName === 'IngredientScreen') {
               return true;
             }
@@ -123,7 +120,6 @@ function HomeTabs({navigation}) {
           })}
         // options={{ tabBarIcon: tabBarIcon('scan-outline', 'Make Recipe')}}
         component={IngredientsToRecipeNav}
-        navigation={navigation}
         
       />
       <Tab.Screen
@@ -132,7 +128,6 @@ function HomeTabs({navigation}) {
           tabBarIcon: tabBarIcon('bar-chart-outline', 'calories'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Calorie';
-            console.log(routeName);
             if (routeName === 'Calorie') {
               return true;
             }
@@ -146,7 +141,7 @@ function HomeTabs({navigation}) {
     )
 }
 
-const ProfileStackScreen = ({navigation}) => {
+export const ProfileStackScreen = ({navigation}) => {
 
   return (
     <ProfileStack.Navigator headerMode='none'>
@@ -154,9 +149,16 @@ const ProfileStackScreen = ({navigation}) => {
         name="Profile"
         component={ProfileScreen}
       />
+      <ProfileStack.Screen
+        name="EditProfile"
+        component={EditProfileScreen}
+        navigation={navigation}
+      />
+      
     </ProfileStack.Navigator>
   );
 };
+
 export default HomeTabs;
 
 const styles = StyleSheet.create({
