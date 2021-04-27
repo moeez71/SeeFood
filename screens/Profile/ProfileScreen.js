@@ -10,10 +10,8 @@ import {
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import TopNav from '../components/TopNav';
-import TopNavProfile from '../components/TopNavProfile';
-import TopNavWithBack from '../components/TopNavWithBack';
-import { AuthContext } from '../navigation/AuthProvider';
+import TopNavProfile from '../../components/TopNavProfile';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 
 const data = [

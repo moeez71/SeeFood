@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { Chip } from 'react-native-paper';
-import { StyleSheet, ScrollView, SafeAreaView, View, Image, FlatList} from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView, View, Image, FlatList, LogBox} from 'react-native';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Avatar, Input, Button, ViewPager, Icon, List, ListItem } from '@ui-kitten/components';
-import Settings from '../Settings';
+import Settings from '../../Settings';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import BurgerLoader from '../components/loaders/BurgerLoader';
-import TopNavWithBack from '../components/TopNavWithBack';
+import BurgerLoader from '../../components/loaders/BurgerLoader';
+import TopNavWithBack from '../../components/TopNavWithBack';
+
+LogBox.ignoreAllLogs()
+
 
 // const ViewPagerSimpleUsageShowcase = () => {
 

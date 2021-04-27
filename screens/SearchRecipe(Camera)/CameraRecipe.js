@@ -2,8 +2,10 @@ import React, {useState, useEffect}  from 'react';
 import { Icon, Input, Spinner, Layout } from '@ui-kitten/components';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
-import TopNavWithBack from '../components/TopNavWithBack';
+import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking , LogBox } from 'react-native';
+import TopNavWithBack from '../../components/TopNavWithBack';
+
+LogBox.ignoreAllLogs()
 
 
 const CameraRecipe= ({navigation, route}) => {

@@ -1,27 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Dimensions } from "react-native";
-import HomeScreen from '../screens/HomeScreen';
-import PantryScreen from '../screens/PantryScreen';
-import Naviagtor_M6 from './recipe_nav_m6';
-import Maps from "../screens/Map";
-import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import LogoutScreen from '../screens/LogoutScreen';
-import CameraStack from '../navigation/CameraStack';
-import nowTheme from "../constants/Theme";
+import LogoutScreen from '../screens/Auth/LogoutScreen';
 const { width } = Dimensions.get("screen");
-import Calz from "./calnav"
 import HomeTabs, { ProfileStackScreen } from './HomeTabs';
-import ProfileScreen from '../screens/ProfileScreen';
-import DrawerContent from '../screens/DrawerContent';
+import DrawerContent from '../components/DrawerContent';
 import Theme from '../constants/Theme';
 
- const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 //  const AppStack = () => {
 //      return (

@@ -5,17 +5,18 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme} from "victory-native"
 
-import { View, StyleSheet, ScrollView , TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView , TouchableOpacity , LogBox } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
 
 import Prompt from "react-native-input-prompt";
 
 
 import AsyncStorage from '@react-native-community/async-storage';
-import {AuthContext} from '../navigation/AuthProvider';
-import TopNav from '../components/TopNav';
+import {AuthContext} from '../../navigation/AuthProvider';
+import TopNav from '../../components/TopNav';
 
 
+LogBox.ignoreAllLogs()
 
 const calgraphs = ({navigation}) => {
     const {user} = useContext(AuthContext);
@@ -51,10 +52,10 @@ const calgraphs = ({navigation}) => {
     try {
      await AsyncStorage.setItem(user.uid+"321", JSON.stringify(limit))
      
-      alert('Data successfully saved bro')
+    //  alert('Data successfully saved bro')
       //fetchAPI2()
     } catch (e) {
-      alert('Failed to save the data to the storage')
+   //   alert('Failed to save the data to the storage')
     }
   }
 
@@ -95,7 +96,7 @@ const calgraphs = ({navigation}) => {
         }
 
       } catch (e) {
-      alert('Failed to fetch the data from storageeee')
+    //  alert('Failed to fetch the data from storageeee')
       }
     }
 
@@ -104,7 +105,7 @@ const calgraphs = ({navigation}) => {
       saveData();
     }
     const fetchAPI2 = async () => {
-        return await fetch('http://192.168.0.109:3000/limit/adduser1', requestOptions)
+        return await fetch('http://192.168.10.3:3000/limit/adduser1', requestOptions)
         .then(response => response.json())
         .then(data => console.log(data));
       }
@@ -116,7 +117,7 @@ const calgraphs = ({navigation}) => {
       }
 
       fetch2()
-      const uri = `http://192.168.0.109:3000/calorie/calorie/${user.uid}`
+      const uri = `http://192.168.10.3:3000/calorie/calorie/${user.uid}`
        return await fetch(uri)
        .then((response) => response.json())
        .then((result) => {
@@ -163,10 +164,10 @@ const calgraphs = ({navigation}) => {
          if (Platform.OS === "android") {
            NetInfo.fetch().then(state => {
              if (state.isConnected === true) {
-               alert("You are online!");
+              // alert("You are online!");
                readDataMongo()
              } else {
-               alert("You are offlinjdje!");
+              // alert("You are offlinjdje!");
                readData()
                
              }
@@ -181,7 +182,7 @@ const calgraphs = ({navigation}) => {
        }
 
        const fetch2 = async () => {
-        const uri = `http://192.168.0.109:3000/limit/calorie/${user.uid}`
+        const uri = `http://192.168.10.3:3000/limit/calorie/${user.uid}`
         return await fetch(uri)
         .then((response) => response.json())
         .then((result) => {

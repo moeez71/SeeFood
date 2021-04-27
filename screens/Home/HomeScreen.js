@@ -1,18 +1,18 @@
 import React, {useContext, useEffect}  from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import {AuthContext} from '../navigation/AuthProvider';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, LogBox } from 'react-native';
+import {AuthContext} from '../../navigation/AuthProvider';
 import NetInfo from "@react-native-community/netinfo";
 import { Text, Layout } from '@ui-kitten/components';
-import ImageSwiper from '../components/ImageSwiper';
+import ImageSwiper from '../../components/ImageSwiper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import nowTheme from '../constants/Theme'
-import TopNavHome from '../components/TopNavHome';
-import auth from '@react-native-firebase/auth';
+import nowTheme from '../../constants/Theme';
+import TopNavHome from '../../components/TopNavHome';
+var User = require('../../back/backend/models/user')
 
-var User = require('../back/backend/models/user')
 
+LogBox.ignoreAllLogs()
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
@@ -64,7 +64,7 @@ const HomeTabs = ({navigation}) => {
           // alert("You are online!");
           fetchAPI2()
         } else {
-          alert("You are offline!");
+          //alert("You are offline!");
           
         }
       });

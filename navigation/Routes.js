@@ -5,7 +5,6 @@ import {AuthContext} from './AuthProvider';
 
 import AuthStack from './AuthStack.android';
 import AppStack from './AppStack';
-import BottomNav from './BottomNav';
 
 
 

@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Chip } from 'react-native-paper';
-import { StyleSheet, ScrollView, Keyboard} from 'react-native';
+import { StyleSheet, ScrollView, Keyboard, LogBox} from 'react-native';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Input, Button } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import RecipeResults from './RecipeResults';
-import TopNav from '../components/TopNav';
+import TopNav from '../../components/TopNav';
 
     
+LogBox.ignoreAllLogs()
+
 const IngredientsToRecipe = ({navigation}) => {
 
   const [ingredients, setIngredients] = React.useState([]);

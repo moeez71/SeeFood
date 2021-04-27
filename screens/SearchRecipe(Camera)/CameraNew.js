@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View, Image, ScrollView,ActivityIndicator, SafeAreaView } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, ScrollView,ActivityIndicator, SafeAreaView, LogBox } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Text, Layout, List, ListItem, Button, Divider} from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
-import TopNavWithBack from '../components/TopNavWithBack';
+import TopNavWithBack from '../../components/TopNavWithBack';
+
+LogBox.ignoreAllLogs()
+
 
 const axiosClient = axios.create({
     baseURL: 'https://food-img-classifier.herokuapp.com',

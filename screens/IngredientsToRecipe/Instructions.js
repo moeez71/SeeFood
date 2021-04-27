@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, SafeAreaView, Text, Image, StyleSheet, Dimensions, FlatList, ActivityIndicator, ScrollView } from 'react-native';
-import Settings from '../Settings';
-import InstructionsComponent from '../components/instructionsComponent';
-import IngredientsComponent from '../components/ingredientsComponent';
-import TopNavWithBack from '../components/TopNavWithBack';
+import { View, SafeAreaView, Text, Image, StyleSheet, Dimensions, FlatList, ActivityIndicator, ScrollView, LogBox } from 'react-native';
+import Settings from '../../Settings';
+import InstructionsComponent from '../../components/instructionsComponent';
+import IngredientsComponent from '../../components/ingredientsComponent';
+import TopNavWithBack from '../../components/TopNavWithBack';
 
 const screenHeight = Math.round(Dimensions.get('window').height);
+
+LogBox.ignoreAllLogs()
 
 export default class Instructions extends Component {
   constructor(props){

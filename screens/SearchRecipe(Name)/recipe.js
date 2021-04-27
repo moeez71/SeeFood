@@ -1,10 +1,12 @@
 import React, {useState, useEffect}  from 'react';
 import { Icon, Input } from '@ui-kitten/components';
 import Ionicon from 'react-native-vector-icons/Ionicons';
-import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
+import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking, LogBox  } from 'react-native';
 
 import { Layout} from '@ui-kitten/components';
-import TopNav from '../components/TopNav';
+import TopNav from '../../components/TopNav';
+
+LogBox.ignoreAllLogs()
 
 
 const Recipe= ({navigation}) => {

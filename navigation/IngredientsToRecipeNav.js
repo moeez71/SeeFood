@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import IngredientsToRecipe from '../screens/IngredientsToRecipe';
-import RecipeResults from '../screens/RecipeResults';
-import Instructions from '../screens/Instructions';
+import IngredientsToRecipe from '../screens/IngredientsToRecipe/IngredientsToRecipe';
+import RecipeResults from '../screens/IngredientsToRecipe/RecipeResults';
+import Instructions from '../screens/IngredientsToRecipe/Instructions';
 
 const Stack = createStackNavigator();
 

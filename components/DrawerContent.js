@@ -11,13 +11,9 @@ import {
     Switch
 } from 'react-native-paper';
 import {
-    DrawerContentScrollView,
-    DrawerItem
+    DrawerContentScrollView
 } from '@react-navigation/drawer';
-import Icon from 'react-native-vector-icons/Ionicons';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import DrawerCustomItem from '../components/DrawerCustomItem';
+import DrawerCustomItem from './DrawerCustomItem';
 export default function DrawerContent({
     drawerPosition,
     navigation,
