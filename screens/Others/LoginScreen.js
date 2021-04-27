@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react';
-import { StyleSheet,TouchableOpacity,Platform, } from 'react-native';
-import FormInput from '../components/FormInput';
-import FormButton from '../components/FormButton';
-import SocialButton from '../components/SocialButton';
-import { AuthContext } from '../navigation/AuthProvider';
+import { StyleSheet,TouchableOpacity,Platform, LogBox} from 'react-native';
+import FormInput from '../../components/FormInput';
+import FormButton from '../../components/FormButton';
+import SocialButton from '../../components/SocialButton';
+import { AuthContext } from '../../navigation/AuthProvider';
 import { ApplicationProvider, Layout, Text, Divider, Spinner } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 
+
+LogBox.ignoreAllLogs()
 
 
 const LoginScreen = ({navigation}) => {

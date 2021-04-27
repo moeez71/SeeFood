@@ -1,6 +1,9 @@
 import React, {useState, useEffect}  from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
-import TopNavWithBack from '../components/TopNavWithBack';
+import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking, LogBox  } from 'react-native';
+import TopNavWithBack from '../../components/TopNavWithBack';
+
+LogBox.ignoreAllLogs()
+
 
 const Recipe2 = ({navigation, route}) => {
     var slug = route.params.Recipe 

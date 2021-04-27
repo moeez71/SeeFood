@@ -2,9 +2,9 @@ import React, {useState, useEffect}  from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking  } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Recipe2 from "../screens/recipe2";
-import CameraRecipe from '../screens/CameraRecipe';
-import CameraNew from '../screens/CameraNew';
+import Recipe2 from "../screens/SearchRecipe(Name)/recipe2";
+import CameraRecipe from '../screens/SearchRecipe(Camera)/CameraRecipe';
+import CameraNew from '../screens/SearchRecipe(Camera)/CameraNew';
 const Stack = createStackNavigator();
 
 

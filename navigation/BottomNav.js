@@ -1,7 +1,7 @@
 import React from 'react';
 import {BottomFabBar} from 'rn-wave-bottom-bar';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/Others/HomeScreen';
 import CameraStack from './CameraStack';
 import Icon from 'react-native-vector-icons/AntDesign';
 

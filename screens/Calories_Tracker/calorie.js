@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, StyleSheet, Keyboard , ScrollView  } from 'react-native';
+import { View, StyleSheet, Keyboard , ScrollView , LogBox  } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { ApplicationProvider, Text, Divider, Spinner } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -18,10 +18,11 @@ import DatePicker from 'react-native-datepicker'
 
 
 
-import {AuthContext} from '../navigation/AuthProvider';
-import TopNav from '../components/TopNav';
+import {AuthContext} from '../../navigation/AuthProvider';
+import TopNav from '../../components/TopNav';
 
 
+LogBox.ignoreAllLogs()
 
 
 const Calorie = ({navigation}) => {
@@ -50,7 +51,7 @@ const Calorie = ({navigation}) => {
 };
 
 const fetchAPI2 = async () => {
-  return await fetch('http://192.168.0.109:3000/calorie/adduser1', requestOptions)
+  return await fetch('http://192.168.10.3:3000/calorie/adduser1', requestOptions)
   .then(response => response.json())
   .then(data => console.log(data));
 }
@@ -71,19 +72,19 @@ const fetchAPI2 = async () => {
     try {
      await AsyncStorage.setItem(user.uid+"999", JSON.stringify(caldata))
      // console.log(getWant)
-      alert('Data successfully saved')
+     // alert('Data successfully saved')
       //fetchAPI2()
     } catch (e) {
-      alert('Failed to save the data to the storage')
+    //  alert('Failed to save the data to the storage')
     }
     NetInfo.fetch().then(state => {
       if (state.isConnected === true) {
         fetchAPI2()
-        alert("You are online in save!");
+      //  alert("You are online in save!");
         //readDataMongo()
         
       } else {
-        alert("You are offline in save 2!");
+      //  alert("You are offline in save 2!");
         //readData()
         //readData2()
       }
@@ -116,7 +117,7 @@ const fetchAPI2 = async () => {
 
 
 const readDataMongo = async () => {
-  const uri = `http://192.168.0.109:3000/calorie/calorie/${user.uid}`
+  const uri = `http://192.168.10.3:3000/calorie/calorie/${user.uid}`
    return await fetch(uri)
    .then((response) => response.json())
    .then((result) => {
@@ -135,11 +136,11 @@ const readDataMongo = async () => {
      if (Platform.OS === "android") {
        NetInfo.fetch().then(state => {
          if (state.isConnected === true) {
-           alert("You are online!");
+          // alert("You are online!");
            readDataMongo()
          } else {
-           alert("You are offlinjdje!");
-           readData2()
+           alert("You need to be online to access Calorie Tracker");
+           //readData2()
            
          }
        });
