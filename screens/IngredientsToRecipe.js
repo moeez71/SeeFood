@@ -30,6 +30,13 @@ const IngredientsToRecipe = ({navigation}) => {
     navigation.navigate('RecipeResults', {ingredients: ingredients});
   }
 
+  // React.useEffect(()=>{
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: [{name: 'IngredientScreen'}],
+  //     key: null,
+  //   }); 
+  // }, [])
   return (
     <Layout style={{flex: 1}}>
         <TopNav navigation={navigation} screenTitle="Make Recipes"/>

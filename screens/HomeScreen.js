@@ -1,20 +1,16 @@
 import React, {useContext, useEffect}  from 'react';
 import { View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
-import FormButton from '../components/FormButton';
-
 import {AuthContext} from '../navigation/AuthProvider';
 import NetInfo from "@react-native-community/netinfo";
-import { Text, Layout, List, ListItem, Button, TopNavigation} from '@ui-kitten/components';
-import Meals from '../components/Meals';
-import { Card } from 'react-native-paper';
+import { Text, Layout } from '@ui-kitten/components';
 import ImageSwiper from '../components/ImageSwiper';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../constants/Theme'
-import Theme from '../constants/Theme';
-import TopNav from '../components/TopNav';
+import TopNavHome from '../components/TopNavHome';
+import auth from '@react-native-firebase/auth';
+
 var User = require('../back/backend/models/user')
 
 
@@ -22,6 +18,7 @@ var User = require('../back/backend/models/user')
 //const {user} = useContext(AuthContext);
 //exports.user = user
 const HomeTabs = ({navigation}) => {
+
   const {user, logout} = useContext(AuthContext);
 
   const U1 = new User ({
@@ -87,7 +84,8 @@ const HomeTabs = ({navigation}) => {
     return (
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
-          <TopNav navigation={navigation} screenTitle="Home"/> 
+          <TopNavHome navigation={navigation} screenTitle="Home"/>
+          {/* <TopNav navigation={navigation} screenTitle="Home"/>  */}
           <ImageSwiper/>
           <View style={styles.categoryContainer}>
 
