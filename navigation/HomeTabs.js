@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import HomeScreen from '../screens/Others/HomeScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
 import PantryScreen from '../screens/Pantry/PantryScreen';
 import Naviagtor_M6 from './SearchRecipeStack';
-import Maps from "../screens/Restaurants_Finder/Map";
+import Maps from "../screens/RestaurantFinder/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
 import Calz from "./CalorieTrackerNav";
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -12,8 +12,8 @@ import { createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
-import ProfileScreen from '../screens/ProfileScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import EditProfileScreen from '../screens/Profile/EditProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createStackNavigator();

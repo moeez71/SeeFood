@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import SignupScreen from '../screens/Others/SignupScreen';
-import LoginScreen from '../screens/Others/LoginScreen';
+import SignupScreen from '../screens/Auth/SignupScreen';
+import LoginScreen from '../screens/Auth/LoginScreen';
 //import OnboardingScreen from '../screens/OnboardingScreen';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';

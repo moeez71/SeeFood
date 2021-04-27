@@ -1,16 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking, LogBox  } from 'react-native';
-
+import { View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-
-
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-
-import Calorie from '../screens/Calories_Tracker/calorie'
-
-import calgraphs from '../screens/Calories_Tracker/calgraphs'
-import calrecord from '../screens/Calories_Tracker/calrecord'
+import Calorie from '../screens/CaloriesTracker/calorie'
+import calgraphs from '../screens/CaloriesTracker/calgraphs'
+import calrecord from '../screens/CaloriesTracker/calrecord'
 
 
 const Stack2 = createStackNavigator();

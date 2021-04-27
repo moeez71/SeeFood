@@ -16,10 +16,10 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
-import TopNavWithBack from '../components/TopNavWithBack';
+import TopNavWithBack from '../../components/TopNavWithBack';
 import * as ImagePicker from 'expo-image-picker';
-import { AuthContext } from '../navigation/AuthProvider';
-import Theme from '../constants/Theme';
+import { AuthContext } from '../../navigation/AuthProvider';
+import Theme from '../../constants/Theme';
 
 
 

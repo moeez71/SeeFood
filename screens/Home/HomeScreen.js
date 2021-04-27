@@ -8,7 +8,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../../constants/Theme';
-
+import TopNavHome from '../../components/TopNavHome';
 var User = require('../../back/backend/models/user')
 
 

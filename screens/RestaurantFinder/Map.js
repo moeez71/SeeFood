@@ -2,11 +2,6 @@ import React, { Component, useEffect, useState } from "react";
 import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image, LogBox} from 'react-native';
 
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import MapViewDirections from 'react-native-maps-directions';
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-
 import StarRating from "../../components/stars";
 import { OpenMapDirections } from 'react-native-navigation-directions';
 import Geolocation from '@react-native-community/geolocation';

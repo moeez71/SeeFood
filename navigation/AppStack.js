@@ -1,10 +1,10 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Dimensions } from "react-native";
-import LogoutScreen from '../screens/Others/LogoutScreen';
+import LogoutScreen from '../screens/Auth/LogoutScreen';
 const { width } = Dimensions.get("screen");
 import HomeTabs, { ProfileStackScreen } from './HomeTabs';
-import DrawerContent from '../screens/DrawerContent';
+import DrawerContent from '../components/DrawerContent';
 import Theme from '../constants/Theme';
 
 const Drawer = createDrawerNavigator();

@@ -2,7 +2,6 @@ import React, {useContext, useState} from 'react';
 import { TouchableOpacity, Platform, StyleSheet, LogBox} from 'react-native';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
-import SocialButton from '../../components/SocialButton';
 import {AuthContext} from '../../navigation/AuthProvider';
 import { Layout, Text, Spinner } from '@ui-kitten/components';
 
