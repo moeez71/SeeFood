@@ -4,7 +4,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Dimensions } from "react-native";
 import HomeScreen from '../screens/Others/HomeScreen';
 import PantryScreen from "../screens/Pantry/PantryScreen";
-import Naviagtor_M6 from './recipe_nav_m6';
+import Naviagtor_M6 from './SearchRecipeStack';
 import Maps from "../screens/Restaurants_Finder/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -17,7 +17,7 @@ import nowTheme from "../constants/Theme";
 
 const { width } = Dimensions.get("screen");
 
-import Calz from "./calnav"
+import Calz from "./CalorieTrackerNav"
 import HomeTabs from './HomeTabs';
 
  const Stack = createStackNavigator();

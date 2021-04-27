@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import HomeScreen from '../screens/Others/HomeScreen';
 import PantryScreen from '../screens/Pantry/PantryScreen';
-import Naviagtor_M6 from './recipe_nav_m6';
+import Naviagtor_M6 from './SearchRecipeStack';
 import CameraStack from './CameraStack';
 import Maps from "../screens/Restaurants_Finder/Map";
 import IngredientsToRecipeNav from '../navigation/IngredientsToRecipeNav';
-import Calz from "./calnav"
+import Calz from "./CalorieTrackerNav"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
