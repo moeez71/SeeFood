@@ -8,7 +8,7 @@ import { AuthContext } from '../navigation/AuthProvider';
 import { Avatar } from 'react-native-paper';
 
 const ProfileIcon = (props) =>{
-  const {user} = useContext(AuthContext);
+  const {userData} = useContext(AuthContext);
 
   return (
   <TouchableOpacity
@@ -17,7 +17,7 @@ const ProfileIcon = (props) =>{
         <View style={styles.categoryIcon}>
         <Avatar.Image 
             source={{
-              uri: user.photoURL,
+              uri: userData.photoURL,
             }}
             size={40}
           />

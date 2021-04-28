@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import {
     Avatar,
@@ -14,6 +14,8 @@ import {
     DrawerContentScrollView
 } from '@react-navigation/drawer';
 import DrawerCustomItem from './DrawerCustomItem';
+import { AuthContext } from '../navigation/AuthProvider';
+
 export default function DrawerContent({
     drawerPosition,
     navigation,
@@ -37,6 +39,8 @@ const screens = [
     },
 ];
 
+const {userData} = useContext(AuthContext);
+
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView>
@@ -45,13 +49,13 @@ const screens = [
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
                                 source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                                    uri: userData.photoURL
                                 }}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                                <Title style={styles.title}>{userData.firstName} {userData.lastName}</Title>
+                                {/* <Caption style={styles.caption}>{userData.firstName} {userData.lastName}</Caption> */}
                             </View>
                         </View>
 

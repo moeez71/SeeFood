@@ -22,26 +22,23 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import Theme from '../../constants/Theme';
 
 
-
 const EditProfileScreen = ({navigation, ...props}) => {
   const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const {colors} = useTheme();
-  const {user} = useContext(AuthContext);
-  const[firstName, setFirstName] = useState("Hammad");
-  const[lastName, setLastName] = useState("Ahmed");
-  const[email, setEmail] = useState("hamma@gmail.com");
+  const {userData, setUserData} = useContext(AuthContext);
+  const[firstName, setFirstName] = useState(null);
+  const[lastName, setLastName] = useState(null);
+  const[email, setEmail] = useState(null);
   const[phone, setPhone] = useState("+9234000000");
   const[country, setCountry] = useState("Pakistan");
   const[city, setCity] = useState("Islamabad");
 
-  const setFields = () => {
-    let fullName = user.displayName;
-    let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
-    console.log(nameArray);
-    setFirstName(nameArray[0]);
-    setLastName(nameArray[nameArray.length - 1]);
-
-    setEmail(user.email);
+  const setFields = async() => {
+    
+    setFirstName(userData.firstName);
+    setLastName(userData.lastName);
+    setEmail(userData.email);
+    setImage(userData.photoURL);
   }
 
   useEffect(()=>{
@@ -61,6 +58,15 @@ const EditProfileScreen = ({navigation, ...props}) => {
         quality: 0.7
     });
     await setImage(response.uri);
+    // await setUserData({
+    //   uid: userData.uid,
+    //   firstName: userData.firstName,
+    //   lastName: userData.lastName,
+    //   email: userData.email,
+    //   phoneNumber: userData.phoneNumber,
+    //   photoURL: response.uri,
+    //   providerId: userData.providerData,
+    // });
     this.bs.current.snapTo(1);
   }
 
@@ -72,6 +78,15 @@ const EditProfileScreen = ({navigation, ...props}) => {
       quality: 0.7
     });
     await setImage(response.uri);
+    // await setUserData({
+    //   uid: userData.uid,
+    //   firstName: userData.firstName,
+    //   lastName: userData.lastName,
+    //   email: userData.email,
+    //   phoneNumber: userData.phoneNumber,
+    //   photoURL: response.uri,
+    //   providerId: userData.providerData,
+    // });
     console.log(response);
     this.bs.current.snapTo(1);
   }
@@ -169,7 +184,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontFamily: "Nexa Bold",}}>
-            {user.displayName}
+          {userData.firstName} {userData.lastName}
           </Text>
         </View>
 

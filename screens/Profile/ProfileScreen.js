@@ -24,8 +24,8 @@ const data = [
 
 const ProfileScreen = ({navigation}) => {
 
-  const {user} = useContext(AuthContext);
-  console.log(user.photoURL);
+  const {userData} = useContext(AuthContext);
+  console.log(userData.photoURL);
   return (
     <SafeAreaView>
       <TopNavProfile navigation={navigation} screenTitle="Profile"/>
@@ -35,7 +35,7 @@ const ProfileScreen = ({navigation}) => {
         <Layout style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
             source={{
-              uri: user.photoURL,
+              uri: userData.photoURL,
             }}
             size={80}
           />
@@ -43,8 +43,8 @@ const ProfileScreen = ({navigation}) => {
             <Title style={[styles.title, {
               marginTop:15,
               marginBottom: 5,
-            }]}>{user.displayName}</Title>
-            <Caption style={styles.caption}>{user.displayName}</Caption>
+            }]}>{userData.firstName} {userData.lastName}</Title>
+            <Caption style={styles.caption}>{userData.firstName} {userData.lastName}</Caption>
           </Layout>
         </Layout>
       </Layout>
@@ -56,11 +56,11 @@ const ProfileScreen = ({navigation}) => {
         </Layout>
         <Layout style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{!user.phoneNumber? "+92340000000": user.phoneNumber}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{!userData.phoneNumber? "+92340000000": userData.phoneNumber}</Text>
         </Layout>
         <Layout style={styles.row}>
           <Icon name="email" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{user.email}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{userData.email}</Text>
         </Layout>
       </Layout>
 

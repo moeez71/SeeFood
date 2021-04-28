@@ -23,6 +23,7 @@ const U1 = new User ({
 // })
 // })
 
+
 router.get('/', function(req, res, next) {
   User.find().exec(function(error,results){
     if(error){

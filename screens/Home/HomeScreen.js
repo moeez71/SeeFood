@@ -9,18 +9,20 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../../constants/Theme';
 import TopNavHome from '../../components/TopNavHome';
+import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
+
 var User = require('../../back/backend/models/user')
 
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
 //exports.user = user
 const HomeTabs = ({navigation}) => {
 
-  const {user, logout} = useContext(AuthContext);
-
+  const {user, setUserData, userData} = useContext(AuthContext);
+  var thisUser = {};
   const U1 = new User ({
     id: user.uid
   })
@@ -33,30 +35,78 @@ const HomeTabs = ({navigation}) => {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-     id : user.uid
-    })
-};
+    // body: JSON.stringify({
+    //  id : user.uid
+    // })
+    body: JSON.stringify(thisUser)
+  };
+  
+  const prepareUserData = async() => {
+    let fullName = user.displayName;
+    let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
+    let tmpUser = user.providerData[0];
+    if (tmpUser.providerId.includes('facebook')) {
+      try {
+        const currentAccessToken = await AccessToken.getCurrentAccessToken()
+      
+        const graphRequest = new GraphRequest('/me', {
+          accessToken: currentAccessToken.accessToken,
+          parameters: {
+            fields: {
+              string: 'picture.type(large)',
+            },
+          },
+        }, async(error, result) => {
+          if (error) {
+            console.log(error)
+          } else {
+            console.log(result.picture.data.url);
+            console.log(userData);
+            thisUser = {
+              uid: tmpUser.uid,
+              firstName: nameArray[0],
+              lastName: nameArray[nameArray.length - 1],
+              email: tmpUser.email,
+              phoneNumber: tmpUser.phone,
+              photoURL: result.picture.data.url,
+              providerId: tmpUser.providerId,
+            };
+            await setUserData(thisUser);
+            // setUserData({...userData, photoURL: result.picture.data.url})
+          }
+        })
+      
+        await new GraphRequestManager().addRequest(graphRequest).start();
+      } catch (error) {
+        console.error(error)
+      }
+    }
+   else {
+      thisUser = {
+      uid: tmpUser.uid,
+      firstName: nameArray[0],
+      lastName: nameArray[nameArray.length - 1],
+      email: tmpUser.email,
+      phoneNumber: tmpUser.phone,
+      photoURL: tmpUser.photoURL,
+      providerId: tmpUser.providerId,
+    };
+
+    await setUserData(thisUser)
+  }
+
+  }
+  
+  
   const fetchAPI2 = async () => {
-  return await fetch('http://localhost:3000/users/adduser', requestOptions)
+  return await fetch('https://localhost:3000/users/adduser', requestOptions)
   .then(response => response.json())
   .then(data => console.log(data));
 }
 
-  // const uri = "http://192.168.10.2:3000/users/add"
-  // const fetchAPI = async ()=> {
-  //   return await fetch(uri)
-  //   .then((response) => response.json())
-  //   .then((result) => {
-  //    console.log(result)
-  //     console.log("User succerjrgn")
-  //   }
-  //   )
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });}
-
   const CheckConnectivity = () => {
+    prepareUserData();
+    // getFacebookDp();
     // For Android devices
     if (Platform.OS === "android") {
       NetInfo.fetch().then(state => {
@@ -64,7 +114,7 @@ const HomeTabs = ({navigation}) => {
           // alert("You are online!");
           fetchAPI2()
         } else {
-          //alert("You are offline!");
+          // alert("You are offline!");
           
         }
       });
@@ -73,6 +123,7 @@ const HomeTabs = ({navigation}) => {
     
 
     useEffect(() => {
+      // setUserData(user.providerData);
     // fetchAPI2()
      CheckConnectivity()
      NetInfo.fetch().then(state => {
