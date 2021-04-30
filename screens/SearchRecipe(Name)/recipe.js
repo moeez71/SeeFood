@@ -38,7 +38,7 @@ const Recipe= ({navigation}) => {
         });}
 
         const renderIcon = (props) => (
-          <TouchableOpacity onPress={()=>navigation.navigate("Camera")}>
+          <TouchableOpacity onPress={()=>navigation.navigate("CameraNew")}>
             <Ionicon name='camera-outline' size={25}/>
           </TouchableOpacity>
         );

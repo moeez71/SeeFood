@@ -22,6 +22,7 @@ const SocialButton = ({
       <View style={styles.btnTxtWrapper}>
         <Text style={[styles.buttonText, {color: color}]}>{buttonTitle}</Text>
       </View>
+
     </TouchableOpacity>
   );
 };
@@ -31,14 +32,15 @@ export default SocialButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: 10,
     width: '100%',
     height: windowHeight / 15,
-    padding: 10,
     flexDirection: 'row',
-    borderRadius: 3,
+    borderRadius: 50,
+    margin: 5,
+    padding: 10
   },
   iconWrapper: {
+    // padding: 10,
     width: 30,
     justifyContent: 'center',
     alignItems: 'center',
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'Lato-Regular',
+    // fontWeight: 'bold',
+    fontFamily: 'Nexa Bold',
   },
 });

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import {
     Avatar,
@@ -15,6 +15,8 @@ import {
 } from '@react-navigation/drawer';
 import DrawerCustomItem from './DrawerCustomItem';
 import { AuthContext } from '../navigation/AuthProvider';
+import LogoutModal from './LogoutModal';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function DrawerContent({
     drawerPosition,
@@ -40,7 +42,11 @@ const screens = [
 ];
 
 const {userData} = useContext(AuthContext);
+const [modalVisible, setModalVisible] = useState(false);
 
+const handleLogoutClick = () => {
+    setModalVisible(!modalVisible);
+}
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView>
@@ -80,7 +86,8 @@ const {userData} = useContext(AuthContext);
                             navigation={navigation}
                             focused={state.index === index? true: false}
                             iconName={item.iconName}
-                            nextScreen={item.nextScreen}
+                            onPressHandle={() => navigation.navigate(`${item.nextScreen}`)}
+                            // nextScreen={item.nextScreen}
                         />
                     )}
                     </Drawer.Section>
@@ -99,12 +106,19 @@ const {userData} = useContext(AuthContext);
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
+            <TouchableOpacity onPress={()=>setModalVisible(true)}>
                         <DrawerCustomItem 
                             title="logout"
                             navigation={navigation}
                             focused={false}
                             iconName="sign-out"
                             nextScreen="LogoutScreen"
+                            // onPressHandle={()=>}
+                        />
+            </TouchableOpacity>
+                        <LogoutModal 
+                            makeVisible={modalVisible}
+                            onCancel={() => setModalVisible(false)}
                         />
             </Drawer.Section>
         </View>

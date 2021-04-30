@@ -14,6 +14,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import EditProfileScreen from '../screens/Profile/EditProfileScreen';
+import CameraStack from './CameraStack';
+
+
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createStackNavigator();
