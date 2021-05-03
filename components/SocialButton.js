@@ -32,15 +32,16 @@ export default SocialButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
+    // opacity: 0.9,
     width: '100%',
     height: windowHeight / 15,
     flexDirection: 'row',
     borderRadius: 50,
     margin: 5,
-    padding: 10
+    padding: 10,
+    
   },
   iconWrapper: {
-    // padding: 10,
     width: 30,
     justifyContent: 'center',
     alignItems: 'center',
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    // fontWeight: 'bold',
     fontFamily: 'Nexa Bold',
   },
 });

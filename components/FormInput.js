@@ -28,6 +28,7 @@ const FormInput = ({labelValue, placeholderText, iconType,isFieldEmpty, isFieldV
         placeholder={placeholderText}
         textStyle={styles.inputText}
         status={handleStatus()}
+        returnKeyType="next"
         accessoryLeft={() => <AntDesign name={iconType} color="#567" size={25}/>}
         {...rest}
       />
@@ -43,6 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 50,
     margin: 5,
+    opacity: 0.9
   },  
   inputText : {
     fontFamily: 'Nexa Regular'

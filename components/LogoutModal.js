@@ -18,12 +18,14 @@ export default function LogoutModal(props) {
       <Modal
         style={styles.container}
         visible={props.makeVisible}
-        onBackdropPress={props.onCancel}>
+        onBackdropPress={props.onCancel}
+        backdropStyle={styles.backdrop}
+        >
         <Card disabled={true} style={styles.cardStyle}
         header={()=><Text style={styles.headerText}>Are you sure?</Text>}>
           <View style={{flexDirection: "row", alignItems: 'center'}}>
           <Button 
-          style={{...styles.buttonStyle, backgroundColor: "white"}} 
+          style={{...styles.buttonStyle, backgroundColor: "#feece6"}} 
           onPress={props.onCancel} 
           appearance="outline"
           size="large"
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     backdrop: {
-      backgroundColor: 'red',
+      opacity: 0.5
     },
     buttonStyle: {
         margin: 2,
@@ -64,7 +66,8 @@ const styles = StyleSheet.create({
         borderColor: Theme.COLORS.PRIMARY,
     },
     headerText: {
-        fontFamily: "Nexa Regular",
+        marginTop: 10,
+        fontFamily: "Nexa Bold",
         fontSize: 18,
         color: Theme.COLORS.PRIMARY
     }

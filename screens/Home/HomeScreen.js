@@ -10,6 +10,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../../constants/Theme';
 import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
+import RecipeCard from '../../components/RecipeCard';
+import { ScrollView } from 'react-native-gesture-handler';
 
 var User = require('../../back/backend/models/user')
 
@@ -133,10 +135,11 @@ const HomeTabs = ({navigation}) => {
       }, [])
     
     return (
+      
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
           <TopNavHome navigation={navigation} screenTitle="Home"/>
-          {/* <TopNav navigation={navigation} screenTitle="Home"/>  */}
+          <ScrollView>
           <ImageSwiper/>
           <View style={styles.categoryContainer}>
 
@@ -202,6 +205,7 @@ const HomeTabs = ({navigation}) => {
 
             
           </View>
+          </ScrollView>
       </Layout>
       </SafeAreaView>
         

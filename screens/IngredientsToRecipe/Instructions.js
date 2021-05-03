@@ -100,7 +100,7 @@ export default class Instructions extends Component {
                 />
               </View>
             )}
-            <Text style={{...styles.title, fontSize: 22}}>Instructions</Text>
+            <Text style={{...styles.title, fontSize: 22, fontFamily: "Nexa Bold"}}>Instructions</Text>
             {this.state.isLoading ? <ActivityIndicator /> : (
               <View style={styles.flat}>
                 <FlatList 
@@ -140,19 +140,19 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontFamily: 'ComicNeue-Bold',
+    fontFamily: 'Nexa Bold',
     color: '#1B1B13',
     textAlign: 'center',
     marginTop: 24
   },
   subtitle: {
     fontSize: 16,
-    fontFamily: 'ComicNeue-Regular',
+    fontFamily: 'Nexa Regular',
     color: '#000'  
   },
   answer: {
     fontSize: 16,
-    fontFamily: 'ComicNeue-Light',
+    fontFamily: 'Nexa Light',
     color: '#000'
   },
   horizontal: {

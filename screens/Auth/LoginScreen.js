@@ -106,7 +106,7 @@ const LoginScreen = ({navigation}) => {
           <Layout style={styles.container}>
           <ImageBackground source={require('../../assets/images/bg.png')} style={styles.bgImage}>
           {/* <Text style={styles.titleText}>SeeFood</Text> */}
-          <Image source={require('../../assets/images/shazam.png')} 
+          <Image source={require('../../assets/images/seeFood.png')} 
           style={styles.logo} 
           resizeMode="center"/>
           <Divider/>
@@ -157,16 +157,16 @@ const LoginScreen = ({navigation}) => {
               <SocialButton
                 buttonTitle="Sign In with Facebook"
                 btnType="facebook-f"
-                color="#4867aa"
-                backgroundColor="#e6eaf4"
+                color="white"
+                backgroundColor="#3b5998"
                 onPress={() => facebookLogin()}
               />
               {/* <Layout style={{backgroundColor: 'rgba(52, 52, 52, alpha)',}}></Layout> */}
               <SocialButton
                 buttonTitle="Sign In with Google"
                 btnType="google"
-                color="#de4d41"
-                backgroundColor="#f5e7ea"
+                color="white"
+                backgroundColor="#DB4437"
                 onPress={() => googleLogin()}
               />
               </>
@@ -204,8 +204,8 @@ const styles = StyleSheet.create({
       alignItems: "center",
     },
     logo: {
-      height: 200,
-      width: 200,
+      height: 100,
+      width: 300,
       // resizeMode: 'cover',
     },
     titleText: {

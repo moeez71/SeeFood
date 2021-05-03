@@ -7,6 +7,7 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import TopNavWithBack from '../../components/TopNavWithBack';
+import RecipeCard from '../../components/RecipeCard';
 
 LogBox.ignoreAllLogs()
 
@@ -91,33 +92,46 @@ const RecipeResults = ({navigation, route}) => {
         </Layout>
         );
     
+      // const renderItem = ({ item, index }) => (
+      //   <ListItem
+      //     title={`${item.title}`}
+      //     description={`${item.servings} ${index + 1}`}
+      //     accessoryRight={renderItemAccessory}
+      //     ItemSeparatorComponent={<Divider />}
+      //     onPress={() => navigation.navigate('Instructions', {
+      //                                                                       id: item.id, 
+      //                                                                       title: item.title, 
+      //                                                                       servings: item.servings,
+      //                                                                       readyInMinutes: item.readyInMinutes,
+      //                                                                       img: item.image
+      //                                                                   })}
+      //   >
+      //   <Layout 
+      //   level='3'
+      //   style={styles.row}>
+      //   <Layout level='3' style={styles.innerRow}>
+      //       <Avatar source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}/>
+      //       <Text> {item.title}</Text>  
+      //   </Layout>   
+      //       <AntDesign name="right" color="#567" size={18}/>                                                           
+      //   </Layout>
+      //   </ListItem>
+      // );
+
       const renderItem = ({ item, index }) => (
-        <ListItem
-          title={`${item.title}`}
-          description={`${item.servings} ${index + 1}`}
-        //   accessoryLeft={<Avatar source={require('./yoda.jpeg')}/>}
-          accessoryRight={renderItemAccessory}
-          ItemSeparatorComponent={<Divider />}
-          onPress={() => navigation.navigate('Instructions', {
+        <RecipeCard 
+        title={item.title} 
+        imageURL={item.image}
+        key={index}
+        handlePress={() => navigation.navigate('Instructions', {
                                                                             id: item.id, 
                                                                             title: item.title, 
                                                                             servings: item.servings,
                                                                             readyInMinutes: item.readyInMinutes,
                                                                             img: item.image
-                                                                        })}
-        >
-        <Layout 
-        level='3'
-        style={styles.row}>
-        <Layout level='3' style={styles.innerRow}>
-            <Avatar source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}/>
-            <Text> {item.title}</Text>  
-        </Layout>   
-            <AntDesign name="right" color="#567" size={18}/>                                                           
-        </Layout>
-        </ListItem>
+                                                                        })}  
+        />
       );
-
     return (
         <Layout style={{flex: 1}}>
             <TopNavWithBack navigation={navigation} screenTitle="Recipes"/>
