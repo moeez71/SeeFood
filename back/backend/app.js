@@ -40,6 +40,7 @@ app.use('/pantry', pantryRouter)
 app.use('/calorie', calorieRouter)
 app.use('/limit', calorieLimit)
 
+const PORT= process.env.PORT || 5000;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -56,5 +57,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
 
 module.exports = app;

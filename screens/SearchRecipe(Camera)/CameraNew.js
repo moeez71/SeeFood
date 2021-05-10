@@ -173,7 +173,6 @@ export default function CameraNew({navigation, route}) {
                         <List
                         style={styles.container}
                         data={hardPred}
-                        ItemSeparatorComponent={Divider}
                         renderItem={renderItem}
                         />
                     </View>

@@ -67,7 +67,7 @@ function HomeTabs({navigation}) {
         name="PantryScreen"
         // options={{ tabBarIcon: tabBarIcon('cart-outline', 'Pantry') }}
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('fast-food-outline', 'pantry'), 
+          tabBarIcon: tabBarIcon('cart-outline', 'pantry'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'PantryScreen';
             if (routeName === 'PantryScreen') {

@@ -16,7 +16,6 @@ import { AuthContext } from '../../navigation/AuthProvider';
 
 const data = [
   "Your Favorites",
-  "Payment",
   "Tell Your Friends",
   "Support",
   "Settings"
@@ -69,12 +68,12 @@ const ProfileScreen = ({navigation}) => {
             borderRightColor: '#dddddd',
             borderRightWidth: 1
           }]}>
-            <Title>₹140.50</Title>
-            <Caption>Wallet</Caption>
+            <Title>4</Title>
+            <Caption>Saved Recipes</Caption>
           </Layout>
           <Layout style={styles.infoBox}>
-            <Title>12</Title>
-            <Caption>Orders</Caption>
+            <Title>2</Title>
+            <Caption>Saved Places</Caption>
           </Layout>
       </Layout>
       </Layout>
@@ -133,7 +132,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuWrapper: {
-    paddingTop: 10,
+    paddingTop: 40,
   },
   menuItem: {
     flexDirection: 'row',

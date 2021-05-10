@@ -7,7 +7,7 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import { ApplicationProvider, Layout, Text, Divider, Spinner } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
 import Theme from '../../constants/Theme';
-
+import BurgerLoader from '../../components/loaders/BurgerLoader.js';
 
 LogBox.ignoreAllLogs()
 
@@ -101,6 +101,9 @@ const LoginScreen = ({navigation}) => {
     await login(email, password);
     await setIsLoading(false)
   }
+
+    if (isLoading)
+      return (<BurgerLoader />)
 
     return (
           <Layout style={styles.container}>

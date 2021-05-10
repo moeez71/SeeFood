@@ -20,18 +20,23 @@ import TopNavWithBack from '../../components/TopNavWithBack';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Theme from '../../constants/Theme';
+import axios from 'axios';
+import PopUp from '../../components/PopUp';
+
+
 
 
 const EditProfileScreen = ({navigation, ...props}) => {
   const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const {colors} = useTheme();
-  const {userData, setUserData} = useContext(AuthContext);
+  const {userData, setUserData, user} = useContext(AuthContext);
   const[firstName, setFirstName] = useState(null);
   const[lastName, setLastName] = useState(null);
   const[email, setEmail] = useState(null);
   const[phone, setPhone] = useState("+9234000000");
   const[country, setCountry] = useState("Pakistan");
   const[city, setCity] = useState("Islamabad");
+  const [popVisible, setPopVisible] = useState(false);
 
   const setFields = async() => {
     
@@ -44,6 +49,40 @@ const EditProfileScreen = ({navigation, ...props}) => {
   useEffect(()=>{
     setFields();
   }, []);
+
+  const handleSubmit = async() => {
+
+    let tmp = {
+      uid: userData.uid,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phone,
+      photoURL: userData.photoURL,
+      providerId: userData.providerId,
+    };
+
+    await setUserData(tmp);
+    user.updateProfile({displayName: firstName + ' ' + lastName});
+
+    axios.post('http://192.168.43.123:5000/users/updateUser', tmp, {
+      headers: {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+    
+        }
+      }
+    })
+    .then(res => {
+      console.log(res.data);
+      setPopVisible(true);
+      alert("Details Updated Successfully!")
+    })
+    .catch(e => e.message)
+
+  }
+
   const takePhotoFromCamera = async() => {
     const options = {
       mediaType: 'photo',
@@ -94,6 +133,9 @@ const EditProfileScreen = ({navigation, ...props}) => {
   bs = React.createRef();
   fall = new Animated.Value(1);
 
+  if (popVisible)
+    return (<PopUp makeVisible={popVisible} changeVisibility={setPopVisible(false)}/>);
+
   renderInner = () => (
     <View style={styles.panel}>
       <View style={{alignItems: 'center'}}>
@@ -126,6 +168,8 @@ const EditProfileScreen = ({navigation, ...props}) => {
       </View>
     </View>
   );
+
+  
 
   return (
     <View style={styles.container}>
@@ -223,6 +267,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
         <View style={styles.action}>
           <Feather name="phone" color={colors.text} size={20} />
           <TextInput
+            editable={false}
             value={phone}
             onChangeText={(text) => setPhone(text)}
             placeholder="Phone"
@@ -241,6 +286,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
           <FontAwesome name="envelope-o" color={colors.text} size={20} />
           <TextInput
             value={email}
+            editable={false}
             onChangeText={(text) => setEmail(text)}
             placeholder="Email"
             placeholderTextColor="#666666"
@@ -287,7 +333,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
           />
         </View>
         <TouchableOpacity style={styles.commandButton} 
-        // onPress={() => {}}
+        onPress={() => handleSubmit()}
         >
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
@@ -305,7 +351,7 @@ const styles = StyleSheet.create({
   },
   commandButton: {
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 50,
     backgroundColor: Theme.COLORS.PRIMARY,
     alignItems: 'center',
     marginTop: 10,
@@ -356,7 +402,7 @@ const styles = StyleSheet.create({
   },
   panelButton: {
     padding: 13,
-    borderRadius: 10,
+    borderRadius: 50,
     backgroundColor: Theme.COLORS.PRIMARY,
     alignItems: 'center',
     marginVertical: 7,

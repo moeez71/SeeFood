@@ -12,6 +12,7 @@ import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import RecipeCard from '../../components/RecipeCard';
 import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 var User = require('../../back/backend/models/user')
 
@@ -89,7 +90,7 @@ const HomeTabs = ({navigation}) => {
       firstName: nameArray[0],
       lastName: nameArray[nameArray.length - 1],
       email: tmpUser.email,
-      phoneNumber: tmpUser.phone,
+      phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
       photoURL: tmpUser.photoURL,
       providerId: tmpUser.providerId,
     };
@@ -101,10 +102,20 @@ const HomeTabs = ({navigation}) => {
   
   
   const fetchAPI2 = async () => {
-  return await fetch('https://localhost:3000/users/adduser', requestOptions)
-  .then(response => response.json())
-  .then(data => console.log(data));
-}
+  // return await fetch('http://192.168.43.123:5000/users/adduser', requestOptions)
+  axios.get("http://192.168.43.123:5000/users")
+  .then(res => console.log("okay"));
+  console.log(thisUser);
+  axios.post('http://192.168.43.123:5000/users/register', thisUser, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+
+    }
+  })
+  .then(res => console.log(res.data))
+  .catch(e => console.log(e.message))
+  }
 
   const CheckConnectivity = () => {
     prepareUserData();
