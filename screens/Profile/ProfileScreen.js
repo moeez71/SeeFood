@@ -27,7 +27,7 @@ const ProfileScreen = ({navigation}) => {
   const {userData} = useContext(AuthContext);
   console.log(userData.photoURL);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>
       <TopNavProfile navigation={navigation} screenTitle="Profile"/>
       {/* <TopNavWithBack navigation={navigation} screenTitle="Profile"/> */}
       <Layout>
@@ -98,6 +98,7 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white"
   },
   userInfoSection: {
     paddingHorizontal: 30,
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuWrapper: {
-    marginTop: 10,
+    paddingTop: 10,
   },
   menuItem: {
     flexDirection: 'row',

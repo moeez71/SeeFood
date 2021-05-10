@@ -11,10 +11,10 @@ function HeartReact(props) {
     return (
         <TouchableOpacity
         onPress={() => setHeartFilled(!heartFilled)}
-        style={{height: 50, width: 50}}
+        style={{height: 40, width: 40, marginTop: 5}}
         >
-            {heartFilled? <Icon name="heart" size={40} color="red"/> 
-            : <Icon name="heart-outline" size={40} color="black"/>}
+            {heartFilled? <Icon name="heart" size={36} color="red"/> 
+            : <Icon name="heart-outline" size={36} color="black"/>}
         </TouchableOpacity>
     );
 }

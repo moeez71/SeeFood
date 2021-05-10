@@ -66,13 +66,16 @@ export default class Instructions extends Component {
   }
 
   render() {
-    const { img, title, servings, readyInMinutes } = this.props.route.params;
+    const { img, title, servings, readyInMinutes, fromRecipe } = this.props.route.params;
     return (
       <SafeAreaView style={{flex:1}}>
         <View style={{flex:1}}>
           <TopNavWithBack navigation={this.props.navigation} screenTitle="Instructions" />
           <View style={styles.header}>
+            {fromRecipe? <Image style={styles.img} source={{uri: img}}/> :  
             <Image style={styles.img} source={{uri: `https://spoonacular.com/recipeImages/${img}`}}/>
+            }
+            
           </View>
           <ScrollView style={styles.containerInfo}>
             <View style={{borderWidth: 3, alignSelf: 'center', width: 65, borderColor: 'rgba(219, 219, 219, 0.8)', borderRadius: 5, marginTop: 16}}/>

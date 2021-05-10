@@ -65,7 +65,7 @@ const handleLogoutClick = () => {
                             </View>
                         </View>
 
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
                                 <Caption style={styles.caption}>Following</Caption>
@@ -74,7 +74,7 @@ const handleLogoutClick = () => {
                                 <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
                                 <Caption style={styles.caption}>Followers</Caption>
                             </View>
-                        </View>
+                        </View> */}
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
@@ -97,9 +97,9 @@ const handleLogoutClick = () => {
                         >
                             <View style={styles.preference}>
                                 <Text style={styles.caption}>Dark Theme</Text>
-                                {/* <View pointerEvents="none">
-                                    <Switch value={paperTheme.dark}/>
-                                </View> */}
+                                <View pointerEvents="none">
+                                    <Switch/>
+                                </View>
                             </View>
                         </TouchableRipple>
                     </Drawer.Section>

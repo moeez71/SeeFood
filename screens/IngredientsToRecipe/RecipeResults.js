@@ -49,18 +49,13 @@ const RecipeResults = ({navigation, route}) => {
         var ingredients= route.params.ingredients;
         var ingredientString = ingredients.join(',');
         console.log(ingredientString);
-
         try{
-            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=10&instructionsRequired=true&apiKey=${Settings.API_KEY}`);
+            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=5&instructionsRequired=true&apiKey=${Settings.API_KEY}`);
+            // const req = await fetch(`${Settings.URL}findByIngredients?ingredients=${ingredientString}&limitLicense=true&number=100&ranking=2&ignorePantry=true&apiKey=${Settings.API_KEY}`);
             const result = await req.json();
-            // console.log(result.results);
+            console.log(result.results);
             await setRecipes(result.results);
-            // for(let item of result.results){
-            //     setRecipes([...recipes, item]);
-            //     setRecipeCount(recipeCount + 1);
-            //     console.log(item);
-            //     // this.state.recipes.push(items);
-            // }
+           
             console.log(recipeCount);
         }
         catch(err){
@@ -77,52 +72,13 @@ const RecipeResults = ({navigation, route}) => {
         getRecipes();
     }, []);
 
-    const renderItemAccessory = (props) => (
-        <AntDesign name="right" color="#567" size={18}/>
-      );
     
-      const itemImg = ({image, ...rest}) => (
-        <Layout style={{ width: 200, height: 150}}>
-                <Image 
-                style={styles.img} 
-                resizeMode='contain' 
-                source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}
-                {...rest}
-                />
-        </Layout>
-        );
-    
-      // const renderItem = ({ item, index }) => (
-      //   <ListItem
-      //     title={`${item.title}`}
-      //     description={`${item.servings} ${index + 1}`}
-      //     accessoryRight={renderItemAccessory}
-      //     ItemSeparatorComponent={<Divider />}
-      //     onPress={() => navigation.navigate('Instructions', {
-      //                                                                       id: item.id, 
-      //                                                                       title: item.title, 
-      //                                                                       servings: item.servings,
-      //                                                                       readyInMinutes: item.readyInMinutes,
-      //                                                                       img: item.image
-      //                                                                   })}
-      //   >
-      //   <Layout 
-      //   level='3'
-      //   style={styles.row}>
-      //   <Layout level='3' style={styles.innerRow}>
-      //       <Avatar source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}/>
-      //       <Text> {item.title}</Text>  
-      //   </Layout>   
-      //       <AntDesign name="right" color="#567" size={18}/>                                                           
-      //   </Layout>
-      //   </ListItem>
-      // );
-
       const renderItem = ({ item, index }) => (
         <RecipeCard 
         title={item.title} 
         imageURL={item.image}
         key={index}
+        id={item.id}
         handlePress={() => navigation.navigate('Instructions', {
                                                                             id: item.id, 
                                                                             title: item.title, 
@@ -133,7 +89,7 @@ const RecipeResults = ({navigation, route}) => {
         />
       );
     return (
-        <Layout style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <TopNavWithBack navigation={navigation} screenTitle="Recipes"/>
           <Layout style={styles.container}>
           {
@@ -146,7 +102,7 @@ const RecipeResults = ({navigation, route}) => {
               />
           }
           </Layout>
-        </Layout>
+        </SafeAreaView>
     );
 }
 
@@ -156,9 +112,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        // backgroundColor: 'red'
     },
     tab: {
         height: 192,
+        backgroundColor: "white"
       },
       row: {
         flexDirection: 'row',
