@@ -24,7 +24,7 @@ const RecipeSearch = ({navigation, route}) => {
     const{food} = value;
     setIsLoading(true);
     try{
-        const req = await fetch(`${Settings.URL}complexSearch?query=${value}&number=5&apiKey=${Settings.API_KEY}`);
+        const req = await fetch(`${Settings.URL}complexSearch?query=${value}&number=5&apiKey=${Settings.API_KEY2}`);
         const result = await req.json();
         // console.log(result.results);
         await setRecipes(result.results);
@@ -58,6 +58,7 @@ const RecipeSearch = ({navigation, route}) => {
     <RecipeCard 
     title={item.title} 
     imageURL={item.image}
+    isSummary={false}
     key={index}
     id={item.id}
     fromRecipe={true}

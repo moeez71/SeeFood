@@ -1,6 +1,7 @@
 import { Layout } from '@ui-kitten/components';
 import React, {useContext} from 'react';
 import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   Avatar,
   Title,
@@ -10,6 +11,8 @@ import {
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CustomGallery from '../../components/CustomGallery';
+import ImageGrid from '../../components/ImageGrid';
 import TopNavProfile from '../../components/TopNavProfile';
 import { AuthContext } from '../../navigation/AuthProvider';
 
@@ -29,6 +32,7 @@ const ProfileScreen = ({navigation}) => {
     <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>
       <TopNavProfile navigation={navigation} screenTitle="Profile"/>
       {/* <TopNavWithBack navigation={navigation} screenTitle="Profile"/> */}
+      <ScrollView>
       <Layout>
       <Layout style={styles.userInfoSection}>
         <Layout style={{flexDirection: 'row', marginTop: 15}}>
@@ -77,7 +81,7 @@ const ProfileScreen = ({navigation}) => {
           </Layout>
       </Layout>
       </Layout>
-      <Layout style={styles.menuWrapper}>
+      {/* <Layout style={styles.menuWrapper}>
       {data.map((item, index) => 
         <TouchableRipple key={index}>
           <Layout style={styles.menuItem}>
@@ -87,7 +91,10 @@ const ProfileScreen = ({navigation}) => {
         </TouchableRipple>
       )}
       
-      </Layout>
+      </Layout> */}
+      {/* <CustomGallery /> */}
+      <ImageGrid navigation={navigation}/>
+      </ScrollView>
     </SafeAreaView> 
   );
 };

@@ -12,6 +12,7 @@ import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
+import CustomGallery from '../../components/CustomGallery';
 
 var User = require('../../back/backend/models/user')
 
@@ -211,9 +212,10 @@ const HomeTabs = ({navigation}) => {
             </TouchableOpacity>
 
             
-
+            
             
           </View>
+          {/* <CustomGallery /> */}
           </ScrollView>
       </Layout>
       </SafeAreaView>

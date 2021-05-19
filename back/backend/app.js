@@ -9,13 +9,14 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var pantryRouter = require('./routes/pantry');
-var calorieRouter = require('./routes/calorie')
-var calorieLimit = require('./routes/callimit')
+var calorieRouter = require('./routes/calorie');
+var calorieLimit = require('./routes/callimit');
+var galleryRouter = require('./routes/gallery');
 
 var app = express();
 var mongoose = require('mongoose')
-const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true})
-// const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
+// const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true});
+const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
 
 
 connection.then((db)=>{
@@ -36,9 +37,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/pantry', pantryRouter)
-app.use('/calorie', calorieRouter)
-app.use('/limit', calorieLimit)
+app.use('/pantry', pantryRouter);
+app.use('/calorie', calorieRouter);
+app.use('/limit', calorieLimit);
+app.use('/gallery', galleryRouter);
 
 const PORT= process.env.PORT || 5010;
 

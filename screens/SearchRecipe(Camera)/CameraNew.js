@@ -7,8 +7,7 @@ import axios from 'axios';
 import TopNavWithBack from '../../components/TopNavWithBack';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Theme from '../../constants/Theme';
-
-
+import Settings from '../../Settings';
 // LogBox.ignoreAllLogs()
 
 
@@ -34,6 +33,7 @@ export default function CameraNew({navigation, route}) {
     const[isErr, setIsErr] = useState(false);
     const[getPredictions, setPredictions] = useState([]);
     const[isClicked, setIsClicked] = useState(false);
+    const[b64, setB64] = useState(null);
 
     const renderItem = ({ item, index }) => (
         <ListItem
@@ -62,22 +62,19 @@ export default function CameraNew({navigation, route}) {
       }
     
     const openCamera = async() => {
-        const options = {
-            mediaType: 'photo',
-            maxWidth: 400,
-            quality: 0.7,
-            allowsEditing: true
-        };
-
+        
         let response = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 0.7
+            quality: 0.7,
+            base64: true
         })
         await setImage({
             uri: response.uri
         });
-        console.log(response);
+        // console.log(response);
+        let base64Img = `data:image/jpg;base64,${response.base64}`;
+        await setB64(base64Img);
         classifyImg(response);
 
     }
@@ -89,14 +86,44 @@ export default function CameraNew({navigation, route}) {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 0.7
+            quality: 0.7,
+            base64: true
         });
         await setImage({
             uri: response.uri
         });
-        console.log(response);
+        // console.log(response);
+        let base64Img = `data:image/jpg;base64,${response.base64}`;
+        await setB64(base64Img);
         classifyImg(response);
 
+    }
+
+    const uploadCloud = () => {
+        let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/hammadahm3d/image/upload';
+        // let base64Img = `data:image/jpg;base64,${imgData.base64}`;
+        let base64Img = b64;
+        let data = {
+            "file": base64Img,
+            "upload_preset": "ml_default",
+          };
+
+
+        setIsLoading(true);
+        fetch(CLOUDINARY_URL, {
+            body: JSON.stringify(data),
+            headers: {
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+          })
+          .then(async r => {
+            let data = await r.json()
+            console.log(data)
+            setIsLoading(false);
+      
+          })
+          .catch(err => console.log(err))
     }
 
     const classifyImg = (imgData) => {
@@ -115,9 +142,9 @@ export default function CameraNew({navigation, route}) {
         console.log(data);
         setIsLoading(true);
         setIsClicked(true);
-        axiosClient.get('/ping')
-        .then(res=> console.log(res.data))
-        .catch(e => console.log(e.message))
+        // axiosClient.get('/ping')
+        // .then(res=> console.log(res.data))
+        // .catch(e => console.log(e.message))
         
         axiosClient.post('/api/classify', data, {
             headers: {
@@ -172,7 +199,7 @@ export default function CameraNew({navigation, route}) {
                     <View>
                         <List
                         style={styles.container}
-                        data={hardPred}
+                        data={getPredictions}
                         renderItem={renderItem}
                         />
                     </View>

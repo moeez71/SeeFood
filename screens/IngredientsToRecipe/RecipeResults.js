@@ -50,7 +50,7 @@ const RecipeResults = ({navigation, route}) => {
         var ingredientString = ingredients.join(',');
         console.log(ingredientString);
         try{
-            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=5&instructionsRequired=true&apiKey=${Settings.API_KEY}`);
+            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=5&instructionsRequired=true&apiKey=${Settings.API_KEY2}`);
             // const req = await fetch(`${Settings.URL}findByIngredients?ingredients=${ingredientString}&limitLicense=true&number=100&ranking=2&ignorePantry=true&apiKey=${Settings.API_KEY}`);
             const result = await req.json();
             console.log(result.results);
@@ -77,6 +77,7 @@ const RecipeResults = ({navigation, route}) => {
         <RecipeCard 
         title={item.title} 
         imageURL={item.image}
+        isSummary={true}
         key={index}
         id={item.id}
         handlePress={() => navigation.navigate('Instructions', {

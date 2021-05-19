@@ -20,9 +20,11 @@ function RecipeCard(props) {
     const[summary, setSummary] = useState(null);
 
     useEffect(() => {
-        axios.get(`${Settings.URL}${props.id}/summary?apiKey=${Settings.API_KEY}`)
+        if (props.isSummary) {
+            axios.get(`${Settings.URL}${props.id}/summary?apiKey=${Settings.API_KEY2}`)
             .then(async (res) => await setSummary(res.data.summary))
             .catch(e => console.log(e.message))
+        }
     }, []);
 
     
@@ -46,10 +48,12 @@ function RecipeCard(props) {
 
             </View>
             {/* <Text style={styles.descriptionText} numberOfLines={3}>{summary}</Text> */}
-            <HTML 
+            {props.isSummary &&
+                <HTML 
               source={{ html: summary.substring(0, 150)+'...' }}
               baseFontStyle={{fontFamily: "Nexa Regular"}}
               />
+            }
             <StarRatings />
         </Card>
     )

@@ -15,6 +15,7 @@ import Theme from '../constants/Theme';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import EditProfileScreen from '../screens/Profile/EditProfileScreen';
 import CameraStack from './CameraStack';
+import CustomGallery from '../components/CustomGallery';
 
 
 
@@ -140,6 +141,7 @@ function HomeTabs({navigation}) {
     )
 }
 
+
 export const ProfileStackScreen = ({navigation}) => {
 
   return (
@@ -151,6 +153,11 @@ export const ProfileStackScreen = ({navigation}) => {
       <ProfileStack.Screen
         name="EditProfile"
         component={EditProfileScreen}
+        navigation={navigation}
+      />
+      <ProfileStack.Screen
+        name="FoodGallery"
+        component={CustomGallery}
         navigation={navigation}
       />
       
