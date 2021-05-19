@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Chip } from 'react-native-paper';
 import { StyleSheet, ScrollView, Keyboard, LogBox, SafeAreaView, TouchableOpacity, Image, ImageBackground} from 'react-native';
-import { ApplicationProvider, Layout, Text, Divider, Spinner, Input, Button } from '@ui-kitten/components';
+import {  Layout, Text, Input, Button, Divider, Avatar, List, ListItem } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import RecipeResults from './RecipeResults';
 import {windowHeight, windowWidth} from '../../utils/Dimentions';
 import TopNav from '../../components/TopNav';
 import Theme from '../../constants/Theme';
@@ -12,10 +11,9 @@ import axios from 'axios';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import CloseButton from '../../components/CloseButton';
-
-
+import Settings from '../../Settings'
     
-// LogBox.ignoreAllLogs()
+// // LogBox.ignoreAllLogs()
 
 const IngredientsToRecipe = ({navigation}) => {
 
@@ -23,6 +21,7 @@ const IngredientsToRecipe = ({navigation}) => {
   const[isLoading, setIsLoading] = React.useState(false);
   const [value, setValue] = React.useState('');
   const[image, setImage] = React.useState(null);
+  const [pantry, setPantry] = React.useState([]);
 
   const addIngredient = async() => {
     await setIngredients([
@@ -116,6 +115,43 @@ const handleCloseBtn = () => {
   setImage(null);
   setIngredients([]);
 }
+
+const getPantry = () => {
+  axios.get(`https://api.spoonacular.com/food/products/search?query=${value}&number=5&apiKey=${Settings.API_KEY}`)
+  .then(async (res) => {
+    console.log(res.data);
+    await setPantry(res.data.products);
+  })
+  .catch(e => console.error(e.message));
+}
+
+const addFromList = async(name) => {
+  await setIngredients([
+    ...ingredients, name
+  ]);
+  setValue(null);
+  await setPantry([]);
+  console.log(ingredients);
+}
+
+const PantryList = () => (
+  <Layout Layout style={styles.listContainer}>
+            <List
+            data={pantry}
+            renderItem={pantryItem}
+            ItemSeparatorComponent={Divider}
+            />
+        </Layout>
+)
+
+const pantryItem = ({item}) => (
+  <ListItem
+  title={`${item.title}`}
+  accessoryLeft={() => <Avatar source={{uri: item.image}} size="tiny"/>}
+  // onPress={()=>alert(item.name)}
+  onPress={()=>addFromList(item.title)}
+  />
+);
   if (isLoading)
       return (<BurgerLoader />);
 
@@ -137,6 +173,7 @@ const handleCloseBtn = () => {
       />
       <Button 
         onPress={() => addIngredient()}
+        // onPress={() => getPantry()}
         disabled={value===''}
         size="small"
         style={{borderRadius: 50, marginLeft: 3, marginTop: 2, backgroundColor: Theme.COLORS.PRIMARY, borderColor:Theme.COLORS.PRIMARY, width: 50, height: 50}}
@@ -144,6 +181,8 @@ const handleCloseBtn = () => {
         <Text style={styles.addBtnText}>+</Text>
       </Button>
     </Layout>
+
+    {/* <PantryList /> */}
       {
         image !== null && <TouchableOpacity style={styles.imageContainer}>
           
@@ -236,5 +275,10 @@ const styles = StyleSheet.create({
   },  
   inputText : {
     fontFamily: 'Nexa Regular'
-  }
+  },
+  listContainer: {
+      width: '80%',
+      marginLeft: 30,
+      marginRight: 80
+    },
 });

@@ -16,7 +16,7 @@ import TopNav from '../../components/TopNav';
 
 const Stack = createStackNavigator();
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const PantryNavigator = ({navigation}) => {
   return (

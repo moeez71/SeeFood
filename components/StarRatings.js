@@ -4,7 +4,7 @@ import Theme from '../constants/Theme';
 
 function StarRatings() {
 
-    const[starCount, setStarCount] = useState(5);
+    const[starCount, setStarCount] = useState(Math.floor(5 - Math.random() * 2));
 
     return (
         <StarRating

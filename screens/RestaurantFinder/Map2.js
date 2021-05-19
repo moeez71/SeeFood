@@ -3,7 +3,7 @@ import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Aler
 
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; // remove PROVIDER_GOOGLE import if not using Google Maps
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const styles = StyleSheet.create({
  container: {

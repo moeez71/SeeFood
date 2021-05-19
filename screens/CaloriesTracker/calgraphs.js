@@ -16,7 +16,7 @@ import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
 
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const calgraphs = ({navigation}) => {
     const {user} = useContext(AuthContext);

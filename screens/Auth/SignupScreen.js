@@ -6,7 +6,7 @@ import {AuthContext} from '../../navigation/AuthProvider';
 import { Layout, Text, Spinner } from '@ui-kitten/components';
 import Theme from '../../constants/Theme';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();

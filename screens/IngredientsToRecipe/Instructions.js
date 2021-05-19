@@ -4,10 +4,16 @@ import Settings from '../../Settings';
 import InstructionsComponent from '../../components/instructionsComponent';
 import IngredientsComponent from '../../components/ingredientsComponent';
 import TopNavWithBack from '../../components/TopNavWithBack';
+import axios from 'axios';
+import HTML from "react-native-render-html";
+
+
 
 const screenHeight = Math.round(Dimensions.get('window').height);
 
-LogBox.ignoreAllLogs()
+const htmlContent = `<div class="spoonacular-caption">Quickview</div><div class="spoonacular-quickview">112 Calories</div><div class="spoonacular-quickview">18g Protein</div><div class="spoonacular-quickview">2g Total Fat</div><div class="spoonacular-quickview">1g Carbs</div><div class="spoonacular-quickview">5% Health Score</div>`;
+
+// LogBox.ignoreAllLogs()
 
 export default class Instructions extends Component {
   constructor(props){
@@ -17,7 +23,8 @@ export default class Instructions extends Component {
       isLoading: true,
       info: [],
       instructions: [],
-      ingredients: []
+      ingredients: [],
+      nutritionInfo: htmlContent
     }
   }
 
@@ -42,8 +49,22 @@ export default class Instructions extends Component {
     }
   }
 
+  async getNutritionInfo() {
+    const { id } = this.props.route.params;
+    axios.get(`${Settings.URL}${id}/nutritionWidget?apiKey=${Settings.API_KEY2}`)
+    .then(res => {
+      console.log(res.data)
+      this.setState({
+      nutritionInfo: res.data.substring(34, 330)
+    })
+  }
+    )
+    
+    .catch(e => console.error(e))
+  }
   componentDidMount(){
     this.getInstructions();
+    this.getNutritionInfo();
   }
 
   renderItem({ item }) {
@@ -114,6 +135,26 @@ export default class Instructions extends Component {
                 />
               </View>
             )}
+            <Text style={{...styles.title, fontSize: 22, fontFamily: "Nexa Bold"}}>Nutrition Info</Text>
+            {/* <Text>{this.state.nutritionInfo}</Text> */}
+            {/* <WebView
+              originWhitelist={['*']}
+              source={{ html: '<h1>Hammad</h1>' }}
+            /> */}
+            <ScrollView horizontal={true}>
+              <HTML 
+              source={{ html: this.state.nutritionInfo }} 
+              containerStyle={{width: '80%', alignItems: 'center', flexDirection: "row", justifyContent: 'center', height: 100}}
+              classesStyles={{'spoonacular-quickview': {
+                borderWidth: 1, borderColor: "black", margin: 2, padding: 3, fontFamily: "Nexa Regular", borderRadius: 50, marginBottom: 10
+              },
+              'spoonacular-caption':{
+                display: 'none'
+              }
+              }}  
+              />
+            </ScrollView>
+            
             
           </ScrollView>
           </View>

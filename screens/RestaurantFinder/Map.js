@@ -8,7 +8,7 @@ import Geolocation from '@react-native-community/geolocation';
 //import Geolocation from 'react-native-geolocation-service';
 import TopNav from "../../components/TopNav";
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const initialState = {
   latitude: null,

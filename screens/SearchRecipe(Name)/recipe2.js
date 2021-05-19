@@ -2,7 +2,7 @@ import React, {useState, useEffect}  from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking, LogBox  } from 'react-native';
 import TopNavWithBack from '../../components/TopNavWithBack';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const Recipe2 = ({navigation, route}) => {

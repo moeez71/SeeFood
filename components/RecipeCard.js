@@ -6,6 +6,7 @@ import HeartReact from './HeartReact';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Settings from '../Settings';
 import axios from 'axios';
+import HTML from "react-native-render-html";
 
 const hardData = {
     id: 1,
@@ -44,7 +45,11 @@ function RecipeCard(props) {
             <HeartReact/>
 
             </View>
-            <Text style={styles.descriptionText} numberOfLines={3}>{summary}</Text>
+            {/* <Text style={styles.descriptionText} numberOfLines={3}>{summary}</Text> */}
+            <HTML 
+              source={{ html: summary.substring(0, 150)+'...' }}
+              baseFontStyle={{fontFamily: "Nexa Regular"}}
+              />
             <StarRatings />
         </Card>
     )

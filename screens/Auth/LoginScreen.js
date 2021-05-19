@@ -9,7 +9,7 @@ import * as eva from '@eva-design/eva';
 import Theme from '../../constants/Theme';
 import BurgerLoader from '../../components/loaders/BurgerLoader.js';
 
-LogBox.ignoreAllLogs()
+// // LogBox.ignoreAllLogs()
 
 
 const LoginScreen = ({navigation}) => {

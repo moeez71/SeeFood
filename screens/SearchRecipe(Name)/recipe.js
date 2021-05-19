@@ -6,7 +6,7 @@ import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, S
 import { Layout} from '@ui-kitten/components';
 import TopNav from '../../components/TopNav';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const Recipe= ({navigation}) => {

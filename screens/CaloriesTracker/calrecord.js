@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const calrecord = ({navigation}) => {
 

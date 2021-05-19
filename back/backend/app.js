@@ -14,8 +14,8 @@ var calorieLimit = require('./routes/callimit')
 
 var app = express();
 var mongoose = require('mongoose')
-// const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true})
-const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
+const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true})
+// const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
 
 
 connection.then((db)=>{
@@ -40,7 +40,7 @@ app.use('/pantry', pantryRouter)
 app.use('/calorie', calorieRouter)
 app.use('/limit', calorieLimit)
 
-const PORT= process.env.PORT || 5000;
+const PORT= process.env.PORT || 5010;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

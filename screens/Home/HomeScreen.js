@@ -10,14 +10,13 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../../constants/Theme';
 import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
-import RecipeCard from '../../components/RecipeCard';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 var User = require('../../back/backend/models/user')
 
 
-// LogBox.ignoreAllLogs()
+// // LogBox.ignoreAllLogs()
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
@@ -102,11 +101,9 @@ const HomeTabs = ({navigation}) => {
   
   
   const fetchAPI2 = async () => {
-  // return await fetch('http://192.168.43.123:5000/users/adduser', requestOptions)
-  axios.get("http://192.168.43.123:5000/users")
-  .then(res => console.log("okay"));
+  //always use the ip address from ipconfig command here with the port number of the backend server!!
   console.log(thisUser);
-  axios.post('http://192.168.43.123:5000/users/register', thisUser, {
+  axios.post('http://192.168.0.104:5010/users/register', thisUser, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -212,6 +209,7 @@ const HomeTabs = ({navigation}) => {
               </View>
               <Text style={styles.categoryBtnTxt}>Calorie Track</Text>
             </TouchableOpacity>
+
             
 
             

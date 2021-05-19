@@ -4,7 +4,7 @@ import { Text, Button, Card, Modal } from '@ui-kitten/components';
 import {AuthContext} from '../../navigation/AuthProvider';
 
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 export default function LogoutScreen({navigation}) {
     const [visible, setVisible] = React.useState(true);

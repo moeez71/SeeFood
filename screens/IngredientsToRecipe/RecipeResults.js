@@ -9,7 +9,7 @@ import BurgerLoader from '../../components/loaders/BurgerLoader';
 import TopNavWithBack from '../../components/TopNavWithBack';
 import RecipeCard from '../../components/RecipeCard';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 // const ViewPagerSimpleUsageShowcase = () => {

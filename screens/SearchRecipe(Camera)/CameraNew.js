@@ -9,7 +9,7 @@ import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Theme from '../../constants/Theme';
 
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const axiosClient = axios.create({
