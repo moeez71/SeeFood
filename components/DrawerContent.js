@@ -39,6 +39,11 @@ const screens = [
     iconName:"user-circle-o",
     nextScreen:"Profile"
     },
+    {
+    title:"Favourites",
+    iconName:"heart-o",
+    nextScreen:"Favourites"
+    },
 ];
 
 const {userData} = useContext(AuthContext);

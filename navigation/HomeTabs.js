@@ -14,8 +14,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import EditProfileScreen from '../screens/Profile/EditProfileScreen';
-import CameraStack from './CameraStack';
-import CustomGallery from '../components/CustomGallery';
+import FoodGallery from '../screens/Profile/FoodGallery';
 
 
 
@@ -157,7 +156,7 @@ export const ProfileStackScreen = ({navigation}) => {
       />
       <ProfileStack.Screen
         name="FoodGallery"
-        component={CustomGallery}
+        component={FoodGallery}
         navigation={navigation}
       />
       

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, ScrollView,ActivityIndicator, SafeAreaView, LogBox } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Text, Layout, List, ListItem, Button, Divider} from '@ui-kitten/components';
@@ -8,6 +8,7 @@ import TopNavWithBack from '../../components/TopNavWithBack';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Theme from '../../constants/Theme';
 import Settings from '../../Settings';
+import { AuthContext } from '../../navigation/AuthProvider';
 // LogBox.ignoreAllLogs()
 
 
@@ -34,6 +35,7 @@ export default function CameraNew({navigation, route}) {
     const[getPredictions, setPredictions] = useState([]);
     const[isClicked, setIsClicked] = useState(false);
     const[b64, setB64] = useState(null);
+    const{userData} = useContext(AuthContext);
 
     const renderItem = ({ item, index }) => (
         <ListItem
@@ -74,7 +76,8 @@ export default function CameraNew({navigation, route}) {
         });
         // console.log(response);
         let base64Img = `data:image/jpg;base64,${response.base64}`;
-        await setB64(base64Img);
+        // await setB64(base64Img);
+        uploadCloud(base64Img);
         classifyImg(response);
 
     }
@@ -94,23 +97,24 @@ export default function CameraNew({navigation, route}) {
         });
         // console.log(response);
         let base64Img = `data:image/jpg;base64,${response.base64}`;
-        await setB64(base64Img);
+        // await setB64(base64Img);
+        uploadCloud(base64Img);
         classifyImg(response);
 
     }
 
-    const uploadCloud = () => {
+    const uploadCloud = async(base64Img) => {
         let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/hammadahm3d/image/upload';
         // let base64Img = `data:image/jpg;base64,${imgData.base64}`;
-        let base64Img = b64;
+        // let base64Img = b64;
         let data = {
             "file": base64Img,
             "upload_preset": "ml_default",
           };
 
-
-        setIsLoading(true);
-        fetch(CLOUDINARY_URL, {
+        var imgURL;
+        // setIsLoading(true);
+        await fetch(CLOUDINARY_URL, {
             body: JSON.stringify(data),
             headers: {
               'content-type': 'application/json'
@@ -119,11 +123,27 @@ export default function CameraNew({navigation, route}) {
           })
           .then(async r => {
             let data = await r.json()
-            console.log(data)
-            setIsLoading(false);
+            console.log(data.url)
+            imgURL = await data.url;
+            // setIsLoading(false);
       
           })
           .catch(err => console.log(err))
+
+          //upload img url to mongodb
+
+          let bodyData = {
+              uid: userData.uid,
+              link: imgURL
+          };
+          axios.put(`http://192.168.0.104:5010/gallery/add`, bodyData, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+          })
+          .then(res => console.log(res.data))
+          .catch(e => console.error(e.message));
     }
 
     const classifyImg = (imgData) => {

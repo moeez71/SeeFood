@@ -11,7 +11,6 @@ import {
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import CustomGallery from '../../components/CustomGallery';
 import ImageGrid from '../../components/ImageGrid';
 import TopNavProfile from '../../components/TopNavProfile';
 import { AuthContext } from '../../navigation/AuthProvider';
@@ -93,7 +92,10 @@ const ProfileScreen = ({navigation}) => {
       
       </Layout> */}
       {/* <CustomGallery /> */}
-      <ImageGrid navigation={navigation}/>
+      <Layout style={{flex: 1, justifyContent: "center", marginTop: 10, alignItems: "center"}}>
+        <Text style={{...styles.title, fontSize: 22}}>Food Gallery</Text>
+        <ImageGrid navigation={navigation}/>
+      </Layout>
       </ScrollView>
     </SafeAreaView> 
   );
@@ -104,7 +106,9 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center"
   },
   userInfoSection: {
     paddingHorizontal: 30,

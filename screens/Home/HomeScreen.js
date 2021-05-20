@@ -12,7 +12,8 @@ import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
-import CustomGallery from '../../components/CustomGallery';
+import Settings from '../../Settings';
+
 
 var User = require('../../back/backend/models/user')
 
@@ -63,9 +64,9 @@ const HomeTabs = ({navigation}) => {
           if (error) {
             console.log(error)
           } else {
-            console.log(result.picture.data.url);
-            console.log(userData);
-            thisUser = {
+            // console.log(result.picture.data.url);
+            // console.log(userData);
+            thisUser = await{
               uid: tmpUser.uid,
               firstName: nameArray[0],
               lastName: nameArray[nameArray.length - 1],
@@ -74,6 +75,7 @@ const HomeTabs = ({navigation}) => {
               photoURL: result.picture.data.url,
               providerId: tmpUser.providerId,
             };
+            // console.log(thisUser);
             await setUserData(thisUser);
             // setUserData({...userData, photoURL: result.picture.data.url})
           }
@@ -85,7 +87,7 @@ const HomeTabs = ({navigation}) => {
       }
     }
    else {
-      thisUser = {
+      thisUser = await{
       uid: tmpUser.uid,
       firstName: nameArray[0],
       lastName: nameArray[nameArray.length - 1],
@@ -94,7 +96,7 @@ const HomeTabs = ({navigation}) => {
       photoURL: tmpUser.photoURL,
       providerId: tmpUser.providerId,
     };
-
+    
     await setUserData(thisUser)
   }
 
@@ -103,7 +105,7 @@ const HomeTabs = ({navigation}) => {
   
   const fetchAPI2 = async () => {
   //always use the ip address from ipconfig command here with the port number of the backend server!!
-  console.log(thisUser);
+  console.log(userData);
   axios.post('http://192.168.0.104:5010/users/register', thisUser, {
     headers: {
       'Content-Type': 'application/json',
@@ -123,7 +125,7 @@ const HomeTabs = ({navigation}) => {
       NetInfo.fetch().then(state => {
         if (state.isConnected === true) {
           // alert("You are online!");
-          fetchAPI2()
+          fetchAPI2();
         } else {
           // alert("You are offline!");
           

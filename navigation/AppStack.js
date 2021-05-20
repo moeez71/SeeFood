@@ -1,11 +1,11 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Dimensions } from "react-native";
-import LogoutScreen from '../screens/Auth/LogoutScreen';
 const { width } = Dimensions.get("screen");
 import HomeTabs, { ProfileStackScreen } from './HomeTabs';
 import DrawerContent from '../components/DrawerContent';
 import Theme from '../constants/Theme';
+import Favourites from '../screens/Home/Favourites';
 
 const Drawer = createDrawerNavigator();
 //  const AppStack = () => {
@@ -44,7 +44,8 @@ const AppStack = ({navigation}) => {
       >
             <Drawer.Screen name="Home" component={HomeTabs}/>
             <Drawer.Screen name="Profile" component={ProfileStackScreen} navigation={navigation}/>
-            <Drawer.Screen name="LogoutScreen" component={LogoutScreen}/>
+            <Drawer.Screen name="Favourites" component={Favourites}/>
+            
         </Drawer.Navigator>
         
 
