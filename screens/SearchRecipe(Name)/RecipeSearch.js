@@ -8,7 +8,8 @@ import {windowHeight, windowWidth} from '../../utils/Dimentions';
 import TopNav from '../../components/TopNav';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import RecipeCard from '../../components/RecipeCard';
-
+import axios from 'axios';
+import { AuthContext } from '../../navigation/AuthProvider';
 
 const RecipeSearch = ({navigation, route}) => {
 
@@ -16,8 +17,8 @@ const RecipeSearch = ({navigation, route}) => {
   const [value, setValue] = React.useState('');
   const[image, setImage] = React.useState(null);
   const [recipes, setRecipes] = React.useState([]);
-  const[subtitle, setSubtitle] = React.useState(null);
-
+  const [savedRecipes, setSavedRecipes] = React.useState([]);
+  const{userData} = React.useContext(AuthContext);
 
   const getRecipes = async() => {
 
@@ -40,11 +41,27 @@ const RecipeSearch = ({navigation, route}) => {
     }
 }
 
+  const getSavedRecipesFromDb = async() => {
+    axios.get(`http://192.168.0.104:5010/recipe/find/${userData.uid}`)
+    .then(async res => {
+      // console.log(res.data.recipes);
+      let tmp = res.data.recipes.map(item => item.recipeId);
+      // console.log(tmp);
+      await setSavedRecipes(tmp);
+
+    })
+    .catch(e => console.error(e.message));
+  }
+
   const handleSearch = () => {
     Keyboard.dismiss();
     getRecipes();
     
   }
+
+  React.useEffect(() => {
+    getSavedRecipesFromDb();
+  }, []);
 
   const renderIcon = (props) => (
     <TouchableOpacity 
@@ -63,6 +80,7 @@ const RecipeSearch = ({navigation, route}) => {
     id={item.id}
     fromRecipe={true}
     subtitle={item.summary}
+    savedRecipes={savedRecipes}
     handlePress={() => navigation.navigate('Instructions', {
                                                                         id: item.id, 
                                                                         title: item.title, 

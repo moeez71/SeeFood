@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Chip } from 'react-native-paper';
-import { StyleSheet, ScrollView, SafeAreaView, View, Image, FlatList, LogBox} from 'react-native';
-import { ApplicationProvider, Layout, Text, Divider, Spinner, Avatar, Input, Button, ViewPager, Icon, List, ListItem } from '@ui-kitten/components';
+import { StyleSheet,  SafeAreaView, LogBox} from 'react-native';
+import { Layout,List, } from '@ui-kitten/components';
 import Settings from '../../Settings';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import TopNavWithBack from '../../components/TopNavWithBack';
 import RecipeCard from '../../components/RecipeCard';
+import { AuthContext } from '../../navigation/AuthProvider';
+import axios from 'axios';
 
 // LogBox.ignoreAllLogs()
 
@@ -43,6 +42,9 @@ const RecipeResults = ({navigation, route}) => {
     const [activeSlide, setActiveSlide] = React.useState(0);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+    const [savedRecipes, setSavedRecipes] = React.useState([]);
+
+    const{userData} = React.useContext(AuthContext);
     
     const getRecipes = async() => {
 
@@ -67,9 +69,21 @@ const RecipeResults = ({navigation, route}) => {
         }
     }
 
+    const getSavedRecipesFromDb = async() => {
+      axios.get(`http://192.168.0.104:5010/recipe/find/${userData.uid}`)
+      .then(async res => {
+        // console.log(res.data.recipes);
+        let tmp = res.data.recipes.map(item => item.recipeId);
+        // console.log(tmp);
+        await setSavedRecipes(tmp);
+    
+      })
+      .catch(e => console.error(e.message));
+    }
 
     React.useEffect(() => {
         getRecipes();
+        getSavedRecipesFromDb();
     }, []);
 
     
@@ -77,9 +91,10 @@ const RecipeResults = ({navigation, route}) => {
         <RecipeCard 
         title={item.title} 
         imageURL={item.image}
-        isSummary={true}
+        isSummary={false}
         key={index}
         id={item.id}
+        savedRecipes={savedRecipes}
         handlePress={() => navigation.navigate('Instructions', {
                                                                             id: item.id, 
                                                                             title: item.title, 

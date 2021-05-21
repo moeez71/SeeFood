@@ -31,7 +31,7 @@ export default class Instructions extends Component {
   async getInstructions() {
     const { id } = this.props.route.params;
     try{
-      const reqInfo = await fetch(`${Settings.URL}${id}/information?apiKey=${Settings.API_KEY}`);
+      const reqInfo = await fetch(`${Settings.URL}${id}/information?apiKey=${Settings.API_KEY2}`);
       const resInfo = await reqInfo.json();
       for (const item of resInfo.extendedIngredients) {
         this.state.ingredients.push(item);
@@ -53,7 +53,6 @@ export default class Instructions extends Component {
     const { id } = this.props.route.params;
     axios.get(`${Settings.URL}${id}/nutritionWidget?apiKey=${Settings.API_KEY2}`)
     .then(res => {
-      console.log(res.data)
       this.setState({
       nutritionInfo: res.data.substring(34, 330)
     })

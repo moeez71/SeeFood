@@ -12,6 +12,8 @@ import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import CloseButton from '../../components/CloseButton';
 import Settings from '../../Settings'
+import { AuthContext } from '../../navigation/AuthProvider';
+import CameraModal from '../../components/CameraModal';
     
 // // LogBox.ignoreAllLogs()
 
@@ -22,6 +24,7 @@ const IngredientsToRecipe = ({navigation}) => {
   const [value, setValue] = React.useState('');
   const[image, setImage] = React.useState(null);
   const [pantry, setPantry] = React.useState([]);
+  const[modalVisible, setModalVisible] = React.useState(false);
 
   const addIngredient = async() => {
     await setIngredients([
@@ -43,7 +46,8 @@ const IngredientsToRecipe = ({navigation}) => {
   const renderIcon = (props) => (
     <TouchableOpacity 
     onPress={
-      ()=>openCamera()
+      () => setModalVisible(!modalVisible)
+      // ()=>openCamera()
       // ()=>classifyImg(image)
       }
     >
@@ -58,6 +62,7 @@ const IngredientsToRecipe = ({navigation}) => {
 
   const openCamera = async() => {
     
+    setModalVisible(!modalVisible);
     let response = await ImagePicker.launchCameraAsync({
         allowsEditing: true,
         aspect: [4, 3],
@@ -68,6 +73,23 @@ const IngredientsToRecipe = ({navigation}) => {
     });
     console.log(response);
     classifyImg(response);
+
+}
+
+const openCameraRoll = async() => {
+        
+  setModalVisible(!modalVisible);
+  let response = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.7,
+      base64: true
+  });
+  await setImage({
+      uri: response.uri
+  });
+  classifyImg(response);
 
 }
 
@@ -152,6 +174,7 @@ const pantryItem = ({item}) => (
   onPress={()=>addFromList(item.title)}
   />
 );
+
   if (isLoading)
       return (<BurgerLoader />);
 
@@ -181,6 +204,12 @@ const pantryItem = ({item}) => (
         <Text style={styles.addBtnText}>+</Text>
       </Button>
     </Layout>
+    <CameraModal 
+    makeVisible={modalVisible}
+    onCancel={() => setModalVisible(false)}
+    openCamera={() => openCamera()}
+    openCameraRoll={() => openCameraRoll()}  
+    />
 
     {/* <PantryList /> */}
       {

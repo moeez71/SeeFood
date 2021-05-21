@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Card, Text } from '@ui-kitten/components';
 import { Image, StyleSheet, View } from 'react-native';
 import StarRatings from './StarRatings';
@@ -18,6 +18,7 @@ const hardData = {
 function RecipeCard(props) {
 
     const[summary, setSummary] = useState(null);
+    
 
     useEffect(() => {
         if (props.isSummary) {
@@ -44,7 +45,7 @@ function RecipeCard(props) {
             <View style={styles.headerView}>
             <Text style={styles.headerText}>{props.title.length <= 21? props.title: props.title.substring(0, 21)+'..'}</Text>
             
-            <HeartReact/>
+            <HeartReact id={props.id} savedRecipes={props.savedRecipes}/>
 
             </View>
             {/* <Text style={styles.descriptionText} numberOfLines={3}>{summary}</Text> */}
@@ -73,6 +74,8 @@ const styles = StyleSheet.create({
     imageStyle: {
         height: 250,
         width: 400,
+        // height: 50,
+        // width: 200,
         alignSelf: "center"
     },
     headerView: {

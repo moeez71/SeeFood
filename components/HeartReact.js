@@ -1,16 +1,42 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon  from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../navigation/AuthProvider';
 
 
 function HeartReact(props) {
+    const{userData} = useContext(AuthContext);
 
     const[heartFilled, setHeartFilled] = useState(false);
 
+    useEffect(() => {
+        if (props.savedRecipes.includes(props.id))
+            setHeartFilled(true);
+    }, []);
+
+    const handlePress = () => {
+
+        setHeartFilled(!heartFilled);
+
+        let bodyData = {
+            uid: userData.uid,
+            recipeId: props.id
+        };
+        axios.put(`http://192.168.0.104:5010/recipe/add`, bodyData, {
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            }
+        })
+        .then(res => console.log(res.data))
+        .catch(e => console.error(e.message));
+    }
+
     return (
         <TouchableOpacity
-        onPress={() => setHeartFilled(!heartFilled)}
+        onPress={() => handlePress()}
         style={{height: 40, width: 40, marginTop: 5}}
         >
             {heartFilled? <Icon name="heart" size={36} color="red"/> 

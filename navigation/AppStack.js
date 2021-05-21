@@ -6,6 +6,7 @@ import HomeTabs, { ProfileStackScreen } from './HomeTabs';
 import DrawerContent from '../components/DrawerContent';
 import Theme from '../constants/Theme';
 import Favourites from '../screens/Home/Favourites';
+import Instructions from '../screens/IngredientsToRecipe/Instructions';
 
 const Drawer = createDrawerNavigator();
 //  const AppStack = () => {
@@ -45,6 +46,7 @@ const AppStack = ({navigation}) => {
             <Drawer.Screen name="Home" component={HomeTabs}/>
             <Drawer.Screen name="Profile" component={ProfileStackScreen} navigation={navigation}/>
             <Drawer.Screen name="Favourites" component={Favourites}/>
+            <Drawer.Screen name="Instructions" component={Instructions} />
             
         </Drawer.Navigator>
         

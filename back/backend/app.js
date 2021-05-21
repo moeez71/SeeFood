@@ -12,6 +12,7 @@ var pantryRouter = require('./routes/pantry');
 var calorieRouter = require('./routes/calorie');
 var calorieLimit = require('./routes/callimit');
 var galleryRouter = require('./routes/gallery');
+var recipeRouter = require('./routes/recipe');
 
 var app = express();
 var mongoose = require('mongoose')
@@ -41,6 +42,7 @@ app.use('/pantry', pantryRouter);
 app.use('/calorie', calorieRouter);
 app.use('/limit', calorieLimit);
 app.use('/gallery', galleryRouter);
+app.use('/recipe', recipeRouter);
 
 const PORT= process.env.PORT || 5010;
 

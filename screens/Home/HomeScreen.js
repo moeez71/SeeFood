@@ -12,7 +12,7 @@ import TopNavHome from '../../components/TopNavHome';
 import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
-import Settings from '../../Settings';
+import FoodList from '../../components/FoodList';
 
 
 var User = require('../../back/backend/models/user')
@@ -23,7 +23,7 @@ var User = require('../../back/backend/models/user')
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
 //exports.user = user
-const HomeTabs = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
 
   const {user, setUserData, userData} = useContext(AuthContext);
   var thisUser = {};
@@ -48,7 +48,7 @@ const HomeTabs = ({navigation}) => {
   const prepareUserData = async() => {
     let fullName = user.displayName;
     let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
-    let tmpUser = user.providerData[0];
+    let tmpUser = await user.providerData[0];
     if (tmpUser.providerId.includes('facebook')) {
       try {
         const currentAccessToken = await AccessToken.getCurrentAccessToken()
@@ -75,7 +75,7 @@ const HomeTabs = ({navigation}) => {
               photoURL: result.picture.data.url,
               providerId: tmpUser.providerId,
             };
-            // console.log(thisUser);
+            console.log(thisUser);
             await setUserData(thisUser);
             // setUserData({...userData, photoURL: result.picture.data.url})
           }
@@ -86,7 +86,7 @@ const HomeTabs = ({navigation}) => {
         console.error(error)
       }
     }
-   else {
+   else if (tmpUser.providerId.includes('google')){
       thisUser = await{
       uid: tmpUser.uid,
       firstName: nameArray[0],
@@ -152,6 +152,7 @@ const HomeTabs = ({navigation}) => {
           <TopNavHome navigation={navigation} screenTitle="Home"/>
           <ScrollView>
           <ImageSwiper/>
+          <Text style={styles.heading}>Features</Text>
           <View style={styles.categoryContainer}>
 
             <TouchableOpacity
@@ -217,6 +218,7 @@ const HomeTabs = ({navigation}) => {
             
             
           </View>
+          <FoodList navigation={navigation}/>
           {/* <CustomGallery /> */}
           </ScrollView>
       </Layout>
@@ -225,7 +227,7 @@ const HomeTabs = ({navigation}) => {
     );
   }
 
-export default HomeTabs;
+export default HomeScreen;
 
 
 const styles = StyleSheet.create({
@@ -286,5 +288,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: nowTheme.COLORS.PRIMARY,
   },
+  heading: {
+    fontFamily: "Nexa Bold",
+    fontSize: 28,
+    marginLeft: 20
+}
 }
 );

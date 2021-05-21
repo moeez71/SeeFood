@@ -57,10 +57,10 @@ export default function CameraNew({navigation, route}) {
         </Button>
       );
 
-      const handleClick = (item) => {
-        route.params.changeValue(item.class);
-        route.params.searchPress();
-        navigation.goBack();
+      const handleClick = async(item) => {
+        await route.params.changeValue(item.class);
+        await route.params.searchPress();
+        await navigation.goBack();
       }
     
     const openCamera = async() => {
@@ -84,7 +84,7 @@ export default function CameraNew({navigation, route}) {
 
     const openCameraRoll = async() => {
         
-
+        
         let response = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,

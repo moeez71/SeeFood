@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignSelf: 'center',
       borderRadius: 8,
+      marginBottom: 10
     },
   
     slide: {
