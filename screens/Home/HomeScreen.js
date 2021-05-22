@@ -9,18 +9,24 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import nowTheme from '../../constants/Theme';
 import TopNavHome from '../../components/TopNavHome';
+import { AccessToken, GraphRequest, GraphRequestManager } from 'react-native-fbsdk';
+import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
+import FoodList from '../../components/FoodList';
+
+
 var User = require('../../back/backend/models/user')
 
 
-LogBox.ignoreAllLogs()
+// // LogBox.ignoreAllLogs()
 
 //const abcd = useContext(AuthContext)
 //const {user} = useContext(AuthContext);
 //exports.user = user
-const HomeTabs = ({navigation}) => {
+const HomeScreen = ({navigation}) => {
 
-  const {user, logout} = useContext(AuthContext);
-
+  const {user, setUserData, userData} = useContext(AuthContext);
+  var thisUser = {};
   const U1 = new User ({
     id: user.uid
   })
@@ -33,38 +39,95 @@ const HomeTabs = ({navigation}) => {
       Accept: 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-     id : user.uid
-    })
-};
-  const fetchAPI2 = async () => {
-  return await fetch('http://localhost:3000/users/adduser', requestOptions)
-  .then(response => response.json())
-  .then(data => console.log(data));
-}
+    // body: JSON.stringify({
+    //  id : user.uid
+    // })
+    body: JSON.stringify(thisUser)
+  };
+  
+  const prepareUserData = async() => {
+    let fullName = user.displayName;
+    let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
+    let tmpUser = await user.providerData[0];
+    if (tmpUser.providerId.includes('facebook')) {
+      try {
+        const currentAccessToken = await AccessToken.getCurrentAccessToken()
+      
+        const graphRequest = new GraphRequest('/me', {
+          accessToken: currentAccessToken.accessToken,
+          parameters: {
+            fields: {
+              string: 'picture.type(large)',
+            },
+          },
+        }, async(error, result) => {
+          if (error) {
+            console.log(error)
+          } else {
+            // console.log(result.picture.data.url);
+            // console.log(userData);
+            thisUser = await{
+              uid: tmpUser.uid,
+              firstName: nameArray[0],
+              lastName: nameArray[nameArray.length - 1],
+              email: tmpUser.email,
+              phoneNumber: tmpUser.phone,
+              photoURL: result.picture.data.url,
+              providerId: tmpUser.providerId,
+            };
+            console.log(thisUser);
+            await setUserData(thisUser);
+            // setUserData({...userData, photoURL: result.picture.data.url})
+          }
+        })
+      
+        await new GraphRequestManager().addRequest(graphRequest).start();
+      } catch (error) {
+        console.error(error)
+      }
+    }
+   else if (tmpUser.providerId.includes('google')){
+      thisUser = await{
+      uid: tmpUser.uid,
+      firstName: nameArray[0],
+      lastName: nameArray[nameArray.length - 1],
+      email: tmpUser.email,
+      phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
+      photoURL: tmpUser.photoURL,
+      providerId: tmpUser.providerId,
+    };
+    
+    await setUserData(thisUser)
+  }
 
-  // const uri = "http://192.168.10.2:3000/users/add"
-  // const fetchAPI = async ()=> {
-  //   return await fetch(uri)
-  //   .then((response) => response.json())
-  //   .then((result) => {
-  //    console.log(result)
-  //     console.log("User succerjrgn")
-  //   }
-  //   )
-  //   .catch((error) => {
-  //     console.error(error);
-  //   });}
+  }
+  
+  
+  const fetchAPI2 = async () => {
+  //always use the ip address from ipconfig command here with the port number of the backend server!!
+  console.log(userData);
+  axios.post('http://192.168.0.104:5010/users/register', thisUser, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+
+    }
+  })
+  .then(res => console.log(res.data))
+  .catch(e => console.log(e.message))
+  }
 
   const CheckConnectivity = () => {
+    prepareUserData();
+    // getFacebookDp();
     // For Android devices
     if (Platform.OS === "android") {
       NetInfo.fetch().then(state => {
         if (state.isConnected === true) {
           // alert("You are online!");
-          fetchAPI2()
+          fetchAPI2();
         } else {
-          //alert("You are offline!");
+          // alert("You are offline!");
           
         }
       });
@@ -73,6 +136,7 @@ const HomeTabs = ({navigation}) => {
     
 
     useEffect(() => {
+      // setUserData(user.providerData);
     // fetchAPI2()
      CheckConnectivity()
      NetInfo.fetch().then(state => {
@@ -82,11 +146,13 @@ const HomeTabs = ({navigation}) => {
       }, [])
     
     return (
+      
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
           <TopNavHome navigation={navigation} screenTitle="Home"/>
-          {/* <TopNav navigation={navigation} screenTitle="Home"/>  */}
+          <ScrollView>
           <ImageSwiper/>
+          <Text style={styles.heading}>Features</Text>
           <View style={styles.categoryContainer}>
 
             <TouchableOpacity
@@ -147,17 +213,21 @@ const HomeTabs = ({navigation}) => {
               </View>
               <Text style={styles.categoryBtnTxt}>Calorie Track</Text>
             </TouchableOpacity>
-            
 
             
+            
+            
           </View>
+          <FoodList navigation={navigation}/>
+          {/* <CustomGallery /> */}
+          </ScrollView>
       </Layout>
       </SafeAreaView>
         
     );
   }
 
-export default HomeTabs;
+export default HomeScreen;
 
 
 const styles = StyleSheet.create({
@@ -218,5 +288,10 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: nowTheme.COLORS.PRIMARY,
   },
+  heading: {
+    fontFamily: "Nexa Bold",
+    fontSize: 28,
+    marginLeft: 20
+}
 }
 );

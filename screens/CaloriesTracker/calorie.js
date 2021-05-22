@@ -22,7 +22,7 @@ import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
 
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const Calorie = ({navigation}) => {

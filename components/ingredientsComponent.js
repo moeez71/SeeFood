@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     ingredientsName: {
         fontSize: 16,
-        fontFamily: 'ComicNeue-Regular',
+        fontFamily: "Nexa Regular",
         color: '#000', 
         width: 200
     },

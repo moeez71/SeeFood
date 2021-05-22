@@ -33,25 +33,26 @@ const AuthStack = () => {
       <Stack.Screen
         name="SignupScreen"
         component={SignupScreen}
-        options={({navigation}) => ({
-          title: '',
-          headerStyle: {
-            backgroundColor: '#f9fafd',
-            shadowColor: '#f9fafd',
-            elevation: 0,
-          },
-          headerLeft: () => (
-            <View style={{marginLeft: 10}}>
-              <FontAwesome.Button 
-                name="long-arrow-left"
-                size={25}
-                backgroundColor="#f9fafd"
-                color="#333"
-                onPress={() => navigation.navigate('LoginScreen')}
-              />
-            </View>
-          ),
-        })}
+        options={{header: () => null}}
+        // options={({navigation}) => ({
+        //   title: '',
+        //   headerStyle: {
+        //     backgroundColor: '#f9fafd',
+        //     shadowColor: '#f9fafd',
+        //     elevation: 0,
+        //   },
+        //   headerLeft: () => (
+        //     <View style={{marginLeft: 10}}>
+        //       <FontAwesome.Button 
+        //         name="long-arrow-left"
+        //         size={25}
+        //         backgroundColor="#f9fafd"
+        //         color="#333"
+        //         onPress={() => navigation.navigate('LoginScreen')}
+        //       />
+        //     </View>
+        //   ),
+        // })}
       />
     </Stack.Navigator>
   );

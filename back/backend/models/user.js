@@ -5,10 +5,35 @@ var Schema = mongoose.Schema;
 
 // const {user} = useContext(AuthContext);
 var userSchema = new Schema({
-    id:{
+    uid:{
         type:String,
         required: true
-    }
+    },
+    firstName:{
+        type:String,
+        required: true
+    },
+    lastName:{
+        type:String,
+        required: true
+    },
+    email:{
+        type:String,
+        required: true
+    },
+    phoneNumber:{
+        type:String,
+        required: false
+    },
+    photoURL:{
+        type:String,
+        required: false
+    },
+    providerId:{
+        type:String,
+        required: true
+    },
+    
 })
 
 module.exports = mongoose.model('User', userSchema)

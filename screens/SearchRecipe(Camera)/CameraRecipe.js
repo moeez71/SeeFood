@@ -5,7 +5,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, Image, Linking , LogBox } from 'react-native';
 import TopNavWithBack from '../../components/TopNavWithBack';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const CameraRecipe= ({navigation, route}) => {

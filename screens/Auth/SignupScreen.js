@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react';
-import { TouchableOpacity, Platform, StyleSheet, LogBox} from 'react-native';
+import { TouchableOpacity, Platform, StyleSheet, LogBox, Dimensions, ImageBackground, View} from 'react-native';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import {AuthContext} from '../../navigation/AuthProvider';
 import { Layout, Text, Spinner } from '@ui-kitten/components';
+import Theme from '../../constants/Theme';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
@@ -106,7 +107,8 @@ const SignupScreen = ({navigation}) => {
   
   return (
     <Layout style={styles.container}>
-      <Text style={styles.text}>Create an account</Text>
+      <ImageBackground source={require('../../assets/images/bg.png')} style={styles.bgImage}>
+      <Text style={styles.titleText}>Register</Text>
 
       <FormInput
         labelValue={email}
@@ -153,7 +155,7 @@ const SignupScreen = ({navigation}) => {
         {isLoading? <Layout level="2" style={{flexDirection: "row", paddingHorizontal: 10}}><Spinner/>
         <Text category="p1" status="primary"> creating account</Text>
         </Layout> : null }
-      <Layout style={styles.textPrivate}>
+      <View style={styles.textPrivate}>
         <Text style={styles.color_textPrivate}>
           By registering, you confirm that you accept our{' '}
         </Text>
@@ -166,13 +168,14 @@ const SignupScreen = ({navigation}) => {
         <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
           Privacy Policy
         </Text>
-      </Layout>
+      </View>
 
       <TouchableOpacity
         style={styles.navButton}
         onPress={() => navigation.navigate('LoginScreen')}>
         <Text style={styles.navButtonText}>Have an account? Sign In</Text>
       </TouchableOpacity>
+      </ImageBackground>
     </Layout>
   );
 };
@@ -181,17 +184,30 @@ export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f9fafd',
-    flex: 1,
+
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  titleText: {
+    fontFamily: 'Nexa Bold',
+    fontSize: 70,
+    color: Theme.COLORS.PRIMARY,
+    margin: 10
+  },
+  bgImage: {
+    // flex: 1,
     padding: 20,
+    resizeMode: "cover",
+    width: Dimensions.get("screen").width,
+    height: Dimensions.get("screen").height,
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
-    fontFamily: 'Kufam-SemiBoldItalic',
-    fontSize: 28,
+    fontFamily: 'Nexa Bold',
+    fontSize: 36,
     marginBottom: 10,
-    color: '#051d5f',
+    color: Theme.COLORS.PRIMARY,
   },
   navButton: {
     marginTop: 15,
@@ -200,18 +216,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: '#2e64e5',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Nexa Regular',
   },
   textPrivate: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginVertical: 35,
     justifyContent: 'center',
+    // backgroundColor: 
   },
   color_textPrivate: {
     fontSize: 13,
     fontWeight: '400',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Nexa Regular',
     color: 'grey',
   },
 });

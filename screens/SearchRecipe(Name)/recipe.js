@@ -6,7 +6,7 @@ import { View, TouchableWithoutFeedback, Text, StyleSheet, FlatList, Keyboard, S
 import { Layout} from '@ui-kitten/components';
 import TopNav from '../../components/TopNav';
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 
 const Recipe= ({navigation}) => {
@@ -38,7 +38,7 @@ const Recipe= ({navigation}) => {
         });}
 
         const renderIcon = (props) => (
-          <TouchableOpacity onPress={()=>navigation.navigate("Camera")}>
+          <TouchableOpacity onPress={()=>navigation.navigate("CameraNew")}>
             <Ionicon name='camera-outline' size={25}/>
           </TouchableOpacity>
         );

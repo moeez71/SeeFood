@@ -14,6 +14,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Theme from '../constants/Theme';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import EditProfileScreen from '../screens/Profile/EditProfileScreen';
+import FoodGallery from '../screens/Profile/FoodGallery';
+
+
 
 const Tab = createBottomTabNavigator();
 const ProfileStack = createStackNavigator();
@@ -64,7 +67,7 @@ function HomeTabs({navigation}) {
         name="PantryScreen"
         // options={{ tabBarIcon: tabBarIcon('cart-outline', 'Pantry') }}
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('fast-food-outline', 'pantry'), 
+          tabBarIcon: tabBarIcon('cart-outline', 'pantry'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'PantryScreen';
             if (routeName === 'PantryScreen') {
@@ -137,6 +140,7 @@ function HomeTabs({navigation}) {
     )
 }
 
+
 export const ProfileStackScreen = ({navigation}) => {
 
   return (
@@ -148,6 +152,11 @@ export const ProfileStackScreen = ({navigation}) => {
       <ProfileStack.Screen
         name="EditProfile"
         component={EditProfileScreen}
+        navigation={navigation}
+      />
+      <ProfileStack.Screen
+        name="FoodGallery"
+        component={FoodGallery}
         navigation={navigation}
       />
       

@@ -20,33 +20,69 @@ import TopNavWithBack from '../../components/TopNavWithBack';
 import * as ImagePicker from 'expo-image-picker';
 import { AuthContext } from '../../navigation/AuthProvider';
 import Theme from '../../constants/Theme';
+import axios from 'axios';
+import PopUp from '../../components/PopUp';
+
 
 
 
 const EditProfileScreen = ({navigation, ...props}) => {
   const [image, setImage] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const {colors} = useTheme();
-  const {user} = useContext(AuthContext);
-  const[firstName, setFirstName] = useState("Hammad");
-  const[lastName, setLastName] = useState("Ahmed");
-  const[email, setEmail] = useState("hamma@gmail.com");
+  const {userData, setUserData, user} = useContext(AuthContext);
+  const[firstName, setFirstName] = useState(null);
+  const[lastName, setLastName] = useState(null);
+  const[email, setEmail] = useState(null);
   const[phone, setPhone] = useState("+9234000000");
   const[country, setCountry] = useState("Pakistan");
   const[city, setCity] = useState("Islamabad");
+  const [popVisible, setPopVisible] = useState(false);
 
-  const setFields = () => {
-    let fullName = user.displayName;
-    let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
-    console.log(nameArray);
-    setFirstName(nameArray[0]);
-    setLastName(nameArray[nameArray.length - 1]);
-
-    setEmail(user.email);
+  const setFields = async() => {
+    
+    setFirstName(userData.firstName);
+    setLastName(userData.lastName);
+    setEmail(userData.email);
+    setImage(userData.photoURL);
   }
 
   useEffect(()=>{
     setFields();
   }, []);
+
+  const handleSubmit = async() => {
+
+    let tmp = {
+      uid: userData.uid,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phoneNumber: phone,
+      photoURL: userData.photoURL,
+      providerId: userData.providerId,
+    };
+
+    await setUserData(tmp);
+    user.updateProfile({displayName: firstName + ' ' + lastName});
+
+    axios.post('http://192.168.43.123:5000/users/updateUser', tmp, {
+      headers: {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+    
+        }
+      }
+    })
+    .then(res => {
+      console.log(res.data);
+      setPopVisible(true);
+      alert("Details Updated Successfully!")
+    })
+    .catch(e => e.message)
+
+  }
+
   const takePhotoFromCamera = async() => {
     const options = {
       mediaType: 'photo',
@@ -61,6 +97,15 @@ const EditProfileScreen = ({navigation, ...props}) => {
         quality: 0.7
     });
     await setImage(response.uri);
+    // await setUserData({
+    //   uid: userData.uid,
+    //   firstName: userData.firstName,
+    //   lastName: userData.lastName,
+    //   email: userData.email,
+    //   phoneNumber: userData.phoneNumber,
+    //   photoURL: response.uri,
+    //   providerId: userData.providerData,
+    // });
     this.bs.current.snapTo(1);
   }
 
@@ -72,12 +117,24 @@ const EditProfileScreen = ({navigation, ...props}) => {
       quality: 0.7
     });
     await setImage(response.uri);
+    // await setUserData({
+    //   uid: userData.uid,
+    //   firstName: userData.firstName,
+    //   lastName: userData.lastName,
+    //   email: userData.email,
+    //   phoneNumber: userData.phoneNumber,
+    //   photoURL: response.uri,
+    //   providerId: userData.providerData,
+    // });
     console.log(response);
     this.bs.current.snapTo(1);
   }
 
   bs = React.createRef();
   fall = new Animated.Value(1);
+
+  if (popVisible)
+    return (<PopUp makeVisible={popVisible} changeVisibility={setPopVisible(false)}/>);
 
   renderInner = () => (
     <View style={styles.panel}>
@@ -111,6 +168,8 @@ const EditProfileScreen = ({navigation, ...props}) => {
       </View>
     </View>
   );
+
+  
 
   return (
     <View style={styles.container}>
@@ -169,7 +228,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
             </View>
           </TouchableOpacity>
           <Text style={{marginTop: 10, fontSize: 18, fontFamily: "Nexa Bold",}}>
-            {user.displayName}
+          {userData.firstName} {userData.lastName}
           </Text>
         </View>
 
@@ -208,6 +267,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
         <View style={styles.action}>
           <Feather name="phone" color={colors.text} size={20} />
           <TextInput
+            editable={false}
             value={phone}
             onChangeText={(text) => setPhone(text)}
             placeholder="Phone"
@@ -226,6 +286,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
           <FontAwesome name="envelope-o" color={colors.text} size={20} />
           <TextInput
             value={email}
+            editable={false}
             onChangeText={(text) => setEmail(text)}
             placeholder="Email"
             placeholderTextColor="#666666"
@@ -272,7 +333,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
           />
         </View>
         <TouchableOpacity style={styles.commandButton} 
-        // onPress={() => {}}
+        onPress={() => handleSubmit()}
         >
           <Text style={styles.panelButtonTitle}>Submit</Text>
         </TouchableOpacity>
@@ -286,17 +347,18 @@ export default EditProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white"
   },
   commandButton: {
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 50,
     backgroundColor: Theme.COLORS.PRIMARY,
     alignItems: 'center',
     marginTop: 10,
   },
   panel: {
     padding: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "white",
     paddingTop: 20,
     // borderTopLeftRadius: 20,
     // borderTopRightRadius: 20,
@@ -340,7 +402,7 @@ const styles = StyleSheet.create({
   },
   panelButton: {
     padding: 13,
-    borderRadius: 10,
+    borderRadius: 50,
     backgroundColor: Theme.COLORS.PRIMARY,
     alignItems: 'center',
     marginVertical: 7,

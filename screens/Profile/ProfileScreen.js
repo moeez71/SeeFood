@@ -1,6 +1,7 @@
 import { Layout } from '@ui-kitten/components';
 import React, {useContext} from 'react';
 import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import {
   Avatar,
   Title,
@@ -10,13 +11,13 @@ import {
 } from 'react-native-paper';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ImageGrid from '../../components/ImageGrid';
 import TopNavProfile from '../../components/TopNavProfile';
 import { AuthContext } from '../../navigation/AuthProvider';
 
 
 const data = [
   "Your Favorites",
-  "Payment",
   "Tell Your Friends",
   "Support",
   "Settings"
@@ -24,18 +25,19 @@ const data = [
 
 const ProfileScreen = ({navigation}) => {
 
-  const {user} = useContext(AuthContext);
-  console.log(user.photoURL);
+  const {userData} = useContext(AuthContext);
+  console.log(userData.photoURL);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>
       <TopNavProfile navigation={navigation} screenTitle="Profile"/>
       {/* <TopNavWithBack navigation={navigation} screenTitle="Profile"/> */}
+      <ScrollView>
       <Layout>
       <Layout style={styles.userInfoSection}>
         <Layout style={{flexDirection: 'row', marginTop: 15}}>
           <Avatar.Image 
             source={{
-              uri: user.photoURL,
+              uri: userData.photoURL,
             }}
             size={80}
           />
@@ -43,8 +45,8 @@ const ProfileScreen = ({navigation}) => {
             <Title style={[styles.title, {
               marginTop:15,
               marginBottom: 5,
-            }]}>{user.displayName}</Title>
-            <Caption style={styles.caption}>{user.displayName}</Caption>
+            }]}>{userData.firstName} {userData.lastName}</Title>
+            <Caption style={styles.caption}>{userData.firstName} {userData.lastName}</Caption>
           </Layout>
         </Layout>
       </Layout>
@@ -56,11 +58,11 @@ const ProfileScreen = ({navigation}) => {
         </Layout>
         <Layout style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{!user.phoneNumber? "+92340000000": user.phoneNumber}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{!userData.phoneNumber? "+92340000000": userData.phoneNumber}</Text>
         </Layout>
         <Layout style={styles.row}>
           <Icon name="email" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{user.email}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{userData.email}</Text>
         </Layout>
       </Layout>
 
@@ -69,16 +71,16 @@ const ProfileScreen = ({navigation}) => {
             borderRightColor: '#dddddd',
             borderRightWidth: 1
           }]}>
-            <Title>₹140.50</Title>
-            <Caption>Wallet</Caption>
+            <Title>4</Title>
+            <Caption>Saved Recipes</Caption>
           </Layout>
           <Layout style={styles.infoBox}>
-            <Title>12</Title>
-            <Caption>Orders</Caption>
+            <Title>2</Title>
+            <Caption>Saved Places</Caption>
           </Layout>
       </Layout>
       </Layout>
-      <Layout style={styles.menuWrapper}>
+      {/* <Layout style={styles.menuWrapper}>
       {data.map((item, index) => 
         <TouchableRipple key={index}>
           <Layout style={styles.menuItem}>
@@ -88,7 +90,13 @@ const ProfileScreen = ({navigation}) => {
         </TouchableRipple>
       )}
       
+      </Layout> */}
+      {/* <CustomGallery /> */}
+      <Layout style={{flex: 1, justifyContent: "center", marginTop: 10, alignItems: "center"}}>
+        <Text style={{...styles.title, fontSize: 22}}>Food Gallery</Text>
+        <ImageGrid navigation={navigation}/>
       </Layout>
+      </ScrollView>
     </SafeAreaView> 
   );
 };
@@ -98,6 +106,9 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center"
   },
   userInfoSection: {
     paddingHorizontal: 30,
@@ -132,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   menuWrapper: {
-    marginTop: 10,
+    paddingTop: 40,
   },
   menuItem: {
     flexDirection: 'row',

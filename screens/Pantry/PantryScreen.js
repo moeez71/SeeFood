@@ -16,7 +16,7 @@ import TopNav from '../../components/TopNav';
 
 const Stack = createStackNavigator();
 
-LogBox.ignoreAllLogs()
+// LogBox.ignoreAllLogs()
 
 const PantryNavigator = ({navigation}) => {
   return (
@@ -260,7 +260,7 @@ const PantryScreen = ({navigation}) => {
               onChangeText={text => setText(text)}
               value={getText}
               
-              autoFocus={true}
+              // autoFocus={true}
               onSubmitEditing={()=> addItem()}
               />
         
