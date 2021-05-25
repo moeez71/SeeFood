@@ -16,22 +16,35 @@ function HeartReact(props) {
             setHeartFilled(true);
     }, []);
 
-    const handlePress = () => {
-
-        setHeartFilled(!heartFilled);
+    const handlePress = async() => {
 
         let bodyData = {
             uid: userData.uid,
             recipeId: props.id
         };
-        axios.put(`http://192.168.0.104:5010/recipe/add`, bodyData, {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            }
-        })
-        .then(res => console.log(res.data))
-        .catch(e => console.error(e.message));
+
+        if (!heartFilled) {
+            axios.put(`http://192.168.0.103:5010/recipe/add`, bodyData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                }
+            })
+            .then(res => console.log(res.data))
+            .catch(e => console.error(e.message));
+        }
+        else {
+            axios.put(`http://192.168.0.103:5010/recipe/remove`, bodyData, {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                }
+            })
+            .then(res => console.log(res.data))
+            .catch(e => console.error(e.message));
+        }
+
+        await setHeartFilled(!heartFilled);
     }
 
     return (

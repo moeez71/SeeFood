@@ -43,7 +43,7 @@ function Favourites({navigation}) {
 
     const getSavedRecipesFromDb = async() => {
         setLoading(true);
-        axios.get(`http://192.168.0.104:5010/recipe/find/${userData.uid}`)
+        axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
         .then(async res => {
           // console.log(res.data.recipes);
           let tmp = await res.data.recipes.map(item => item.recipeId);

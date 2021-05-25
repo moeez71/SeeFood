@@ -13,6 +13,7 @@ var calorieRouter = require('./routes/calorie');
 var calorieLimit = require('./routes/callimit');
 var galleryRouter = require('./routes/gallery');
 var recipeRouter = require('./routes/recipe');
+var searchRouter = require('./routes/search');
 
 var app = express();
 var mongoose = require('mongoose')
@@ -43,6 +44,7 @@ app.use('/calorie', calorieRouter);
 app.use('/limit', calorieLimit);
 app.use('/gallery', galleryRouter);
 app.use('/recipe', recipeRouter);
+app.use('/search', searchRouter);
 
 const PORT= process.env.PORT || 5010;
 

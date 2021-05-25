@@ -106,7 +106,7 @@ const HomeScreen = ({navigation}) => {
   const fetchAPI2 = async () => {
   //always use the ip address from ipconfig command here with the port number of the backend server!!
   console.log(userData);
-  axios.post('http://192.168.0.104:5010/users/register', thisUser, {
+  axios.post('http://192.168.0.103:5010/users/register', thisUser, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
