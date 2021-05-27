@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var Recipe = require('../models/recipe');
+var Search = require('../models/search');
 
 router.get('/', function(req, res, next) {
-    Recipe.find().exec(function(error,results){
+    Search.find().exec(function(error,results){
       if(error){
           return next(error)
       }
@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/find/:uid', function(req, res, next) {
-    Recipe.findOne({uid: req.params.uid}).exec(function(error,result){
+    Search.findOne({uid: req.params.uid}).exec(function(error,result){
       if(error){
           return res.status(400).json(err.message);
       }
@@ -21,13 +21,13 @@ router.get('/find/:uid', function(req, res, next) {
   })
 
 router.put("/add", (req, res) => {
-    Recipe.findOne({uid: req.body.uid}).then( recipe => {
+    Search.findOne({uid: req.body.uid}).then( search => {
   
-      if (recipe) {
-        // return res.status(400).json("recipe already exists");
-        Recipe.updateOne(
+      if (search) {
+        // return res.status(400).json("search already exists");
+        Search.updateOne(
             {uid: req.body.uid}, 
-            {$addToSet: {recipes: [{recipeId: req.body.recipeId}]}},
+            {$addToSet: {searches: [{searchQuery: req.body.searchQuery}]}},
             function(err, result) {
                 if (err) 
                     return res.status(400).json(err.message);
@@ -37,22 +37,22 @@ router.put("/add", (req, res) => {
             )
         }
       
-      //recipe doesnt exist:
+      //search doesnt exist:
       else {
   
-        const newRecipe = new Recipe({
+        const newSearch = new Search({
             uid: req.body.uid,
-            recipes: [
-                {recipeId: req.body.recipeId},
+            searches: [
+                {searchQuery: req.body.searchQuery},
             ]
         });
         
-        Recipe.create(newRecipe).then( (recipe, err) => {
+        Search.create(newSearch).then( (search, err) => {
     
             if(err)
             console.log(err.message);
     
-            return res.status(200).json({message: "recipe created!", recipe: recipe});
+            return res.status(200).json({message: "search created!", search: search});
     
         })}
 
@@ -61,13 +61,13 @@ router.put("/add", (req, res) => {
   });
 
   router.put("/remove", (req, res) => {
-    Recipe.findOne({uid: req.body.uid}).then( recipe => {
+    Search.findOne({uid: req.body.uid}).then( search => {
   
-      if (recipe) {
-        // return res.status(400).json("recipe already exists");
-        Recipe.updateOne(
+      if (search) {
+        // return res.status(400).json("search already exists");
+        Search.updateOne(
             {uid: req.body.uid}, 
-            {$pull: {recipes: {recipeId : req.body.recipeId} } },
+            {$pull: {searchs: {searchId : req.body.searchId} } },
             function(err, result) {
                 if (err) 
                     return res.status(400).json(err.message);
@@ -77,10 +77,10 @@ router.put("/add", (req, res) => {
             )
         }
       
-      //recipe doesnt exist:
+      //search doesnt exist:
       else {
   
-        return res.json("Recipe not found!");
+        return res.json("Search not found!");
     }
 
     })

@@ -1,5 +1,6 @@
 import { Layout } from '@ui-kitten/components';
-import React, {useContext} from 'react';
+import axios from 'axios';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, SafeAreaView, StyleSheet, TouchableOpacity} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import {
@@ -26,7 +27,19 @@ const data = [
 const ProfileScreen = ({navigation}) => {
 
   const {userData} = useContext(AuthContext);
-  console.log(userData.photoURL);
+  const[recipeCount, setRecipeCount] = useState(0);
+
+  const getSavedRecipesFromDb = async() => {
+    axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
+    .then(async res => {
+      await setRecipeCount(res.data.recipes.length);
+    })
+    .catch(e => console.error(e.message));
+  }
+
+  useEffect(() => {
+    getSavedRecipesFromDb();
+  }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>
       <TopNavProfile navigation={navigation} screenTitle="Profile"/>
@@ -71,7 +84,7 @@ const ProfileScreen = ({navigation}) => {
             borderRightColor: '#dddddd',
             borderRightWidth: 1
           }]}>
-            <Title>4</Title>
+            <Title>{recipeCount}</Title>
             <Caption>Saved Recipes</Caption>
           </Layout>
           <Layout style={styles.infoBox}>

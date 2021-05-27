@@ -136,7 +136,7 @@ export default function CameraNew({navigation, route}) {
               uid: userData.uid,
               link: imgURL
           };
-          axios.put(`http://192.168.0.104:5010/gallery/add`, bodyData, {
+          axios.put(`http://192.168.0.103:5010/gallery/add`, bodyData, {
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
