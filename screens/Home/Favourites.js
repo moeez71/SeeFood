@@ -8,6 +8,9 @@ import { AuthContext } from '../../navigation/AuthProvider';
 import axios from 'axios';
 import Settings from '../../Settings.js';
 
+import config_ip from "../../config_ip"
+
+
 function Favourites({navigation}) {
     const[loading, setLoading] = React.useState(false);
     const{userData} = React.useContext(AuthContext);
@@ -43,7 +46,7 @@ function Favourites({navigation}) {
 
     const getSavedRecipesFromDb = async() => {
         setLoading(true);
-        axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
+        axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
         .then(async res => {
           // console.log(res.data.recipes);
           let tmp = await res.data.recipes.map(item => item.recipeId);

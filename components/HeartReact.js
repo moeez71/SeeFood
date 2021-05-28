@@ -5,6 +5,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon  from 'react-native-vector-icons/Ionicons';
 import { AuthContext } from '../navigation/AuthProvider';
 
+import config_ip from "../config_ip"
+
+
 
 function HeartReact(props) {
     const{userData} = useContext(AuthContext);
@@ -24,7 +27,7 @@ function HeartReact(props) {
         };
 
         if (!heartFilled) {
-            axios.put(`http://192.168.0.103:5010/recipe/add`, bodyData, {
+            axios.put(`http://${config_ip.DEFAULT_IP}/recipe/add`, bodyData, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
@@ -34,7 +37,7 @@ function HeartReact(props) {
             .catch(e => console.error(e.message));
         }
         else {
-            axios.put(`http://192.168.0.103:5010/recipe/remove`, bodyData, {
+            axios.put(`http://${config_ip.DEFAULT_IP}/recipe/remove`, bodyData, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'

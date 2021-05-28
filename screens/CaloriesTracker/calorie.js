@@ -9,6 +9,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import NetInfo from "@react-native-community/netinfo";
 
+import config_ip from "../../config_ip"
+
+
 
 
 import { Input, Layout } from '@ui-kitten/components';
@@ -51,7 +54,7 @@ const Calorie = ({navigation}) => {
 };
 
 const fetchAPI2 = async () => {
-  return await fetch('http://192.168.10.3:3000/calorie/adduser1', requestOptions)
+  return await fetch(`http://${config_ip.DEFAULT_IP}/calorie/adduser1`, requestOptions)
   .then(response => response.json())
   .then(data => console.log(data));
 }
@@ -117,7 +120,7 @@ const fetchAPI2 = async () => {
 
 
 const readDataMongo = async () => {
-  const uri = `http://192.168.10.3:3000/calorie/calorie/${user.uid}`
+  const uri = `http://${config_ip.DEFAULT_IP}/calorie/calorie/${user.uid}`
    return await fetch(uri)
    .then((response) => response.json())
    .then((result) => {

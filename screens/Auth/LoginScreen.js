@@ -11,6 +11,9 @@ import BurgerLoader from '../../components/loaders/BurgerLoader.js';
 
 // // LogBox.ignoreAllLogs()
 
+import config_ip from "../../config_ip"
+
+
 
 const LoginScreen = ({navigation}) => {
 

@@ -11,6 +11,9 @@ import RecipeCard from '../../components/RecipeCard';
 import axios from 'axios';
 import { AuthContext } from '../../navigation/AuthProvider';
 
+import config_ip from "../../config_ip"
+
+
 const RecipeSearch = ({navigation, route}) => {
 
   const[isLoading, setIsLoading] = React.useState(false);
@@ -42,7 +45,7 @@ const RecipeSearch = ({navigation, route}) => {
 }
 
   const getSavedRecipesFromDb = async() => {
-    axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
+    axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
     .then(async res => {
       // console.log(res.data.recipes);
       let tmp = res.data.recipes.map(item => item.recipeId);
@@ -60,7 +63,7 @@ const RecipeSearch = ({navigation, route}) => {
       searchQuery: value
     };
 
-    axios.put(`http://192.168.0.103:5010/search/add`, bodyData, {
+    axios.put(`http://${config_ip.DEFAULT_IP}/search/add`, bodyData, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

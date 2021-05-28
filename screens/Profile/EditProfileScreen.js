@@ -23,6 +23,9 @@ import Theme from '../../constants/Theme';
 import axios from 'axios';
 import PopUp from '../../components/PopUp';
 
+import config_ip from "../../config_ip"
+
+
 
 
 
@@ -65,7 +68,7 @@ const EditProfileScreen = ({navigation, ...props}) => {
     await setUserData(tmp);
     user.updateProfile({displayName: firstName + ' ' + lastName});
 
-    axios.post('http://192.168.43.123:5000/users/updateUser', tmp, {
+    axios.post(`http://${config_ip.DEFAULT_IP}/users/updateUser`, tmp, {
       headers: {
         headers: {
           'Content-Type': 'application/json',

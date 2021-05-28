@@ -9,6 +9,9 @@ import BurgerLoader from '../../components/loaders/BurgerLoader';
 import Theme from '../../constants/Theme';
 import Settings from '../../Settings';
 import { AuthContext } from '../../navigation/AuthProvider';
+
+import config_ip from "../../config_ip"
+
 // LogBox.ignoreAllLogs()
 
 
@@ -136,7 +139,7 @@ export default function CameraNew({navigation, route}) {
               uid: userData.uid,
               link: imgURL
           };
-          axios.put(`http://192.168.0.103:5010/gallery/add`, bodyData, {
+          axios.put(`http://${config_ip.DEFAULT_IP}/gallery/add`, bodyData, {
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

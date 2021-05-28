@@ -8,6 +8,9 @@ import RecipeCard from '../../components/RecipeCard';
 import { AuthContext } from '../../navigation/AuthProvider';
 import axios from 'axios';
 
+import config_ip from "../../config_ip"
+
+
 // LogBox.ignoreAllLogs()
 
 
@@ -69,7 +72,7 @@ const RecipeResults = ({navigation, route}) => {
     }
 
     const getSavedRecipesFromDb = async() => {
-      axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
+      axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
       .then(async res => {
         // console.log(res.data.recipes);
         let tmp = res.data.recipes.map(item => item.recipeId);
@@ -89,7 +92,7 @@ const RecipeResults = ({navigation, route}) => {
         searchQuery: ingredientString
       };
   
-      axios.put(`http://192.168.0.103:5010/search/add`, bodyData, {
+      axios.put(`http://${config_ip.DEFAULT_IP}/search/add`, bodyData, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'

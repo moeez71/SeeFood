@@ -5,6 +5,8 @@ import * as eva from '@eva-design/eva';
 import SplashScreen from "react-native-lottie-splash-screen";
 
 
+const ip = `192.168.10.3`
+
 const App = () => {
   React.useEffect(() => {
     SplashScreen.hide(); // here
@@ -16,5 +18,6 @@ const App = () => {
     
   );
 }
+
 
 export default App;

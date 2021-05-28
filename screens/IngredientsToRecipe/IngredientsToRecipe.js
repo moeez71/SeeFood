@@ -14,6 +14,9 @@ import CloseButton from '../../components/CloseButton';
 import Settings from '../../Settings'
 import { AuthContext } from '../../navigation/AuthProvider';
 import CameraModal from '../../components/CameraModal';
+
+import config_ip from "../../config_ip"
+
     
 // // LogBox.ignoreAllLogs()
 
@@ -56,7 +59,7 @@ const IngredientsToRecipe = ({navigation}) => {
   );
 
   const axiosClient = axios.create({
-    baseURL: 'http://192.168.43.123:3000',
+    baseURL: `http://${config_ip.DEFAULT_IP}`,
     timeout: 50000, //50 seconds
   });
 

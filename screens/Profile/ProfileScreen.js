@@ -17,6 +17,8 @@ import TopNavProfile from '../../components/TopNavProfile';
 import { AuthContext } from '../../navigation/AuthProvider';
 
 
+import config_ip from "../../config_ip"
+
 const data = [
   "Your Favorites",
   "Tell Your Friends",
@@ -30,7 +32,7 @@ const ProfileScreen = ({navigation}) => {
   const[recipeCount, setRecipeCount] = useState(0);
 
   const getSavedRecipesFromDb = async() => {
-    axios.get(`http://192.168.0.103:5010/recipe/find/${userData.uid}`)
+    axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
     .then(async res => {
       await setRecipeCount(res.data.recipes.length);
     })

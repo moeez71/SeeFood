@@ -5,6 +5,8 @@ import FbGrid from "react-native-fb-image-grid";
 import { AuthContext } from '../navigation/AuthProvider';
 
 
+import config_ip from "../config_ip"
+
 
 function ImageGrid({navigation}) {
 
@@ -13,7 +15,7 @@ function ImageGrid({navigation}) {
   
 
   useEffect(()=> {
-    axios.get(`http://192.168.0.103:5010/gallery/find/${userData.uid}`)
+    axios.get(`http://${config_ip.DEFAULT_IP}/gallery/find/${userData.uid}`)
     .then(async res => {
       // console.log(res.data.gallery);
       let tmp = res.data.gallery.map(item => item.img);

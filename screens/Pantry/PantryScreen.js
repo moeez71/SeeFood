@@ -13,6 +13,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Layout} from '@ui-kitten/components';
 import TopNav from '../../components/TopNav';
 
+import config_ip from "../../config_ip"
+//import DEFAULT_IP from "react-native-dotenvs"
+
 
 const Stack = createStackNavigator();
 
@@ -62,7 +65,7 @@ const PantryScreen = ({navigation}) => {
       })
   };
     const fetchAPI2 = async () => {
-    return await fetch('http://192.168.10.3:3000/pantry/adduser1', requestOptions)
+    return await fetch(`http://${config_ip.DEFAULT_IP}/pantry/adduser1`, requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
   }
@@ -149,7 +152,7 @@ const PantryScreen = ({navigation}) => {
 
        const readDataMongo = async () => {
        //  const uri = `http://localhost:3000/pantry/pantry/${user.uid}`
-       const uri = `http://192.168.10.3:3000/pantry/pantry/uO6WUKFb0paef644AoGzliM6OjC2`
+       const uri = `http://${config_ip.DEFAULT_IP}/pantry/pantry/uO6WUKFb0paef644AoGzliM6OjC2`
           return await fetch(uri)
           .then((response) => response.json())
           .then((result) => {

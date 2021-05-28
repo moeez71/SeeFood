@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Gallery from 'react-native-image-gallery';
 
+import config_ip from "../../config_ip"
+
+
 const FoodGallery = (props) => {
 
   const[images, setImages] = useState([]);

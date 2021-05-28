@@ -15,6 +15,9 @@ import axios from 'axios';
 import FoodList from '../../components/FoodList';
 
 
+import config_ip from "../../config_ip"
+
+
 var User = require('../../back/backend/models/user')
 
 
@@ -106,7 +109,7 @@ const HomeScreen = ({navigation}) => {
   const fetchAPI2 = async () => {
   //always use the ip address from ipconfig command here with the port number of the backend server!!
   console.log(userData);
-  axios.post('http://192.168.0.103:5010/users/register', thisUser, {
+  axios.post(`http://${config_ip.DEFAULT_IP}/users/register`, thisUser, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'

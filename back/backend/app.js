@@ -17,8 +17,8 @@ var searchRouter = require('./routes/search');
 
 var app = express();
 var mongoose = require('mongoose')
-// const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true});
-const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
+ const connection = mongoose.connect(process.env.MONGO_URI,{useNewUrlParser: true,useUnifiedTopology:true});
+//const connection = mongoose.connect("mongodb://localhost:27017/shazam-local",{useNewUrlParser: true,useUnifiedTopology:true});
 
 
 connection.then((db)=>{
