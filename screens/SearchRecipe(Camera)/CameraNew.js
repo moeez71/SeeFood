@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, ScrollView,ActivityIndicator, SafeAreaView, LogBox } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import { Text, Layout, List, ListItem, Button, Divider} from '@ui-kitten/components';
 import * as ImagePicker from 'expo-image-picker';
 import axios from 'axios';
 import TopNavWithBack from '../../components/TopNavWithBack';
+import BurgerLoader from '../../components/loaders/BurgerLoader';
+import Theme from '../../constants/Theme';
+import Settings from '../../Settings';
+import { AuthContext } from '../../navigation/AuthProvider';
 
-LogBox.ignoreAllLogs()
+import config_ip from "../../config_ip"
+
+// LogBox.ignoreAllLogs()
 
 
 const axiosClient = axios.create({
@@ -24,62 +30,123 @@ const hardPred = [
     {class: "apple-pie", prediction: 0.8},
     {class: "cheese-cake", prediction: 0.6},
 ];
-export default function CameraNew({navigation}) {
+export default function CameraNew({navigation, route}) {
 
     const[image, setImage] = useState('');
     const[isLoading, setIsLoading] = useState(false);
     const[isErr, setIsErr] = useState(false);
     const[getPredictions, setPredictions] = useState([]);
     const[isClicked, setIsClicked] = useState(false);
+    const[b64, setB64] = useState(null);
+    const{userData} = useContext(AuthContext);
 
     const renderItem = ({ item, index }) => (
         <ListItem
-          title={()=><Text category="h5">{item.class}</Text>}
-          description={`Probability: ${item.output}`}
+          style={{elevation: 2,  borderRadius: 50, margin: 5}}
+          title={()=><Text style={styles.listText}>{item.class}</Text>}
+          description={() => <Text style={styles.subTxt}>Probability: {item.output}</Text>}
           accessoryRight={() => renderItemAccessory(item)}
         />
       );
 
       const renderItemAccessory = (item) => (
-        <Button size='small' status='success' onPress={()=>navigation.navigate('CameraRecipe', {foodName: item.class})}>See Recipe</Button>
+        <Button 
+        size='small' 
+        style={styles.seeBtn} 
+        // onPress={()=>navigation.navigate('CameraRecipe', {foodName: item.class})}
+        onPress={()=> handleClick(item)}
+        >
+        <Text style={{fontFamily: "Nexa Regular", color: "white"}}>See Recipe</Text>
+        </Button>
       );
+
+      const handleClick = async(item) => {
+        await route.params.changeValue(item.class);
+        await route.params.searchPress();
+        await navigation.goBack();
+      }
     
     const openCamera = async() => {
-        const options = {
-            mediaType: 'photo',
-            maxWidth: 400,
-            quality: 0.7,
-            allowsEditing: true
-        };
-
+        
         let response = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 0.7
+            quality: 0.7,
+            base64: true
         })
         await setImage({
             uri: response.uri
         });
-        console.log(response);
+        // console.log(response);
+        let base64Img = `data:image/jpg;base64,${response.base64}`;
+        // await setB64(base64Img);
+        uploadCloud(base64Img);
         classifyImg(response);
 
     }
 
     const openCameraRoll = async() => {
         
-
+        
         let response = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
             aspect: [4, 3],
-            quality: 0.7
+            quality: 0.7,
+            base64: true
         });
         await setImage({
             uri: response.uri
         });
-        console.log(response);
+        // console.log(response);
+        let base64Img = `data:image/jpg;base64,${response.base64}`;
+        // await setB64(base64Img);
+        uploadCloud(base64Img);
         classifyImg(response);
 
+    }
+
+    const uploadCloud = async(base64Img) => {
+        let CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/hammadahm3d/image/upload';
+        // let base64Img = `data:image/jpg;base64,${imgData.base64}`;
+        // let base64Img = b64;
+        let data = {
+            "file": base64Img,
+            "upload_preset": "ml_default",
+          };
+
+        var imgURL;
+        // setIsLoading(true);
+        await fetch(CLOUDINARY_URL, {
+            body: JSON.stringify(data),
+            headers: {
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+          })
+          .then(async r => {
+            let data = await r.json()
+            console.log(data.url)
+            imgURL = await data.url;
+            // setIsLoading(false);
+      
+          })
+          .catch(err => console.log(err))
+
+          //upload img url to mongodb
+
+          let bodyData = {
+              uid: userData.uid,
+              link: imgURL
+          };
+          axios.put(`http://${config_ip.DEFAULT_IP}/gallery/add`, bodyData, {
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              }
+          })
+          .then(res => console.log(res.data))
+          .catch(e => console.error(e.message));
     }
 
     const classifyImg = (imgData) => {
@@ -98,9 +165,9 @@ export default function CameraNew({navigation}) {
         console.log(data);
         setIsLoading(true);
         setIsClicked(true);
-        axiosClient.get('/ping')
-        .then(res=> console.log(res.data))
-        .catch(e => console.log(e.message))
+        // axiosClient.get('/ping')
+        // .then(res=> console.log(res.data))
+        // .catch(e => console.log(e.message))
         
         axiosClient.post('/api/classify', data, {
             headers: {
@@ -119,17 +186,15 @@ export default function CameraNew({navigation}) {
             setIsErr(true);
         })
     }
+
+    if (isLoading)
+      return (<BurgerLoader />);
    
     return(
         <SafeAreaView style={{ flex: 1 }}>
         <TopNavWithBack navigation={navigation} screenTitle="Capture Image"/>
         <ScrollView style={styles.container}>
             <Layout style={styles.container} >
-
-                {/* <View style={styles.titleContainer}>
-                    <Text category="h1">Pick Image</Text>
-
-                </View> */}
 
                 <View style={styles.actionsContainer}>
 
@@ -153,29 +218,14 @@ export default function CameraNew({navigation}) {
 
                 <View style={styles.predictionsContainer}>
                     
-                    {(isClicked &&  isLoading)?  <ActivityIndicator size="large" color="black"/>: 
-                    
+
                     <View>
-                        <Layout style={{justifyContent: "center", alignItems:"center"}}>
-                            <Text category="h5">Predictions</Text>
-                        </Layout>
                         <List
                         style={styles.container}
                         data={getPredictions}
-                        ItemSeparatorComponent={Divider}
                         renderItem={renderItem}
                         />
                     </View>
-                    
-            
-            }
-
-            {/* <List
-            style={styles.container}
-            data={hardPred}
-            ItemSeparatorComponent={Divider}
-            renderItem={renderItem}
-            /> */}
                 </View>
             </Layout>
 
@@ -184,22 +234,12 @@ export default function CameraNew({navigation}) {
     )
 }
 
-{/* <ScrollView>
-                {hardPred.map((item, index) => {
-
-                    return(   <View key={index}>
-                        <Text status='primary'>{index + 1} - {item.class}</Text>
-                    </View>
-                    )
-
-                })}
-            </ScrollView> */}
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         //paddingTop: 10,
-    
+        backgroundColor: "white"
     },
     
     contentContainer: {
@@ -248,7 +288,22 @@ const styles = StyleSheet.create({
         padding: 10,
     
     },
-    
+    seeBtn: {
+        borderRadius: 50,  
+        backgroundColor: 
+        Theme.COLORS.PRIMARY, 
+        borderColor:Theme.COLORS.PRIMARY, 
+    },
+    listText: {
+        fontSize: 20,
+        fontFamily: "Nexa Bold",
+        marginLeft: 5,
+    },
+    subTxt: {
+        fontSize: 14,
+        marginLeft: 5,
+        fontFamily: "Nexa Light",
+    },
     
     });
     

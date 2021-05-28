@@ -15,8 +15,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
 
+import config_ip from "../../config_ip"
 
-LogBox.ignoreAllLogs()
+
+
+// LogBox.ignoreAllLogs()
 
 const calgraphs = ({navigation}) => {
     const {user} = useContext(AuthContext);
@@ -105,7 +108,7 @@ const calgraphs = ({navigation}) => {
       saveData();
     }
     const fetchAPI2 = async () => {
-        return await fetch('http://192.168.10.3:3000/limit/adduser1', requestOptions)
+        return await fetch(`http://${config_ip.DEFAULT_IP}/limit/adduser1`, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data));
       }
@@ -117,7 +120,7 @@ const calgraphs = ({navigation}) => {
       }
 
       fetch2()
-      const uri = `http://192.168.10.3:3000/calorie/calorie/${user.uid}`
+      const uri = `http://${config_ip.DEFAULT_IP}/calorie/calorie/${user.uid}`
        return await fetch(uri)
        .then((response) => response.json())
        .then((result) => {
@@ -182,7 +185,7 @@ const calgraphs = ({navigation}) => {
        }
 
        const fetch2 = async () => {
-        const uri = `http://192.168.10.3:3000/limit/calorie/${user.uid}`
+        const uri = `http://${config_ip.DEFAULT_IP}/limit/calorie/${user.uid}`
         return await fetch(uri)
         .then((response) => response.json())
         .then((result) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import {
     Avatar,
@@ -14,6 +14,10 @@ import {
     DrawerContentScrollView
 } from '@react-navigation/drawer';
 import DrawerCustomItem from './DrawerCustomItem';
+import { AuthContext } from '../navigation/AuthProvider';
+import LogoutModal from './LogoutModal';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
 export default function DrawerContent({
     drawerPosition,
     navigation,
@@ -35,8 +39,19 @@ const screens = [
     iconName:"user-circle-o",
     nextScreen:"Profile"
     },
+    {
+    title:"Favourites",
+    iconName:"heart-o",
+    nextScreen:"Favourites"
+    },
 ];
 
+const {userData} = useContext(AuthContext);
+const [modalVisible, setModalVisible] = useState(false);
+
+const handleLogoutClick = () => {
+    setModalVisible(!modalVisible);
+}
     return(
         <View style={{flex:1}}>
             <DrawerContentScrollView>
@@ -45,17 +60,17 @@ const screens = [
                         <View style={{flexDirection:'row',marginTop: 15}}>
                             <Avatar.Image 
                                 source={{
-                                    uri: 'https://api.adorable.io/avatars/50/abott@adorable.png'
+                                    uri: userData.photoURL
                                 }}
                                 size={50}
                             />
                             <View style={{marginLeft:15, flexDirection:'column'}}>
-                                <Title style={styles.title}>John Doe</Title>
-                                <Caption style={styles.caption}>@j_doe</Caption>
+                                <Title style={styles.title}>{userData.firstName} {userData.lastName}</Title>
+                                {/* <Caption style={styles.caption}>{userData.firstName} {userData.lastName}</Caption> */}
                             </View>
                         </View>
 
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             <View style={styles.section}>
                                 <Paragraph style={[styles.paragraph, styles.caption]}>80</Paragraph>
                                 <Caption style={styles.caption}>Following</Caption>
@@ -64,7 +79,7 @@ const screens = [
                                 <Paragraph style={[styles.paragraph, styles.caption]}>100</Paragraph>
                                 <Caption style={styles.caption}>Followers</Caption>
                             </View>
-                        </View>
+                        </View> */}
                     </View>
 
                     <Drawer.Section style={styles.drawerSection}>
@@ -76,7 +91,8 @@ const screens = [
                             navigation={navigation}
                             focused={state.index === index? true: false}
                             iconName={item.iconName}
-                            nextScreen={item.nextScreen}
+                            onPressHandle={() => navigation.navigate(`${item.nextScreen}`)}
+                            // nextScreen={item.nextScreen}
                         />
                     )}
                     </Drawer.Section>
@@ -86,21 +102,28 @@ const screens = [
                         >
                             <View style={styles.preference}>
                                 <Text style={styles.caption}>Dark Theme</Text>
-                                {/* <View pointerEvents="none">
-                                    <Switch value={paperTheme.dark}/>
-                                </View> */}
+                                <View pointerEvents="none">
+                                    <Switch/>
+                                </View>
                             </View>
                         </TouchableRipple>
                     </Drawer.Section>
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>
+            <TouchableOpacity onPress={()=>setModalVisible(true)}>
                         <DrawerCustomItem 
                             title="logout"
                             navigation={navigation}
                             focused={false}
                             iconName="sign-out"
                             nextScreen="LogoutScreen"
+                            // onPressHandle={()=>}
+                        />
+            </TouchableOpacity>
+                        <LogoutModal 
+                            makeVisible={modalVisible}
+                            onCancel={() => setModalVisible(false)}
                         />
             </Drawer.Section>
         </View>

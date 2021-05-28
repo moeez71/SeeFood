@@ -6,12 +6,23 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState({
+        uid: null,
+        firstName: null,
+        lastName: null,
+        email: null,
+        phoneNumber: null,
+        photoURL: null,
+        providerId: null,
+    });
 
     return (
         <AuthContext.Provider
             value={{
             user,
             setUser,
+            userData, 
+            setUserData,
             login: async (email, password) => {
             try {
                 await auth().signInWithEmailAndPassword(email, password);
@@ -28,7 +39,7 @@ export const AuthProvider = ({children}) => {
                     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
                     // Sign-in the user with the credential
-                    console.log("Google credentials: " +  googleCredential.providerId);
+                    // console.log("Google credentials: " +  googleCredential.providerId);
                     return auth().signInWithCredential(googleCredential);
                 }catch(e) {
                     alert(e.message);
@@ -51,7 +62,7 @@ export const AuthProvider = ({children}) => {
 
                     // Create a Firebase credential with the AccessToken
                     const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-                    console.log('Credentials from fb login:' + facebookCredentials);
+                    // console.log('Credentials from fb login:' + facebookCredentials);
                     // Sign-in the user with the credential
                     await auth().signInWithCredential(facebookCredential);
                 }catch(e) {

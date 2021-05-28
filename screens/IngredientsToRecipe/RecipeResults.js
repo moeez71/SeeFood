@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Chip } from 'react-native-paper';
-import { StyleSheet, ScrollView, SafeAreaView, View, Image, FlatList, LogBox} from 'react-native';
-import { ApplicationProvider, Layout, Text, Divider, Spinner, Avatar, Input, Button, ViewPager, Icon, List, ListItem } from '@ui-kitten/components';
+import { StyleSheet,  SafeAreaView, LogBox} from 'react-native';
+import { Layout,List, } from '@ui-kitten/components';
 import Settings from '../../Settings';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import BurgerLoader from '../../components/loaders/BurgerLoader';
 import TopNavWithBack from '../../components/TopNavWithBack';
+import RecipeCard from '../../components/RecipeCard';
+import { AuthContext } from '../../navigation/AuthProvider';
+import axios from 'axios';
 
-LogBox.ignoreAllLogs()
+import config_ip from "../../config_ip"
+
+
+// LogBox.ignoreAllLogs()
 
 
 // const ViewPagerSimpleUsageShowcase = () => {
@@ -42,25 +45,22 @@ const RecipeResults = ({navigation, route}) => {
     const [activeSlide, setActiveSlide] = React.useState(0);
     const [selectedIndex, setSelectedIndex] = React.useState(0);
 
+    const [savedRecipes, setSavedRecipes] = React.useState([]);
+
+    const{userData} = React.useContext(AuthContext);
     
     const getRecipes = async() => {
 
         var ingredients= route.params.ingredients;
         var ingredientString = ingredients.join(',');
         console.log(ingredientString);
-
         try{
-            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=10&instructionsRequired=true&apiKey=${Settings.API_KEY}`);
+            const req = await fetch(`${Settings.URL}search?query=${ingredientString}&number=5&instructionsRequired=true&apiKey=${Settings.API_KEY2}`);
+            // const req = await fetch(`${Settings.URL}findByIngredients?ingredients=${ingredientString}&limitLicense=true&number=100&ranking=2&ignorePantry=true&apiKey=${Settings.API_KEY}`);
             const result = await req.json();
-            // console.log(result.results);
+            console.log(result.results);
             await setRecipes(result.results);
-            // for(let item of result.results){
-            //     setRecipes([...recipes, item]);
-            //     setRecipeCount(recipeCount + 1);
-            //     console.log(item);
-            //     // this.state.recipes.push(items);
-            // }
-            console.log(recipeCount);
+           
         }
         catch(err){
             console.log(err)
@@ -71,55 +71,63 @@ const RecipeResults = ({navigation, route}) => {
         }
     }
 
+    const getSavedRecipesFromDb = async() => {
+      axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
+      .then(async res => {
+        // console.log(res.data.recipes);
+        let tmp = res.data.recipes.map(item => item.recipeId);
+        // console.log(tmp);
+        await setSavedRecipes(tmp);
+    
+      })
+      .catch(e => console.error(e.message));
+    }
+
+    const saveQueryToDB = () => {
+      let ingredients= route.params.ingredients;
+      let ingredientString = ingredients.join(',');
+
+      let bodyData = {
+        uid: userData.uid,
+        searchQuery: ingredientString
+      };
+  
+      axios.put(`http://${config_ip.DEFAULT_IP}/search/add`, bodyData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+          }
+      })
+      .then(res => console.log(res.data))
+      .catch(e => console.error(e.message));
+    }
 
     React.useEffect(() => {
-        getRecipes();
+      saveQueryToDB();
+      getSavedRecipesFromDb();
+      getRecipes();
     }, []);
 
-    const renderItemAccessory = (props) => (
-        <AntDesign name="right" color="#567" size={18}/>
-      );
-    
-      const itemImg = ({image, ...rest}) => (
-        <Layout style={{ width: 200, height: 150}}>
-                <Image 
-                style={styles.img} 
-                resizeMode='contain' 
-                source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}
-                {...rest}
-                />
-        </Layout>
-        );
     
       const renderItem = ({ item, index }) => (
-        <ListItem
-          title={`${item.title}`}
-          description={`${item.servings} ${index + 1}`}
-        //   accessoryLeft={<Avatar source={require('./yoda.jpeg')}/>}
-          accessoryRight={renderItemAccessory}
-          ItemSeparatorComponent={<Divider />}
-          onPress={() => navigation.navigate('Instructions', {
+        <RecipeCard 
+        title={item.title} 
+        imageURL={item.image}
+        isSummary={false}
+        key={index}
+        id={item.id}
+        savedRecipes={savedRecipes}
+        handlePress={() => navigation.navigate('Instructions', {
                                                                             id: item.id, 
                                                                             title: item.title, 
                                                                             servings: item.servings,
                                                                             readyInMinutes: item.readyInMinutes,
                                                                             img: item.image
-                                                                        })}
-        >
-        <Layout 
-        level='3'
-        style={styles.row}>
-        <Layout level='3' style={styles.innerRow}>
-            <Avatar source={{uri: `https://spoonacular.com/recipeImages/${item.image}`}}/>
-            <Text> {item.title}</Text>  
-        </Layout>   
-            <AntDesign name="right" color="#567" size={18}/>                                                           
-        </Layout>
-        </ListItem>
+                                                                        })}  
+        />
       );
-
     return (
-        <Layout style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1}}>
             <TopNavWithBack navigation={navigation} screenTitle="Recipes"/>
           <Layout style={styles.container}>
           {
@@ -132,7 +140,7 @@ const RecipeResults = ({navigation, route}) => {
               />
           }
           </Layout>
-        </Layout>
+        </SafeAreaView>
     );
 }
 
@@ -142,9 +150,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+        // backgroundColor: 'red'
     },
     tab: {
         height: 192,
+        backgroundColor: "white"
       },
       row: {
         flexDirection: 'row',

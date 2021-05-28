@@ -10,6 +10,7 @@ function DrawerCustomItem({
     focused,
     iconName,
     nextScreen,
+    onPressHandle,
     ...rest
   }) {
     return (
@@ -24,7 +25,8 @@ function DrawerCustomItem({
                  />
              )}
              label={()=><Text style={{...styles.text, color: focused? Theme.COLORS.PRIMARY :"white"}}>{title}</Text>}
-             onPress={() => {navigation.navigate(`${nextScreen}`)}}
+            //  onPress={() => {navigation.navigate(`${nextScreen}`)}}
+             onPress={onPressHandle}
          />
          </View>
     );

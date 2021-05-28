@@ -7,12 +7,10 @@ const FormButton = ({buttonTitle, isDisabled, ...rest}) => {
   return (
     <Button 
     style={styles.buttonContainer} {...rest}
-    disabled={isDisabled}>
+    disabled={isDisabled}
+    >
       <Text style={styles.buttonText}>{buttonTitle}</Text>
     </Button>
-    // <TouchableOpacity style={styles.buttonContainer} {...rest}>
-      // <Text style={styles.buttonText}>{buttonTitle}</Text>
-    // </TouchableOpacity>
   );
 };
 
@@ -20,19 +18,19 @@ export default FormButton;
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: 10,
+    // paddingTop: 10,
     width: '100%',
     height: windowHeight / 15,
-    // backgroundColor: '#2e64e5',
-    padding: 10,
+    // backgroundColor: '#c53707',
+    margin: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 3,
+    borderRadius: 50,
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     color: '#ffffff',
-    fontFamily: 'Lato-Regular',
+    fontFamily: 'Nexa Bold',
   },
 });

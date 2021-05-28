@@ -1,14 +1,18 @@
 import React, {useContext, useState} from 'react';
-import { StyleSheet,TouchableOpacity,Platform, LogBox} from 'react-native';
+import { StyleSheet,TouchableOpacity,Platform, LogBox, ImageBackground, Dimensions, Image} from 'react-native';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import SocialButton from '../../components/SocialButton';
 import { AuthContext } from '../../navigation/AuthProvider';
 import { ApplicationProvider, Layout, Text, Divider, Spinner } from '@ui-kitten/components';
 import * as eva from '@eva-design/eva';
+import Theme from '../../constants/Theme';
+import BurgerLoader from '../../components/loaders/BurgerLoader.js';
 
+// // LogBox.ignoreAllLogs()
 
-LogBox.ignoreAllLogs()
+import config_ip from "../../config_ip"
+
 
 
 const LoginScreen = ({navigation}) => {
@@ -101,9 +105,16 @@ const LoginScreen = ({navigation}) => {
     await setIsLoading(false)
   }
 
+    if (isLoading)
+      return (<BurgerLoader />)
+
     return (
           <Layout style={styles.container}>
-          <Text category="h1">SeeFood</Text>
+          <ImageBackground source={require('../../assets/images/bg.png')} style={styles.bgImage}>
+          {/* <Text style={styles.titleText}>SeeFood</Text> */}
+          <Image source={require('../../assets/images/seeFood.png')} 
+          style={styles.logo} 
+          resizeMode="center"/>
           <Divider/>
           <FormInput
             labelValue={email}
@@ -147,23 +158,25 @@ const LoginScreen = ({navigation}) => {
           </TouchableOpacity>
     
           {Platform.OS === 'android' ? (
-            <Layout>
+            /* <Layout> */
+            <>
               <SocialButton
                 buttonTitle="Sign In with Facebook"
                 btnType="facebook-f"
-                color="#4867aa"
-                backgroundColor="#e6eaf4"
+                color="white"
+                backgroundColor="#3b5998"
                 onPress={() => facebookLogin()}
               />
-    
+              {/* <Layout style={{backgroundColor: 'rgba(52, 52, 52, alpha)',}}></Layout> */}
               <SocialButton
                 buttonTitle="Sign In with Google"
                 btnType="google"
-                color="#de4d41"
-                backgroundColor="#f5e7ea"
+                color="white"
+                backgroundColor="#DB4437"
                 onPress={() => googleLogin()}
               />
-            </Layout>
+              </>
+            /* </Layout> */
           ) : null}
     
           <TouchableOpacity
@@ -174,6 +187,7 @@ const LoginScreen = ({navigation}) => {
               Don't have an acount? Create here
             </Text>
           </TouchableOpacity>
+          </ImageBackground>
           </Layout>
     );
   };
@@ -186,13 +200,28 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       padding: 20,
     },
+    bgImage: {
+      // flex: 1,
+      padding: 20,
+      resizeMode: "cover",
+      width: Dimensions.get("screen").width,
+      height: Dimensions.get("screen").height,
+      justifyContent: "center",
+      alignItems: "center",
+    },
     logo: {
-      height: 150,
-      width: 150,
-      resizeMode: 'cover',
+      height: 100,
+      width: 300,
+      // resizeMode: 'cover',
+    },
+    titleText: {
+      fontFamily: 'Nexa Bold',
+      fontSize: 70,
+      color: Theme.COLORS.PRIMARY,
+      margin: 10,
     },
     text: {
-      fontFamily: 'Kufam-SemiBoldItalic',
+      fontFamily: 'Nexa Regular',
       fontSize: 36,
       marginBottom: 10,
       fontWeight: 'bold',
@@ -208,12 +237,12 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '500',
       color: '#2e64e5',
-      fontFamily: 'Lato-Regular',
+      fontFamily: 'Nexa Regular',
     },
     errorMsg: {
-      fontFamily: 'Kufam-SemiBoldItalic',
+      fontFamily: 'Nexa Regular',
       fontSize: 36,
       marginBottom: 10,
-    }
+    },
   });
   
