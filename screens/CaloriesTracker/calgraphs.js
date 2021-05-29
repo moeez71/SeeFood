@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext}  from 'react';
 import { ActivityIndicator } from 'react-native-paper';
-import { ApplicationProvider, Layout, Text, Divider, Spinner, Input, Button } from '@ui-kitten/components';
+import { ApplicationProvider, Layout, Text, Divider, Spinner, Input } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme} from "victory-native"
@@ -9,6 +9,11 @@ import { View, StyleSheet, ScrollView , TouchableOpacity , LogBox } from 'react-
 import NetInfo from "@react-native-community/netinfo";
 
 import Prompt from "react-native-input-prompt";
+import Theme from '../../constants/Theme';
+import { Button } from "@ui-kitten/components";
+
+
+
 
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -225,59 +230,56 @@ const calgraphs = ({navigation}) => {
         <Layout style= {styles.container}>
 
         
-            <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
-            <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>Calories Tracker</Text>
+        <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:"#feece6", borderRadius: 50, borderColor: Theme.COLORS.PRIMARY }}>
+            <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, width: "100%"}}>Calories Trends</Text>
             </View>
            
             
             
 
              <VictoryChart domainPadding={10}>
-             <VictoryLine  y={() => limit } style={{data: { stroke: "#c43a31", strokeWidth: "6" }
+             <VictoryLine  y={() => limit } style={{data: { stroke: "#ff0000", strokeWidth: "6" }
     }}/>
              <VictoryAxis label= "Day" style= {{axis: {stroke: "#756f6a"},axisLabel: {fontSize: 18, padding: 30}}}/>
              <VictoryAxis dependentAxis label= "Calories Consumed" style= {{axisLabel: {padding: 37}}}/>
                 <VictoryGroup >     
-                    <VictoryBar barWidth={20} data= {graphData} style= {{data: {fill: '#4169e1'}}}
+                    <VictoryBar barWidth={20} data= {graphData} style= {{data: {fill: '#ffa07a'}}}
                     
                     >
                     </VictoryBar>
                 </VictoryGroup>
             </VictoryChart> 
                    
-            <View style= {styles.row}>         
-               <Button style={styles.button} status='primary'>
-      Add Record
-    </Button>
+         
 
-    <Button style={styles.button} status='primary'>
-      View All Records
-    </Button>
-
-    <Button style={styles.button} status='primary' onPress= {() => setvisible(true)}  > 
-      Set Daily Limit
-    </Button>
-
-    
-
-    <Prompt
-    visible={visible}
-    title="Set Daily Calories Limit"
-    placeholder="Enter Here"
-    onCancel={() => 
-        setvisible(false)
-    }
-    onSubmit={text =>
-        limitReset(text)
-        
-    }
-/>
-
-    
-    
+    <View style= {{paddingTop: 18}}>
+    <Text style= {{ fontSize: 20, fontFamily: "serif",  padding:5, width: "100%"}}>Your Daily Calories Limit is set as {limit}Kcal</Text>
     </View>
 
-    <View><Text>Your Daily Calories Limit is set as {limit}Kcal</Text></View>
+    <View style= {styles.row}>   
+                  
+               <Button style={styles.buttonContainer} status='primary' onPress= {() => setvisible(true)}  > 
+                    Set Daily Limit
+                </Button>
+              
+                  
+              
+                  <Prompt
+                  visible={visible}
+                  title="Set Daily Calories Limit"
+                  placeholder="Enter Here"
+                  onCancel={() => 
+                      setvisible(false)
+                  }
+                  onSubmit={text =>
+                      limitReset(text)
+                      
+                  }
+              />
+              
+                  
+                  
+                  </View>
 
         </Layout>
         </Layout>
@@ -290,11 +292,21 @@ const styles = StyleSheet.create({
       padding: 20,
     },
     row: {
-        paddingTop:30,
+        paddingTop:1,
         justifyContent: "space-between",
       flexDirection: 'row',
       //flexWrap: 'wrap',
        
     },
+    buttonContainer: {
+      // paddingTop: 10,
+      // height: windowHeight / 12.5,
+      backgroundColor: Theme.COLORS.PRIMARY,
+      borderColor:Theme.COLORS.PRIMARY,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 50,
+    },  
   });
 export default calgraphs

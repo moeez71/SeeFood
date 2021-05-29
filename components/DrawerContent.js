@@ -44,6 +44,11 @@ const screens = [
     iconName:"heart-o",
     nextScreen:"Favourites"
     },
+    {
+    title:"SearchHistory",
+    iconName:"history",
+    nextScreen:"SearchHistory"
+    },
 ];
 
 const {userData} = useContext(AuthContext);

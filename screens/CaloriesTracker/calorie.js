@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, StyleSheet, Keyboard , ScrollView , LogBox  } from 'react-native';
+import { View, StyleSheet, Keyboard , ScrollView , LogBox ,Alert } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { ApplicationProvider, Text, Divider, Spinner } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,7 +8,7 @@ import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
 import DropDownPicker from 'react-native-dropdown-picker';
 import NetInfo from "@react-native-community/netinfo";
-
+import {windowHeight, windowWidth} from '../../utils/Dimentions';
 import config_ip from "../../config_ip"
 
 
@@ -23,6 +23,7 @@ import DatePicker from 'react-native-datepicker'
 
 import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
+import Theme from '../../constants/Theme';
 
 
 // LogBox.ignoreAllLogs()
@@ -62,7 +63,9 @@ const fetchAPI2 = async () => {
     await setcaldata([
       ...caldata,
       { calories: calorie * serving, foodname: foodName ,serving: serving , type: footype, date: date.toDateString(), key: Math.random().toString()}
-    ]);
+    ])
+    Alert.alert("Record Added Successfully")
+    ;
 
     console.log(user.uid)
     console.log("on confrim triggered")
@@ -170,8 +173,8 @@ useEffect(() => {
       <Layout style={{flex: 1}}>
         <TopNav navigation={navigation} screenTitle="Calorie Tracker"/>
       <Layout style= {styles.container}>
-<View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:'#f0f8ff' }}>
-            <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>Add a Record</Text>
+<View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:"#feece6", borderRadius: 50, borderColor: Theme.COLORS.PRIMARY }}>
+            <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, width: "100%"}}>Add a Record</Text>
             </View>
 
       <View style= {{
@@ -181,7 +184,7 @@ useEffect(() => {
       borderRadius: 10}}>
 
         <Input
-        style={styles.input}
+        style={styles.inputContainer}
         value={foodName}
         size= 'medium'
         placeholder='Enter Food Name'
@@ -190,6 +193,7 @@ useEffect(() => {
       />
 
       <DropDownPicker
+        containerStyle={{borderRadius: 50, height: windowHeight / 15, margin: 5, width: '100%'}}
         items={[
             {label: 'Breakfast', value: 'Breakfast'},
             {label: 'Lunch', value: 'Lunch'},
@@ -199,12 +203,13 @@ useEffect(() => {
             defaultNull
           placeholder="Select type"
         //defaultIndex={0}
-        containerStyle={{height: 50}}
+        // containerStyle={{height: 50, }}
         onChangeItem={item => setType(item.label)}
 />
       
 
       <Datepicker
+        style={{borderRadius: 50, height: windowHeight / 15, margin: 5, width: '100%'}}
         placeholder= "enter date"
         date={date}
         onSelect={nextDate => setDate(nextDate)}
@@ -212,22 +217,22 @@ useEffect(() => {
       
 
       <Input
-        style={styles.input}
+        style={styles.inputContainer}
         value={calorie}
         placeholder='Enter Calories (kcal)'
         onChangeText={nextValue => setcalories(nextValue)}
       />
 
       <Input
-        style={styles.input}
+        style={styles.inputContainer}
         value={serving}
         placeholder='Enter Total Servings'
         onChangeText={nextValue => setServing(nextValue)}
       />
 
       
-      <Button size='medium' onPress= {()=> onConfirm()} disabled = {calorie.length > 0 && serving.length > 0 ? false : true}>
-        Add
+      <Button style={styles.buttonContainer} onPress= {()=> onConfirm()} disabled = {calorie.length > 0 && serving.length > 0 ? false : true}>
+        <Text style={styles.buttonText}>Add</Text>
       </Button>
 
       {/* <ScrollView  
@@ -256,12 +261,36 @@ useEffect(() => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 20,
+      margin: 10,
+      alignItems: 'center',
+    },
+    inputContainer: {
+      width: '100%',
+      height: windowHeight / 15,
+      flexDirection: 'row',
+      borderRadius: 5,
+      margin: 5,
+      opacity: 0.9
+    },  
+    buttonText : {
+      fontFamily: 'Nexa Regular',
+      color: "white",
     },
     row: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       // padding: 10
     },
+    buttonContainer: {
+      // paddingTop: 10,
+      width: '95%',
+      // height: windowHeight / 12.5,
+      backgroundColor: Theme.COLORS.PRIMARY,
+      borderColor:Theme.COLORS.PRIMARY,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 50,
+    },  
   });
 export default Calorie

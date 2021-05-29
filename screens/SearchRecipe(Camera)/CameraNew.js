@@ -62,7 +62,7 @@ export default function CameraNew({navigation, route}) {
 
       const handleClick = async(item) => {
         await route.params.changeValue(item.class);
-        await route.params.searchPress();
+       // await route.params.searchPress();
         await navigation.goBack();
       }
     

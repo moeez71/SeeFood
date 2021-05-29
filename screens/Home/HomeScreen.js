@@ -1,5 +1,5 @@
-import React, {useContext, useEffect}  from 'react';
-import { View, StyleSheet, SafeAreaView, TouchableOpacity, LogBox } from 'react-native';
+import React, {useContext, useEffect, useCallback, useState}  from 'react';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, LogBox, RefreshControl } from 'react-native';
 import {AuthContext} from '../../navigation/AuthProvider';
 import NetInfo from "@react-native-community/netinfo";
 import { Text, Layout } from '@ui-kitten/components';
@@ -52,11 +52,20 @@ const HomeScreen = ({navigation}) => {
     let fullName = user.displayName;
     let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
     let tmpUser = await user.providerData[0];
+    thisUser = await{
+      uid: tmpUser.uid,
+      firstName: nameArray[0],
+      lastName: nameArray[nameArray.length - 1],
+      email: tmpUser.email,
+      phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
+      photoURL: tmpUser.photoURL,
+      providerId: tmpUser.providerId,
+    };
     if (tmpUser.providerId.includes('facebook')) {
       try {
         const currentAccessToken = await AccessToken.getCurrentAccessToken()
       
-        const graphRequest = new GraphRequest('/me', {
+        const graphRequest = await new GraphRequest('/me', {
           accessToken: currentAccessToken.accessToken,
           parameters: {
             fields: {
@@ -78,7 +87,7 @@ const HomeScreen = ({navigation}) => {
               photoURL: result.picture.data.url,
               providerId: tmpUser.providerId,
             };
-            console.log(thisUser);
+            // console.log(thisUser);
             await setUserData(thisUser);
             // setUserData({...userData, photoURL: result.picture.data.url})
           }
@@ -136,7 +145,7 @@ const HomeScreen = ({navigation}) => {
       });
     } 
   };
-    
+
 
     useEffect(() => {
       // setUserData(user.providerData);
@@ -153,7 +162,7 @@ const HomeScreen = ({navigation}) => {
     <SafeAreaView style={{ flex: 1 }}>
         <Layout style={styles.container}>
           <TopNavHome navigation={navigation} screenTitle="Home"/>
-          <ScrollView>
+          <ScrollView >
           <ImageSwiper/>
           <Text style={styles.heading}>Features</Text>
           <View style={styles.categoryContainer}>

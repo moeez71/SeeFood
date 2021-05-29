@@ -9,6 +9,8 @@ import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-community/async-storage';
 import {AuthContext} from '../../navigation/AuthProvider';
 import TopNav from '../../components/TopNav';
+import Theme from '../../constants/Theme';
+
 
 import config_ip from "../../config_ip"
 
@@ -157,6 +159,8 @@ const calrecord = ({navigation}) => {
       <Layout style={{flex: 1}}>
         <TopNav navigation={navigation} screenTitle="Calorie Tracker"/>
         <Layout style= {styles.container}>
+
+       
         {data.length === 0 ? 
           <Layout>
 
@@ -167,9 +171,9 @@ const calrecord = ({navigation}) => {
 
           <Layout>
 
-          <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 7, margin: 5,backgroundColor:'#f0f8ff' }}>
-        <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, backgroundColor:'#f0f8ff',width: "100%"}}>All Records</Text>
-        </View>
+          <View style= {{borderWidth: 2,borderColor: '#008b8b', padding: 10, margin: 5,backgroundColor:"#feece6", borderRadius: 50, borderColor: Theme.COLORS.PRIMARY }}>
+            <Text style= {{fontWeight: "bold", fontSize: 20, fontFamily: "serif",  padding:5, width: "100%"}}>All Records</Text>
+            </View>
         
             <ScrollView  
             keyboardShouldPersistTaps={'handled'}
@@ -235,7 +239,7 @@ const styles = StyleSheet.create({
     scrollviewItem: {
       flexDirection: "column",
      // justifyContent: "space-between",
-      backgroundColor: '#faebd7',
+      backgroundColor: '#feece6',
       alignSelf: "flex-start",
       padding: 3,
       margin: 2,

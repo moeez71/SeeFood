@@ -1,12 +1,15 @@
 import React, { Component, useEffect, useState } from "react";
-import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert , Button, Animated , ScrollView , Dimensions, Image, LogBox} from 'react-native';
+import {StyleSheet,View,Text,StatusBar,TouchableOpacity, ActivityIndicator, Alert, Animated , ScrollView , Dimensions, Image, LogBox} from 'react-native';
 
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import StarRating from "../../components/stars";
 import { OpenMapDirections } from 'react-native-navigation-directions';
-import Geolocation from '@react-native-community/geolocation';
-//import Geolocation from 'react-native-geolocation-service';
+// import Geolocation from '@react-native-community/geolocation';
+import Geolocation from 'react-native-geolocation-service';
 import TopNav from "../../components/TopNav";
+import Theme from "../../constants/Theme";
+import { Button } from "@ui-kitten/components";
+
 
 // LogBox.ignoreAllLogs()
 
@@ -155,7 +158,7 @@ const Map = ({navigation}) => {
                  showsMyLocationButton= {true}
                  initialRegion = {currentPosition}></MapView>
                  
-                 <Button title= "Find Nearby Places For Me" onPress= {fetchAPI}></Button>
+                 <Button style={styles.buttonContainer} onPress= {fetchAPI}>Find Nearby Places For Me</Button>
             </View>
                  }
 
@@ -180,6 +183,17 @@ const styles = StyleSheet.create({
     map: {
       ...StyleSheet.absoluteFillObject,
     },
+    buttonContainer: {
+      // paddingTop: 10,
+      width: '95%',
+      // height: windowHeight / 12.5,
+      backgroundColor: Theme.COLORS.PRIMARY,
+      borderColor:Theme.COLORS.PRIMARY,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 50,
+    },  
   });
 
   const styles2 = StyleSheet.create({
@@ -315,6 +329,3 @@ const styles3 = StyleSheet.create({
       color: '#FF6347'
   }
 });
-
-
-

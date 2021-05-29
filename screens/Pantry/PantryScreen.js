@@ -152,7 +152,7 @@ const PantryScreen = ({navigation}) => {
 
        const readDataMongo = async () => {
        //  const uri = `http://localhost:3000/pantry/pantry/${user.uid}`
-       const uri = `http://${config_ip.DEFAULT_IP}/pantry/pantry/uO6WUKFb0paef644AoGzliM6OjC2`
+       const uri = `http://${config_ip.DEFAULT_IP}/pantry/pantry/${user.uid}`
           return await fetch(uri)
           .then((response) => response.json())
           .then((result) => {
