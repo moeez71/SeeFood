@@ -189,6 +189,7 @@ useEffect(() => {
         size= 'medium'
         placeholder='Enter Food Name'
         onChangeText={nextValue => setfood(nextValue)}
+        
         required
       />
 
@@ -219,6 +220,7 @@ useEffect(() => {
       <Input
         style={styles.inputContainer}
         value={calorie}
+        keyboardType='numeric'
         placeholder='Enter Calories (kcal)'
         onChangeText={nextValue => setcalories(nextValue)}
       />
@@ -226,6 +228,7 @@ useEffect(() => {
       <Input
         style={styles.inputContainer}
         value={serving}
+        keyboardType='numeric'
         placeholder='Enter Total Servings'
         onChangeText={nextValue => setServing(nextValue)}
       />

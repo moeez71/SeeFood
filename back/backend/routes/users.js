@@ -18,6 +18,15 @@ router.get('/', function(req, res, next) {
 })
 })
 
+router.get('/find/:uid', function(req, res, next) {
+  User.findOne({uid: req.params.uid}).exec(function(error,result){
+    if(error){
+        return res.status(400).json(err.message);
+    }
+    return res.status(200).json(result);
+})
+})
+
 router.post("/register", (req, res) => {
   console.log(req.body);
   User.findOne({email: req.body.email}).then( user => {

@@ -49,67 +49,88 @@ const HomeScreen = ({navigation}) => {
   };
   
   const prepareUserData = async() => {
-    let fullName = user.displayName;
-    let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
-    let tmpUser = await user.providerData[0];
-    thisUser = await{
-      uid: tmpUser.uid,
-      firstName: nameArray[0],
-      lastName: nameArray[nameArray.length - 1],
-      email: tmpUser.email,
-      phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
-      photoURL: tmpUser.photoURL,
-      providerId: tmpUser.providerId,
-    };
-    if (tmpUser.providerId.includes('facebook')) {
-      try {
-        const currentAccessToken = await AccessToken.getCurrentAccessToken()
+    if (user.displayName) {
       
-        const graphRequest = await new GraphRequest('/me', {
-          accessToken: currentAccessToken.accessToken,
-          parameters: {
-            fields: {
-              string: 'picture.type(large)',
-            },
-          },
-        }, async(error, result) => {
-          if (error) {
-            console.log(error)
-          } else {
-            // console.log(result.picture.data.url);
-            // console.log(userData);
-            thisUser = await{
-              uid: tmpUser.uid,
-              firstName: nameArray[0],
-              lastName: nameArray[nameArray.length - 1],
-              email: tmpUser.email,
-              phoneNumber: tmpUser.phone,
-              photoURL: result.picture.data.url,
-              providerId: tmpUser.providerId,
-            };
-            // console.log(thisUser);
-            await setUserData(thisUser);
-            // setUserData({...userData, photoURL: result.picture.data.url})
-          }
-        })
-      
-        await new GraphRequestManager().addRequest(graphRequest).start();
-      } catch (error) {
-        console.error(error)
-      }
-    }
-   else if (tmpUser.providerId.includes('google')){
+      let fullName = user.displayName;
+      let nameArray = fullName.split(/\b(\s)/).filter(e => e.trim().length > 0);
+      let tmpUser = await user.providerData[0];
       thisUser = await{
-      uid: tmpUser.uid,
-      firstName: nameArray[0],
-      lastName: nameArray[nameArray.length - 1],
-      email: tmpUser.email,
-      phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
-      photoURL: tmpUser.photoURL,
-      providerId: tmpUser.providerId,
-    };
-    
-    await setUserData(thisUser)
+        uid: tmpUser.uid,
+        firstName: nameArray[0],
+        lastName: nameArray[nameArray.length - 1],
+        email: tmpUser.email,
+        phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
+        photoURL: tmpUser.photoURL,
+        providerId: tmpUser.providerId,
+      };
+      if (tmpUser.providerId.includes('facebook')) {
+        try {
+          const currentAccessToken = await AccessToken.getCurrentAccessToken()
+        
+          const graphRequest = await new GraphRequest('/me', {
+            accessToken: currentAccessToken.accessToken,
+            parameters: {
+              fields: {
+                string: 'picture.type(large)',
+              },
+            },
+          }, async(error, result) => {
+            if (error) {
+              console.log(error)
+            } else {
+              // console.log(result.picture.data.url);
+              // console.log(userData);
+              thisUser = await{
+                uid: tmpUser.uid,
+                firstName: nameArray[0],
+                lastName: nameArray[nameArray.length - 1],
+                email: tmpUser.email,
+                phoneNumber: tmpUser.phone,
+                photoURL: result.picture.data.url,
+                providerId: tmpUser.providerId,
+              };
+              // console.log(thisUser);
+              await setUserData(thisUser);
+              // setUserData({...userData, photoURL: result.picture.data.url})
+            }
+          })
+        
+          await new GraphRequestManager().addRequest(graphRequest).start();
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    else if (tmpUser.providerId.includes('google')){
+        thisUser = await{
+        uid: tmpUser.uid,
+        firstName: nameArray[0],
+        lastName: nameArray[nameArray.length - 1],
+        email: tmpUser.email,
+        phoneNumber: tmpUser.phone===undefined? null : tmpUser.phone,
+        photoURL: tmpUser.photoURL,
+        providerId: tmpUser.providerId,
+      };
+      
+      await setUserData(thisUser)
+    }
+  }
+  else {
+    console.log(user.uid);
+    axios.get(`http://${config_ip.DEFAULT_IP}/users/find/${user.uid}`)
+      .then(async res => {
+        let tmp = {
+          uid: res.data.uid,
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          phoneNumber: res.data.phoneNumber,
+          photoURL: res.data.photoURL,
+          providerId: res.data.providerId,
+        };
+        await setUserData(tmp);
+          })
+          
+      .catch(e => console.error(e.message));
   }
 
   }
@@ -117,17 +138,20 @@ const HomeScreen = ({navigation}) => {
   
   const fetchAPI2 = async () => {
   //always use the ip address from ipconfig command here with the port number of the backend server!!
-  console.log(userData);
-  axios.post(`http://${config_ip.DEFAULT_IP}/users/register`, thisUser, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+  if (userData.providerId === 'google.com' || userData.providerId === 'facebook.com') {
+    console.log(userData);
+    axios.post(`http://${config_ip.DEFAULT_IP}/users/register`, thisUser, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
 
+      }
+    })
+    .then(res => console.log(res.data))
+    .catch(e => console.log(e.message))
     }
-  })
-  .then(res => console.log(res.data))
-  .catch(e => console.log(e.message))
   }
+  
 
   const CheckConnectivity = () => {
     prepareUserData();

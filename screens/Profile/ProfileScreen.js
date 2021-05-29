@@ -40,7 +40,13 @@ const ProfileScreen = ({navigation}) => {
   }
 
   useEffect(() => {
-    getSavedRecipesFromDb();
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      getSavedRecipesFromDb();
+    //readData()
+    });
+    //getSavedRecipesFromDb();
+
   }, []);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: "white"}}>

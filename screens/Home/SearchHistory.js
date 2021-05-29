@@ -5,6 +5,7 @@ import TopNav from '../../components/TopNav';
 import { Layout, ListItem, Divider, List } from '@ui-kitten/components';
 import { AuthContext } from '../../navigation/AuthProvider';
 import axios from 'axios';
+import config_ip from "../../config_ip"
 
 function SearchHistory({navigation}) {
     const[loading, setLoading] = React.useState(false);
@@ -14,7 +15,7 @@ function SearchHistory({navigation}) {
 
     const onRefresh = React.useCallback(async () => {
       setRefreshing(true);
-      axios.get(`http://192.168.0.102:5010/search/find/${userData.uid}`)
+      axios.get(`http://${config_ip.DEFAULT_IP}/search/find/${userData.uid}`)
       .then(async res => {
               console.log(res.data.searches);
               setSearches(res.data.searches);
@@ -28,7 +29,7 @@ function SearchHistory({navigation}) {
 
     const getSavedRecipesFromDb = async() => {
         setLoading(true);
-        axios.get(`http://192.168.0.102:5010/search/find/${userData.uid}`)
+        axios.get(`http://${config_ip.DEFAULT_IP}/search/find/${userData.uid}`)
         .then(async res => {
                 console.log(res.data.searches);
                 setSearches(res.data.searches);

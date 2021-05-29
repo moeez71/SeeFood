@@ -101,7 +101,7 @@ const handleLogoutClick = () => {
                         />
                     )}
                     </Drawer.Section>
-                    <Drawer.Section title={()=><Text style={styles.caption}>Preferences</Text>}>
+                    {/* <Drawer.Section title={()=><Text style={styles.caption}>Preferences</Text>}>
                         <TouchableRipple 
                         // onPress={() => {toggleTheme()}}
                         >
@@ -112,7 +112,7 @@ const handleLogoutClick = () => {
                                 </View>
                             </View>
                         </TouchableRipple>
-                    </Drawer.Section>
+                    </Drawer.Section> */}
                 </View>
             </DrawerContentScrollView>
             <Drawer.Section style={styles.bottomDrawerSection}>

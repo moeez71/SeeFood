@@ -11,18 +11,64 @@ import Theme from '../../constants/Theme';
 const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const[firstName, setFirstName] = useState(null);
+  const[lastName, setLastName] = useState(null);
+  const [photoURL, setPhotoURL] = useState('https://api.adorable.io/avatars/80/abott@adorable.png');
   const [confirmPassword, setConfirmPassword] = useState();
-  const[isValid, setIsValid] = React.useState({
+  const[isValid, setIsValid] = useState({
     isValidEmail: true,
     isValidPassword: true,
     isValidConfrimPassword: true,
     isEmailFieldEmpty: true,
     isPasswordFieldEmpty: true,
     isConfirmPasswordFieldEmpty: true,
+    isValidFirstName: true,
+    isValidLastName: true,
+    isEmptyFirstName: true,
+    isEmptyLastName: true,
   });
   const {register} = useContext(AuthContext);
   const[isLoading, setIsLoading] = useState(false);
 
+  const handleFirstNameChange = (val) => {
+
+    var re = /^[a-z ,.'-]+$/i;    
+    setFirstName(val);
+    if(val.trim().length < 1)
+      setIsValid({
+        ...isValid,
+        isValidFirstName: true,
+        isEmptyFirstName: true,
+      });
+    else 
+      setIsValid({
+        ...isValid,
+        isValidFirstName: re.test(val),
+        isEmptyFirstName: false,
+      });
+
+
+  }
+
+  const handleLastNameChange = (val) => {
+
+    var re = /^[a-z ,.'-]+$/i;    
+    setLastName(val);
+    if(val.trim().length < 1)
+      setIsValid({
+        ...isValid,
+        isValidLastName: true,
+        isEmptyLastName: true,
+      });
+    else 
+      setIsValid({
+        ...isValid,
+        isValidLastName: re.test(val),
+        isEmptyLastName: false,
+      });
+
+
+  }
 
   const handleEmailChange = (val) => {
 
@@ -101,7 +147,7 @@ const SignupScreen = ({navigation}) => {
 
   const handleSignup = async() => {
     await setIsLoading(true);
-    await register(email, password);
+    await register(email, password, firstName, lastName, photoURL);
     await setIsLoading(false)
   }
   
@@ -110,6 +156,30 @@ const SignupScreen = ({navigation}) => {
       <ImageBackground source={require('../../assets/images/bg.png')} style={styles.bgImage}>
       <Text style={styles.titleText}>Register</Text>
 
+      <FormInput
+        labelValue={firstName}
+        onChangeText={(value) => handleFirstNameChange(value)}
+        placeholderText="First name"
+        iconType="user"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        isFieldEmpty={isValid.isEmptyFirstName}
+        isFieldValid={isValid.isValidFirstName}
+        onEndEditing={e => handleFirstNameChange(e.nativeEvent.text)}
+      />
+      <FormInput
+        labelValue={lastName}
+        onChangeText={(value) => handleLastNameChange(value)}
+        placeholderText="Last name"
+        iconType="user"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+        isFieldEmpty={isValid.isEmptyLastName}
+        isFieldValid={isValid.isValidLastName}
+        onEndEditing={e => handleLastNameChange(e.nativeEvent.text)}
+      />
       <FormInput
         labelValue={email}
         onChangeText={(userEmail) => handleEmailChange(userEmail)}

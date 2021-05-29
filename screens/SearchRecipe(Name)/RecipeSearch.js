@@ -84,6 +84,14 @@ const RecipeSearch = ({navigation, route}) => {
     getSavedRecipesFromDb();
   }, []);
 
+  const renderSearchIcon = (props) => (
+    <TouchableOpacity 
+    onPress={()=> handleSearch()}
+    >
+      <Ionicon name='search-outline' size={25}/>
+    </TouchableOpacity>
+  );
+
   const renderIcon = (props) => (
     <TouchableOpacity 
     onPress={()=>navigation.navigate('CameraNew', {changeValue: setValue, searchPress: getRecipes})}
@@ -123,18 +131,19 @@ const RecipeSearch = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-        <TopNav navigation={navigation} screenTitle="Make Recipes"/>
+        <TopNav navigation={navigation} screenTitle="Search Recipes"/>
   <Layout style={styles.container}>
     
       <Input 
         style={styles.inputContainer}
         size="large"
-        placeholder="Enter food name"
+        placeholder="Enter food name / Capture image"
         textStyle={styles.inputText}
         // onChange={e => handleTextChange(e.nativeEvent.text)}
         onChangeText={item => handleTextChange(item)}
         value={value}
-        accessoryRight={renderIcon}
+        accessoryLeft={renderIcon}
+        accessoryRight={renderSearchIcon}
         onSubmitEditing={()=>handleSearch()}
 
       />
