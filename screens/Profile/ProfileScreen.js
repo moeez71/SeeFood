@@ -79,7 +79,7 @@ const ProfileScreen = ({navigation}) => {
         </Layout>
         <Layout style={styles.row}>
           <Icon name="phone" color="#777777" size={20}/>
-          <Text style={{color:"#777777", marginLeft: 20}}>{!userData.phoneNumber? "+92340000000": userData.phoneNumber}</Text>
+          <Text style={{color:"#777777", marginLeft: 20}}>{!userData.phoneNumber? "+92311234567": userData.phoneNumber}</Text>
         </Layout>
         <Layout style={styles.row}>
           <Icon name="email" color="#777777" size={20}/>

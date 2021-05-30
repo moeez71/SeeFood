@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext}  from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, Button, LogBox } from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, Keyboard, ScrollView, TouchableOpacity, LogBox } from 'react-native';
 
 import NetInfo from "@react-native-community/netinfo";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -9,6 +9,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Octicons from 'react-native-vector-icons/Octicons';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import Theme from '../../constants/Theme';
+import { Button } from "@ui-kitten/components";
+
 
 import { Layout} from '@ui-kitten/components';
 import TopNav from '../../components/TopNav';
@@ -361,12 +365,12 @@ const PantryScreen = ({navigation}) => {
 
         </View>
 
-        <Button title ="clear"
+        <Button style={styles2.buttonContainer} 
               onPress= {()=> {
                 //AsyncStorage.clear()
                 empty()
                 alert("cleared")}}
-       ></Button>
+       >Clear</Button>
       </View>
       }
       </View>
@@ -408,7 +412,17 @@ const styles2 = StyleSheet.create({
       borderColor: '#008b8b',
       borderRadius: 120,
       backgroundColor: "#FFFF",
-    }
+    },
+    buttonContainer: {
+      // paddingTop: 10,
+      // height: windowHeight / 12.5,
+      backgroundColor: Theme.COLORS.PRIMARY,
+      borderColor:Theme.COLORS.PRIMARY,
+      margin: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 50,
+    }, 
   });
 
   const styles = StyleSheet.create({
