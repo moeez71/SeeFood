@@ -116,7 +116,7 @@ const HomeScreen = ({navigation}) => {
   }
   else {
     console.log(user.uid);
-    axios.get(`http://${config_ip.DEFAULT_IP}/users/find/${user.uid}`)
+    axios.get(`http://192.168.190.98:3000/users/find/${user.uid}`)
       .then(async res => {
         let tmp = {
           uid: res.data.uid,
@@ -140,7 +140,7 @@ const HomeScreen = ({navigation}) => {
   //always use the ip address from ipconfig command here with the port number of the backend server!!
   if (userData.providerId === 'google.com' || userData.providerId === 'facebook.com') {
     console.log(userData);
-    axios.post(`http://${config_ip.DEFAULT_IP}/users/register`, thisUser, {
+    axios.post(`http://192.168.190.98:3000/users/register`, thisUser, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

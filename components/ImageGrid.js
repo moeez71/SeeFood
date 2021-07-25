@@ -15,7 +15,7 @@ function ImageGrid({navigation}) {
   
 
   useEffect(()=> {
-    axios.get(`http://${config_ip.DEFAULT_IP}/gallery/find/${userData.uid}`)
+    axios.get(`http://192.168.190.98:3000/gallery/find/${userData.uid}`)
     .then(async res => {
       // console.log(res.data.gallery);
       let tmp = res.data.gallery.map(item => item.img);

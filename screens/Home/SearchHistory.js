@@ -15,7 +15,7 @@ function SearchHistory({navigation}) {
 
     const onRefresh = React.useCallback(async () => {
       setRefreshing(true);
-      axios.get(`http://${config_ip.DEFAULT_IP}/search/find/${userData.uid}`)
+      axios.get(`http://192.168.190.98:3000/search/find/${userData.uid}`)
       .then(async res => {
               console.log(res.data.searches);
               setSearches(res.data.searches);
@@ -29,7 +29,7 @@ function SearchHistory({navigation}) {
 
     const getSavedRecipesFromDb = async() => {
         setLoading(true);
-        axios.get(`http://${config_ip.DEFAULT_IP}/search/find/${userData.uid}`)
+        axios.get(`http://192.168.190.98:3000/search/find/${userData.uid}`)
         .then(async res => {
                 console.log(res.data.searches);
                 setSearches(res.data.searches);

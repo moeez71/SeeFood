@@ -21,7 +21,7 @@ function Favourites({navigation}) {
     const onRefresh = React.useCallback(async () => {
       setRefreshing(true);
       await setRecipes([]);
-      axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
+      axios.get(`http://192.168.190.98:3000/recipe/find/${userData.uid}`)
         .then(async res => {
           let tmp = await res.data.recipes.map(item => item.recipeId);
           await setSavedRecipes(tmp);
@@ -43,7 +43,7 @@ function Favourites({navigation}) {
     
     const getSavedRecipesFromDb = async() => {
         setLoading(true);
-        axios.get(`http://${config_ip.DEFAULT_IP}/recipe/find/${userData.uid}`)
+        axios.get(`http://192.168.190.98:3000/recipe/find/${userData.uid}`)
         .then(async res => {
           // console.log(res.data.recipes);
           let tmp = await res.data.recipes.map(item => item.recipeId);

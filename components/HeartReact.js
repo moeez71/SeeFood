@@ -27,7 +27,7 @@ function HeartReact(props) {
         };
 
         if (!heartFilled) {
-            axios.put(`http://${config_ip.DEFAULT_IP}/recipe/add`, bodyData, {
+            axios.put(`http://192.168.190.98:3000/recipe/add`, bodyData, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'
@@ -37,7 +37,7 @@ function HeartReact(props) {
             .catch(e => console.error(e.message));
         }
         else {
-            axios.put(`http://${config_ip.DEFAULT_IP}/recipe/remove`, bodyData, {
+            axios.put(`http://192.168.190.98:3000/recipe/remove`, bodyData, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Accept': 'application/json'

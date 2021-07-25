@@ -25,11 +25,7 @@ const data = new Array(8).fill({
     description: 'Description for Item',
   });
   
-const hardPred = [
-    {class: "pizza", prediction: 0.9},
-    {class: "apple-pie", prediction: 0.8},
-    {class: "cheese-cake", prediction: 0.6},
-];
+
 export default function CameraNew({navigation, route}) {
 
     const[image, setImage] = useState('');
@@ -139,7 +135,7 @@ export default function CameraNew({navigation, route}) {
               uid: userData.uid,
               link: imgURL
           };
-          axios.put(`http://${config_ip.DEFAULT_IP}/gallery/add`, bodyData, {
+          axios.put(`http://192.168.190.98:3000/gallery/add`, bodyData, {
               headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

@@ -50,7 +50,7 @@ function HomeTabs({navigation}) {
       <Tab.Screen
         // options={{ tabBarIcon: tabBarIcon('home-outline', 'home') }}
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('home-outline', 'home'), 
+          tabBarIcon: tabBarIcon('home-outline', 'Home'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Home';
             if (routeName === 'Home') {
@@ -67,7 +67,7 @@ function HomeTabs({navigation}) {
         name="PantryScreen"
         // options={{ tabBarIcon: tabBarIcon('cart-outline', 'Pantry') }}
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('cart-outline', 'pantry'), 
+          tabBarIcon: tabBarIcon('cart-outline', 'Pantry'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'PantryScreen';
             if (routeName === 'PantryScreen') {
@@ -82,7 +82,7 @@ function HomeTabs({navigation}) {
       <Tab.Screen
         name="Recipes"
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('fast-food-outline', 'recipes'), 
+          tabBarIcon: tabBarIcon('fast-food-outline', 'Recipes'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'recipe';
             if (routeName === 'recipe') {
@@ -96,7 +96,7 @@ function HomeTabs({navigation}) {
       <Tab.Screen
         name="Maps"
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('restaurant-outline', 'restaurants'), 
+          tabBarIcon: tabBarIcon('restaurant-outline', 'Restaurant   '), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Maps';
             if (routeName === 'Maps') return true;
@@ -108,7 +108,7 @@ function HomeTabs({navigation}) {
       <Tab.Screen
         name="IngredientScreen"
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('scan-outline', 'make recipe'), 
+          tabBarIcon: tabBarIcon('scan-outline', 'Make Recipe'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'IngredientScreen';
             if (routeName === 'IngredientScreen') {
@@ -124,7 +124,7 @@ function HomeTabs({navigation}) {
       <Tab.Screen
         name="Calorie"
         options={({route,navigation})=>({ 
-          tabBarIcon: tabBarIcon('bar-chart-outline', 'calories'), 
+          tabBarIcon: tabBarIcon('bar-chart-outline', 'Calories'), 
           tabBarVisible: ((route) => {
             let routeName = getFocusedRouteNameFromRoute(route) ?? 'Calorie';
             if (routeName === 'Calorie') {
@@ -168,7 +168,7 @@ export default HomeTabs;
 
 const styles = StyleSheet.create({
   labelStyle:{
-    fontSize:12,
+    fontSize:11,
     color:Theme.COLORS.PRIMARY,
     fontFamily:"Nexa Regular"
   }

@@ -39,7 +39,7 @@ const calrecord = ({navigation}) => {
 
 
     const fetchAPI2 = async () => {
-      return await fetch(`http://${config_ip.DEFAULT_IP}/calorie/adduser1`, requestOptions)
+      return await fetch(`http://192.168.190.98:3000/calorie/adduser1`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data));
     }
@@ -109,7 +109,7 @@ const calrecord = ({navigation}) => {
 
      
 
-      const uri = `http://${config_ip.DEFAULT_IP}/calorie/calorie/${user.uid}`
+      const uri = `http://192.168.190.98:3000/calorie/calorie/${user.uid}`
        return await fetch(uri)
        .then((response) => response.json())
        .then((result) => {

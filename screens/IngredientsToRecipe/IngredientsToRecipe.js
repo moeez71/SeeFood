@@ -59,7 +59,7 @@ const IngredientsToRecipe = ({navigation}) => {
   );
 
   const axiosClient = axios.create({
-    baseURL: `http://${config_ip.DEFAULT_IP}`,
+    baseURL: `http://192.168.190.98:4000`,
     timeout: 50000, //50 seconds
   });
 
@@ -126,7 +126,7 @@ const classifyImg = (imgData) => {
   .then(async(res) => {
       await setImage(res.data.image);
       await console.log(res.data.detections);
-      await setIngredients(res.data.detections);
+      await setIngredients(Array.from(new Set (res.data.detections)));
       setIsLoading(false);
   })
   .catch(e => {

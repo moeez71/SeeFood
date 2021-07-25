@@ -87,7 +87,7 @@ export const AuthProvider = ({children}) => {
                             photoURL: photoURL,
                             providerId: "email",
                         }
-                        axios.post(`http://${config_ip.DEFAULT_IP}/users/register`, tmp, {
+                        axios.post(`http://192.168.190.98:3000/users/register`, tmp, {
                             headers: {
                             'Content-Type': 'application/json',
                             'Accept': 'application/json'

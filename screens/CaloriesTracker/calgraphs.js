@@ -3,7 +3,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { ApplicationProvider, Layout, Text, Divider, Spinner, Input } from '@ui-kitten/components';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme} from "victory-native"
+import {VictoryChart, VictoryGroup, VictoryBar, VictoryLine, VictoryAxis, VictoryTheme, VictoryLabel} from "victory-native"
 
 import { View, StyleSheet, ScrollView , TouchableOpacity , LogBox } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
@@ -113,7 +113,7 @@ const calgraphs = ({navigation}) => {
       saveData();
     }
     const fetchAPI2 = async () => {
-        return await fetch(`http://${config_ip.DEFAULT_IP}/limit/adduser1`, requestOptions)
+        return await fetch(`http://192.168.190.98:3000/limit/adduser1`, requestOptions)
         .then(response => response.json())
         .then(data => console.log(data));
       }
@@ -125,7 +125,7 @@ const calgraphs = ({navigation}) => {
       }
 
       fetch2()
-      const uri = `http://${config_ip.DEFAULT_IP}/calorie/calorie/${user.uid}`
+      const uri = `http://192.168.190.98:3000/calorie/calorie/${user.uid}`
        return await fetch(uri)
        .then((response) => response.json())
        .then((result) => {
@@ -190,7 +190,7 @@ const calgraphs = ({navigation}) => {
        }
 
        const fetch2 = async () => {
-        const uri = `http://${config_ip.DEFAULT_IP}/limit/calorie/${user.uid}`
+        const uri = `http://192.168.190.98:3000/limit/calorie/${user.uid}`
         return await fetch(uri)
         .then((response) => response.json())
         .then((result) => {
@@ -238,12 +238,18 @@ const calgraphs = ({navigation}) => {
             
 
              <VictoryChart domainPadding={10}>
-             <VictoryLine  y={() => limit } style={{data: { stroke: "#ff0000", strokeWidth: "6" }
-    }}/>
+             <VictoryLine  
+            //  data={data}
+            //  labels={() => limit}
+            //  labelComponent={<VictoryLabel renderInPortal dy={-20}/>}
+             y={() => limit } 
+             style={{data: { stroke: "#ff0000", strokeWidth: "6" }}}
+
+             />
              <VictoryAxis label= "Day" style= {{axis: {stroke: "#756f6a"},axisLabel: {fontSize: 18, padding: 30}}}/>
              <VictoryAxis dependentAxis label= "Calories Consumed" style= {{axisLabel: {padding: 37}}}/>
                 <VictoryGroup >     
-                    <VictoryBar barWidth={20} data= {graphData} style= {{data: {fill: '#ffa07a'}}}
+                    <VictoryBar barWidth={20} data= {graphData} labels={({ datum }) => `${datum.y}`} style= {{data: {fill: Theme.COLORS.PRIMARY}, labels: { fill: "white" }}} labelComponent={<VictoryLabel dy={30}/>} 
                     
                     >
                     </VictoryBar>

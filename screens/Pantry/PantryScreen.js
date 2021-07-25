@@ -69,7 +69,7 @@ const PantryScreen = ({navigation}) => {
       })
   };
     const fetchAPI2 = async () => {
-    return await fetch(`http://${config_ip.DEFAULT_IP}/pantry/adduser1`, requestOptions)
+    return await fetch(`http://192.168.190.98:3000/pantry/adduser1`, requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
   }
@@ -155,8 +155,8 @@ const PantryScreen = ({navigation}) => {
        }
 
        const readDataMongo = async () => {
-       //  const uri = `http://localhost:3000/pantry/pantry/${user.uid}`
-       const uri = `http://${config_ip.DEFAULT_IP}/pantry/pantry/${user.uid}`
+        // const uri = `http://192.168.190.98:3000/pantry/pantry/${user.uid}`
+       const uri = `http://192.168.190.98:3000/pantry/pantry/${user.uid}`
           return await fetch(uri)
           .then((response) => response.json())
           .then((result) => {
@@ -183,7 +183,7 @@ const PantryScreen = ({navigation}) => {
                  // alert("You are online!");
                   readDataMongo()
                 } else {
-                 // alert("You are offline!");
+                  alert("You are offline!");
                   readData()
                   readData2()
                 }
@@ -257,7 +257,7 @@ const PantryScreen = ({navigation}) => {
       <TopNav navigation={navigation} screenTitle="Pantry"/>
       <View style={styles2.MainContainer }>
       {
-        getWant.length === 0 ? 
+        getWant.length === 0 && getGot.length === 0 ? 
         <View  style={styles2.MainContainer2 } >
           
           <TextInput 
